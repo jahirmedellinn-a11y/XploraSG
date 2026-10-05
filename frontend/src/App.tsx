@@ -11,6 +11,7 @@ import { ServicesPage } from './pages/ServicesPage';
 import { AdminContentPage } from './pages/AdminContentPage';
 import { AssistantPage } from './pages/AssistantPage';
 import { FavoritesPage } from './pages/FavoritesPage';
+import { AgendaPage } from './pages/AgendaPage';
 import { ServiceDetailPage } from './pages/ServiceDetailPage';
 
 const MapPage = lazy(() => import('./pages/MapPage').then((module) => ({ default: module.MapPage })));
@@ -41,7 +42,8 @@ function App() {
             <Route path="/mapa" element={<MapRoute />} />
             <Route path="/servicios" element={<ServicesPage />} />
             <Route path="/servicios/:slug" element={<ServiceDetailPage />} />
-            <Route path="/agenda" element={<FavoritesPage />} />
+            <Route path="/favoritos" element={<FavoritesPage />} />
+            <Route path="/agenda" element={<AgendaPage />} />
             <Route path="/asistente" element={<AssistantPage />} />
             <Route path="/lugares/:slug" element={<PlaceDetailPage />} />
             <Route path="/login" element={<Login />} />
