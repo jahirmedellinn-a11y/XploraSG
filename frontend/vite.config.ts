@@ -42,6 +42,7 @@ export default defineConfig({
         clientsClaim: true,
         skipWaiting: true,
         navigateFallback: '/index.html',
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2,woff}'],
         runtimeCaching: [
           {
             urlPattern: /^https?:\/\/[^/]+\/api\/catalogo\/(municipios|categorias|lugares|servicios)(?:\/|\?|$)/,

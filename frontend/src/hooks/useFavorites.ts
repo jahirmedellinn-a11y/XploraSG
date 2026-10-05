@@ -11,6 +11,7 @@ export const useFavorites = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let ignore = false;
     const loadFavorites = async () => {
       setLoading(true);
       if (isAuthenticated) {
@@ -22,18 +23,23 @@ export const useFavorites = () => {
             clearLocalFavorites();
           }
           const data = await getFavorites();
-          setRemoteFavorites(data);
-          setFavoriteIds(data.map(f => f.id));
+          if (!ignore) {
+            setRemoteFavorites(data);
+            setFavoriteIds(data.map(f => f.id));
+          }
         } catch (error) {
           console.error("Error cargando favoritos remotos", error);
         }
       } else {
-        setFavoriteIds(getLocalFavorites());
-        setRemoteFavorites([]);
+        if (!ignore) {
+          setFavoriteIds(getLocalFavorites());
+          setRemoteFavorites([]);
+        }
       }
-      setLoading(false);
+      if (!ignore) setLoading(false);
     };
-    loadFavorites();
+    void loadFavorites();
+    return () => { ignore = true; };
   }, [isAuthenticated]);
 
   const toggleFavorite = async (lugarId: number) => {
