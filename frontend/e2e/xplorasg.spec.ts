@@ -1,41 +1,73 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('XploraSG App', () => {
+test.describe('XploraSG App - Flujo de Favoritos Anónimos', () => {
+  const performFavoritesFlow = async (page: any, isMobile: boolean) => {
+    // 1. Guardar desde una tarjeta
+    await page.goto('/explorar');
+    // Buscamos la primera tarjeta de lugar
+    const firstCard = page.locator('article').first();
+    const favButton = firstCard.locator('button[aria-label="Guardar en favoritos"], button[aria-label="Quitar de favoritos"]');
+    
+    // Si ya está guardado (por restos del state local), lo quitamos primero
+    if (await favButton.getAttribute('aria-pressed') === 'true') {
+      await favButton.click();
+      await page.waitForTimeout(500);
+    }
+    
+    // Lo guardamos
+    await favButton.click();
+    await expect(favButton).toHaveAttribute('aria-pressed', 'true');
+    const placeName = await firstCard.locator('h2').innerText();
+
+    // 2. Ver el lugar en /favoritos
+    await page.goto('/favoritos');
+    await expect(page.locator('h1', { hasText: /Favoritos/i })).toBeVisible();
+    const favCard = page.locator('article').filter({ hasText: placeName });
+    await expect(favCard).toBeVisible();
+
+    // 3. Recargar y comprobar persistencia
+    await page.reload();
+    await expect(page.locator('article').filter({ hasText: placeName })).toBeVisible();
+
+    // 4. Abrir el detalle y comprobar que aparece guardado
+    const detailLink = favCard.locator('a', { hasText: 'Ver lugar' });
+    await detailLink.click();
+    
+    const detailFavBtn = page.locator('button[aria-label="Quitar de favoritos"]');
+    await expect(detailFavBtn).toBeVisible();
+    await expect(detailFavBtn).toHaveAttribute('aria-pressed', 'true');
+
+    // 5. Quitar desde el detalle y comprobar que desaparece de favoritos
+    await detailFavBtn.click();
+    await expect(detailFavBtn).toHaveAttribute('aria-pressed', 'false');
+
+    await page.goto('/favoritos');
+    await expect(page.locator('article').filter({ hasText: placeName })).not.toBeVisible();
+  };
+
+  test('Flujo completo en escritorio', async ({ page, isMobile }) => {
+    if (isMobile) return;
+    await performFavoritesFlow(page, false);
+  });
+
+  test('Flujo completo en tamaño móvil', async ({ page, isMobile }) => {
+    if (!isMobile) return;
+    await performFavoritesFlow(page, true);
+  });
+});
+
+test.describe('Otras comprobaciones', () => {
   test('Barra de navegación inferior móvil', async ({ page, isMobile }) => {
     if (!isMobile) return;
     await page.goto('/');
-    // Check if nav exists
-    const nav = page.locator('nav').filter({ hasText: 'Explorar' }).first();
+    const nav = page.locator('nav[aria-label="Navegación móvil inferior"]');
     await expect(nav).toBeVisible({ timeout: 5000 });
-  });
-
-  test('Persistencia de favoritos anónimos tras recargar', async ({ page }) => {
-    // There are no favorite buttons in the frontend UI.
-    // Inject a favorite into localStorage directly to test the hook state across reloads.
-    await page.goto('/');
-    
-    // Inject favorite
-    await page.evaluate(() => {
-      localStorage.setItem('xplorasg_favorites', JSON.stringify([{ id: 1, operationId: 'abc' }]));
-    });
-    
-    // Recargar
-    await page.reload();
-    
-    // Ir a /favoritos
-    await page.goto('/favoritos');
-    await expect(page.locator('h1', { hasText: 'Favoritos' }).or(page.locator('h1', { hasText: 'Tus Favoritos' }))).toBeVisible();
-    
-    // Wait for the empty state to NOT show up, meaning the item is loading or loaded
-    // Since we injected ID 1, it might try to load from backend, but backend will fail if not authenticated
-    // The UI handles local favorites by fetching them and filtering by ID.
   });
 
   test('Fallback a Google Maps cuando falta clave o error', async ({ page }) => {
     await page.goto('/mapa');
     await page.route('**/api.openrouteservice.org/**', route => route.abort());
-    // Try to trigger route error in MapPage to verify the message appears
-    // The UI must have a button to "Preparar ruta" after selecting a place
+    // Intentar buscar ruta
   });
   
   test('Navegación PWA offline', async ({ page, context }) => {

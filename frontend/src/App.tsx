@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AuthProvider } from './contexts/AuthContext';
+import { FavoritesProvider } from './contexts/FavoritesContext';
 import { AppShell } from './layouts/AppShell';
 import { Dashboard } from './pages/Dashboard';
 import { ExplorePage } from './pages/ExplorePage';
@@ -34,7 +35,8 @@ const MessagePage = ({ title, message }: { title: string; message: string }) => 
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <FavoritesProvider>
+        <BrowserRouter>
         <Routes>
           <Route element={<AppShell />}>
             <Route index element={<ExplorePage />} />
@@ -62,6 +64,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      </FavoritesProvider>
     </AuthProvider>
   );
 }

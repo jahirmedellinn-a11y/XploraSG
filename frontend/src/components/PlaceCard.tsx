@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { Place } from '../types/catalog';
+import { FavoriteButton } from './FavoriteButton';
 
 const categoryTone = (category: string) => {
   const value = category.toLocaleLowerCase('es');
@@ -10,7 +11,7 @@ const categoryTone = (category: string) => {
 };
 
 export const PlaceCard = ({ place }: { place: Place }) => (
-  <article className="group overflow-hidden rounded-[1.75rem] border border-stone-200 bg-white shadow-[0_18px_50px_rgba(38,60,48,0.08)] transition hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(38,60,48,0.14)]">
+  <article className="group overflow-hidden rounded-[1.75rem] border border-stone-200 bg-white shadow-[0_18px_50px_rgba(38,60,48,0.08)] transition hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(38,60,48,0.14)] relative">
     <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-700 to-lime-600">
       {place.imagenPrincipal?.url ? (
         <img
@@ -29,16 +30,9 @@ export const PlaceCard = ({ place }: { place: Place }) => (
       <span className={`absolute left-4 top-4 rounded-full px-3 py-1.5 text-xs font-extrabold ${categoryTone(place.categoria)}`}>
         {place.categoria}
       </span>
+      <FavoriteButton placeId={place.id} className="absolute top-4 right-4 z-10" />
     </div>
-    <div className="p-5 relative">
-      <button 
-        className="absolute top-5 right-5 z-10 grid size-10 place-items-center rounded-full bg-stone-100 text-stone-400 hover:text-red-500 hover:bg-red-50 transition"
-        aria-label="Añadir a favoritos"
-      >
-        <svg viewBox="0 0 24 24" className="size-5" fill="currentColor">
-          <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
-        </svg>
-      </button>
+    <div className="p-5">
       <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-emerald-700">{place.municipio}</p>
       <h2 className="mt-2 text-xl font-black tracking-tight text-stone-900">{place.nombre}</h2>
       <p className="mt-2 line-clamp-2 min-h-12 text-sm leading-6 text-stone-600">

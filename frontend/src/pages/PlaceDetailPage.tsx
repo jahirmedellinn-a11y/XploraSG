@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { CatalogApiError, catalogApi } from '../services/catalogApi';
 import type { Place } from '../types/catalog';
+import { FavoriteButton } from '../components/FavoriteButton';
 import { WeatherCard } from '../components/WeatherCard';
 
 export const PlaceDetailPage = () => {
@@ -61,7 +62,7 @@ export const PlaceDetailPage = () => {
         <div className="relative mx-auto flex min-h-[420px] max-w-6xl flex-col justify-end px-5 py-12 lg:px-8">
           <Link to="/explorar" className="mb-auto self-start rounded-full bg-white/10 px-4 py-2 text-sm font-bold backdrop-blur hover:bg-white/20">← Volver</Link>
           <p className="text-xs font-black uppercase tracking-[0.2em] text-lime-300">{place.categoria} · {place.municipio}</p>
-          <h1 className="mt-3 max-w-4xl text-4xl font-black tracking-tight sm:text-6xl">{place.nombre}</h1>
+          <div className="flex flex-wrap items-center gap-5 mt-3"><h1 className="max-w-4xl text-4xl font-black tracking-tight sm:text-6xl">{place.nombre}</h1><FavoriteButton placeId={place.id} size="lg" /></div>
         </div>
       </div>
 

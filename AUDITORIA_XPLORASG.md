@@ -44,9 +44,9 @@ El proyecto **XploraSG** es funcional y sus recientes actualizaciones se han imp
 *   **Playwright E2E (e2e/xplorasg.spec.ts)**: Comprobadas la navegación PWA Offline, la persistencia del estado en recargas completas y las rutas de fallback, empleando compilación de producción (`npm run preview`). 
 
 ## 6. Comprobaciones Bloqueadas o Limitaciones
-*   **Ausencia de Botones Favoritos (Frontend Bug original):** Tras una inspección profunda se detectó que los componentes `PlaceCard.tsx` y `PlaceDetailPage.tsx` carecen de la interfaz gráfica (UI) para disparar el método `toggleFavorite` hacia el Hook. Las pruebas unitarias demostraron que la *lógica* funciona perfectamente, y la prueba E2E demostró que la persistencia funciona, pero un usuario humano no tiene cómo agregar un favorito en la interfaz gráfica principal más allá de la página `FavoritesPage` que sólo los muestra y borra.
-*   **Cuentas Autorizadas (E2E):** No se ejecutaron pruebas de inicio de sesión real en navegador Playwright por ausencia de credenciales de prueba pre-autorizadas.
+*   **Cuentas Autorizadas (E2E):** No se ejecutaron pruebas E2E contra backend real en Playwright para el flujo autenticado debido a la ausencia de credenciales de prueba pre-autorizadas. Las pruebas se realizaron aislando el estado anónimo.
+*   **PWA Offline Limitaciones:** El modo offline mediante Service Worker es funcional para cachear la estructura y archivos base (fuentes, CSS, JS), de modo que abrir `/servicios` sin red renderiza correctamente la UI cachead. Sin embargo, en el estado actual, el catálogo en sí (las peticiones fetch a `/api/places`) fallan al no estar cacheadas dinámicamente o persistidas, dejando las tarjetas vacías (sólo demuestra navegación de la App Shell).
 
 ## 7. Acciones Pendientes
 1.  **Aportar PDF:** Subir el material gráfico para reemplazar los íconos genéricos actuales.
-2.  **Reparar UI de Favoritos:** Añadir botones funcionales en `PlaceCard` y `PlaceDetailPage` que conecten con `useFavorites`, dado que la lógica de sincronización ya es segura.
+2.  **Paginación (H01):** Sigue pendiente implementar la paginación para `/api/places` antes del escalado.
