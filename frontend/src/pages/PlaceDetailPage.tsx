@@ -10,12 +10,22 @@ export const PlaceDetailPage = () => {
   const [place, setPlace] = useState<Place | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [offline, setOffline] = useState(false);
+  const [offlineDate, setOfflineDate] = useState('');
 
   useEffect(() => {
     const controller = new AbortController();
     catalogApi
       .place(slug, controller.signal)
-      .then((response) => setPlace(response.data))
+      .then((response) => {
+        setPlace(response.data);
+        if (response._offline) {
+          setOffline(true);
+          setOfflineDate(new Date(response._storedAt!).toLocaleString('es-MX'));
+        } else {
+          setOffline(false);
+        }
+      })
       .catch((requestError) => {
         if (requestError instanceof DOMException && requestError.name === 'AbortError') return;
         setError(requestError instanceof CatalogApiError && requestError.status === 404
@@ -62,6 +72,14 @@ export const PlaceDetailPage = () => {
         <div className="relative mx-auto flex min-h-[420px] max-w-6xl flex-col justify-end px-5 py-12 lg:px-8">
           <Link to="/explorar" className="mb-auto self-start rounded-full bg-white/10 px-4 py-2 text-sm font-bold backdrop-blur hover:bg-white/20">← Volver</Link>
           <p className="text-xs font-black uppercase tracking-[0.2em] text-lime-300">{place.categoria} · {place.municipio}</p>
+          {offline && (
+            <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-amber-400/20 px-4 py-1.5 text-xs font-bold text-amber-200 border border-amber-400/30 backdrop-blur-md self-start">
+              <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              Sin conexión (Actualizado: {offlineDate})
+            </div>
+          )}
           <div className="flex flex-wrap items-center gap-5 mt-3"><h1 className="max-w-4xl text-4xl font-black tracking-tight sm:text-6xl">{place.nombre}</h1><FavoriteButton placeId={place.id} size="lg" /></div>
         </div>
       </div>

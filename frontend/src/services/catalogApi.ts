@@ -19,7 +19,9 @@ export class CatalogApiError extends Error {
   }
 }
 
-const getJson = async <T>(path: string, signal?: AbortSignal): Promise<T> => {
+type WithOffline<T> = T & { _offline?: boolean; _storedAt?: string };
+
+const getJson = async <T>(path: string, signal?: AbortSignal): Promise<WithOffline<T>> => {
   try {
     const response = await fetch(`${API_URL}${path}`, { signal });
     const body = (await response.json().catch(() => null)) as ({ error?: string } & T) | null;
@@ -29,7 +31,7 @@ const getJson = async <T>(path: string, signal?: AbortSignal): Promise<T> => {
     }
 
     await writeCatalogCache(path, body as T);
-    return body as T;
+    return body as WithOffline<T>;
   } catch (error) {
     if (signal?.aborted || (error instanceof DOMException && error.name === 'AbortError')) {
       throw error;
@@ -40,7 +42,10 @@ const getJson = async <T>(path: string, signal?: AbortSignal): Promise<T> => {
 
     const cached = await readCatalogCache<T>(path);
     if (cached !== null) {
-      return cached;
+      const result = cached.value as WithOffline<T>;
+      result._offline = true;
+      result._storedAt = cached.storedAt;
+      return result;
     }
     throw error;
   }

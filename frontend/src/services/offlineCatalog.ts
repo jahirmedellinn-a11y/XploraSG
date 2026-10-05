@@ -25,15 +25,15 @@ const openDatabase = (): Promise<IDBDatabase> => new Promise((resolve, reject) =
   request.onerror = () => reject(request.error || new Error('No fue posible abrir IndexedDB.'));
 });
 
-export const readCatalogCache = async <T>(key: string): Promise<T | null> => {
+export const readCatalogCache = async <T>(key: string): Promise<CatalogCacheEntry<T> | null> => {
   try {
     const database = await openDatabase();
-    return await new Promise<T | null>((resolve, reject) => {
+    return await new Promise<CatalogCacheEntry<T> | null>((resolve, reject) => {
       const transaction = database.transaction(STORE_NAME, 'readonly');
       const request = transaction.objectStore(STORE_NAME).get(key);
       request.onsuccess = () => {
         const entry = request.result as CatalogCacheEntry<T> | undefined;
-        resolve(entry?.value ?? null);
+        resolve(entry ?? null);
       };
       request.onerror = () => reject(request.error || new Error('No fue posible consultar el catálogo local.'));
       transaction.oncomplete = () => database.close();

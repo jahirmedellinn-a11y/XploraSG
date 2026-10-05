@@ -15,6 +15,11 @@ export const ExplorePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
+  const [offline, setOffline] = useState(false);
+  const [offlineDate, setOfflineDate] = useState('');
+
   useEffect(() => {
     const controller = new AbortController();
     Promise.all([
@@ -32,33 +37,57 @@ export const ExplorePage = () => {
     return () => controller.abort();
   }, []);
 
-  useEffect(() => {
+  const loadPlaces = (currentPage: number, append: boolean) => {
     const controller = new AbortController();
+    setLoading(true);
+    setError('');
     catalogApi
       .places(
         {
           municipio: municipality || undefined,
           categoria: category || undefined,
           q: search || undefined,
-          limit: 100,
+          page: currentPage,
+          limit: 12,
         },
         controller.signal,
       )
-      .then((response) => setPlaces(response.data))
+      .then((response) => {
+        setPlaces(prev => append ? [...prev, ...response.data] : response.data);
+        setHasMore(response.data.length > 0 && response.pagination.page * response.pagination.limit < response.pagination.total);
+        if (response._offline) {
+          setOffline(true);
+          setOfflineDate(new Date(response._storedAt!).toLocaleString('es-MX'));
+        } else {
+          setOffline(false);
+        }
+      })
       .catch((requestError) => {
         if (requestError instanceof DOMException && requestError.name === 'AbortError') return;
-        setError('No fue posible conectar con el catálogo. Comprueba que el backend esté iniciado.');
+        setError('No fue posible conectar con el catálogo ni recuperar una versión guardada.');
       })
       .finally(() => {
         if (!controller.signal.aborted) setLoading(false);
       });
     return () => controller.abort();
+  };
+
+  useEffect(() => {
+    // Cuando cambian los filtros, resetear a la página 1
+    setPage(1);
+    setPlaces([]); // Prevent duplicates
+    const cleanup = loadPlaces(1, false);
+    return cleanup;
   }, [municipality, category, search]);
+
+  const loadMore = () => {
+    const nextPage = page + 1;
+    setPage(nextPage);
+    loadPlaces(nextPage, true);
+  };
 
   const handleSearch = (event: FormEvent) => {
     event.preventDefault();
-    setLoading(true);
-    setError('');
     setSearch(searchInput.trim());
   };
 
@@ -75,6 +104,14 @@ export const ExplorePage = () => {
             <p className="mt-6 max-w-xl text-lg leading-8 text-emerald-100/80">
               Explora paisajes, misiones y experiencias locales en una guía construida con información verificada.
             </p>
+              {offline && (
+                <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-amber-400/20 px-4 py-2 text-sm font-bold text-amber-200 border border-amber-400/30 backdrop-blur-md">
+                  <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  Modo sin conexión (Actualizado: {offlineDate})
+                </div>
+              )}
             <div className="mt-9 flex flex-wrap gap-3">
               <Link to="/mapa" className="rounded-full bg-lime-300 px-6 py-3.5 text-sm font-black text-emerald-950 shadow-lg shadow-black/10 hover:bg-lime-200">
                 Abrir mapa
@@ -148,9 +185,18 @@ export const ExplorePage = () => {
             {[0, 1, 2].map((item) => <div key={item} className="h-96 animate-pulse rounded-[1.75rem] bg-stone-200" />)}
           </div>
         ) : places.length ? (
-          <div className="mt-9 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {places.map((place) => <PlaceCard key={place.id} place={place} />)}
-          </div>
+          <>
+            <div className="mt-9 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {places.map((place) => <PlaceCard key={place.id} place={place} />)}
+            </div>
+            {hasMore && (
+              <div className="mt-10 flex justify-center">
+                <button onClick={loadMore} disabled={loading} className="rounded-full bg-stone-100 px-6 py-3 text-sm font-bold text-stone-700 hover:bg-stone-200 transition">
+                  {loading ? 'Cargando...' : 'Cargar más'}
+                </button>
+              </div>
+            )}
+          </>
         ) : !error && (
           <div className="mt-9 rounded-[2rem] border border-dashed border-emerald-900/25 bg-emerald-50/60 px-6 py-14 text-center">
             <div className="mx-auto grid size-14 place-items-center rounded-2xl bg-emerald-900 text-2xl text-white" aria-hidden="true">⌁</div>
