@@ -1,14 +1,27 @@
 import assert from 'node:assert/strict';
 
 // Simulación de estado local
-let localFavorites = [1, 2];
+let localFavoritesDetails = [{id: 1, addedAt: 100}, {id: 2, addedAt: 110}];
 let remoteFavorites = [];
 let db = [];
 let isAuth = false;
 
 // Mocks
-const getLocalFavorites = () => [...localFavorites];
-const removeLocalFavorite = (id) => { localFavorites = localFavorites.filter(x => x !== id); };
+const getLocalFavoritesDetails = () => [...localFavoritesDetails];
+const getLocalFavorites = () => localFavoritesDetails.map(f => f.id);
+const addLocalFavorite = (id) => {
+  if (!localFavoritesDetails.some(f => f.id === id)) {
+    localFavoritesDetails.push({id, addedAt: Date.now()});
+  }
+};
+const removeLocalFavorite = (id) => {
+  localFavoritesDetails = localFavoritesDetails.filter(f => f.id !== id);
+};
+const removeSyncedLocalFavorites = (syncedFavs) => {
+  localFavoritesDetails = localFavoritesDetails.filter(curr => 
+    !syncedFavs.some(synced => synced.id === curr.id && synced.addedAt === curr.addedAt)
+  );
+};
 const syncFavorites = async (ids) => {
   await new Promise(r => setTimeout(r, 50)); // Simular latencia de red
   if (ids.includes(999)) throw new Error('Network error');
@@ -18,60 +31,85 @@ const getFavorites = async () => {
   await new Promise(r => setTimeout(r, 20));
   return db.map(id => ({ id }));
 };
-const addLocalFavorite = (id) => localFavorites.push(id);
 
-// Simulación del Hook (versión simplificada de la lógica de carga)
-const simulateLoadFavorites = async () => {
-  let ignore = false;
-  try {
-    const localIdsToSync = getLocalFavorites();
-    if (localIdsToSync.length > 0) {
-      await syncFavorites(localIdsToSync);
-      localIdsToSync.forEach(id => removeLocalFavorite(id));
-    }
-    const data = await getFavorites();
-    if (!ignore) {
-      remoteFavorites = data;
-    }
-  } catch (error) {
-    // Si falla, no limpiamos localIdsToSync, se mantienen en localFavorites
-  }
-  return () => { ignore = true; }; // Función de cleanup
+// Simulación del Hook
+const simulateLoadFavorites = () => {
+  const state = { ignore: false };
+  const promise = (async () => {
+    try {
+      const localFavsToSync = getLocalFavoritesDetails();
+      const localIdsToSync = localFavsToSync.map(f => f.id);
+      if (localIdsToSync.length > 0) {
+        await syncFavorites(localIdsToSync);
+        if (!state.ignore) {
+          removeSyncedLocalFavorites(localFavsToSync);
+        }
+      }
+      const data = await getFavorites();
+      if (!state.ignore) {
+        remoteFavorites = data;
+      }
+    } catch (error) {}
+  })();
+  return { promise, cleanup: () => { state.ignore = true; } };
 };
 
 async function runTests() {
   console.log('--- Test 1: Sincronización exitosa sin duplicados ---');
-  db = [2, 3]; // Usuario ya tenía el 2 y el 3 en el servidor
-  localFavorites = [1, 2]; // Añadió el 1 y el 2 offline
+  db = [2, 3];
+  localFavoritesDetails = [{id: 1, addedAt: 100}, {id: 2, addedAt: 110}];
   isAuth = true;
-  await simulateLoadFavorites();
-  assert.deepEqual(db.sort(), [1, 2, 3], 'DB debe tener 1, 2, 3 sin duplicados');
-  assert.deepEqual(localFavorites, [], 'Los favoritos locales sincronizados deben limpiarse');
+  const { promise: p0 } = simulateLoadFavorites();
+  await p0;
+  assert.deepEqual(db.sort(), [1, 2, 3]);
+  assert.deepEqual(localFavoritesDetails, []);
   console.log('✓ OK');
 
   console.log('\n--- Test 2: Fallo de red conserva favoritos locales ---');
   db = [];
-  localFavorites = [999]; // 999 fuerza un error de red en el mock
-  await simulateLoadFavorites();
-  assert.deepEqual(db, [], 'DB no debe tener cambios');
-  assert.deepEqual(localFavorites, [999], 'Los favoritos locales deben conservarse tras fallo de red');
+  localFavoritesDetails = [{id: 999, addedAt: 120}];
+  const { promise: p0_2 } = simulateLoadFavorites();
+  await p0_2;
+  assert.deepEqual(db, []);
+  assert.deepEqual(localFavoritesDetails, [{id: 999, addedAt: 120}]);
   console.log('✓ OK');
 
-  console.log('\n--- Test 3: Modificaciones durante sincronización ---');
+  console.log('\n--- Test 3: Modificaciones (añadir un ID diferente) durante sincronización ---');
   db = [];
-  localFavorites = [10, 11]; // Para sincronizar
+  localFavoritesDetails = [{id: 10, addedAt: 100}];
+  const { promise: p1 } = simulateLoadFavorites();
+  setTimeout(() => addLocalFavorite(12), 10);
+  await p1;
+  assert.deepEqual(db, [10]);
+  assert.equal(localFavoritesDetails.length, 1);
+  assert.equal(localFavoritesDetails[0].id, 12);
+  console.log('✓ OK');
+
+  console.log('\n--- Test 4: Modificaciones (eliminar y volver a añadir el MISMO ID) durante sincronización ---');
+  db = [];
+  localFavoritesDetails = [{id: 40, addedAt: 100}];
+  const { promise: p2 } = simulateLoadFavorites();
+  setTimeout(() => {
+    removeLocalFavorite(40); 
+    addLocalFavorite(40); // Esto le dará un nuevo timestamp!
+  }, 10);
+  await p2;
+  assert.deepEqual(db, [40], 'Se sincronizó a la BD');
+  assert.equal(localFavoritesDetails.length, 1, 'No debió borrarse de local porque se re-añadió con nuevo timestamp');
+  assert.equal(localFavoritesDetails[0].id, 40);
+  console.log('✓ OK');
+
+  console.log('\n--- Test 5: Cerrar sesión durante sincronización ---');
+  db = [];
+  localFavoritesDetails = [{id: 50, addedAt: 100}];
+  const { promise: p3, cleanup } = simulateLoadFavorites();
   
-  // Iniciamos la sincronización (tarda 50ms)
-  const syncPromise = simulateLoadFavorites();
+  // Usuario cierra sesión a los 10ms, ignore = true
+  setTimeout(() => { cleanup(); addLocalFavorite(60); }, 10);
   
-  // A los 10ms (durante la sincronización), el usuario añade otro favorito local
-  setTimeout(() => { addLocalFavorite(12); }, 10);
-  
-  await syncPromise; // Esperamos que termine
-  assert.deepEqual(db.sort(), [10, 11], 'El servidor recibió los iniciales');
-  // El 10 y 11 debieron borrarse, pero el 12 que se añadió "en vuelo" debe conservarse
-  assert.deepEqual(localFavorites, [12], 'Solo se borran los que efectivamente se enviaron');
+  await p3;
+  assert.deepEqual(db, [50], 'Se subió a la BD a pesar del logout');
+  assert.equal(localFavoritesDetails.length, 2, 'No debió borrarse nada localmente por el ignore=true');
   console.log('✓ OK');
 }
-
 runTests().catch(console.error);

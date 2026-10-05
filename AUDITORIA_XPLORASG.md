@@ -21,30 +21,30 @@ El proyecto **XploraSG** es funcional y sus recientes actualizaciones se han imp
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **H00** | **Alta** | `useFavorites.ts` | `clearLocalFavorites()` borraba todos los datos tras sincronizar, destruyendo favoritos guardados localmente mientras la petición estaba en vuelo. | Pérdida de datos del usuario bajo condiciones de carrera o conexiones lentas. | **Corregido.** Ahora registra los IDs exactos que entraron a sincronización y elimina solo esos usando `removeLocalFavorite(id)`. |
 | H01 | Baja | `frontend/src/hooks/useFavorites.ts` | Uso de `catalogApi.places({ limit: 100 })` | Problemas de rendimiento si el catálogo escala. | Pendiente (Requiere rediseño de backend para paginar favoritos). |
-| H02 | Media | `frontend/vite.config.ts` | El *bundle* JavaScript original superaba los 500 kB (588 kB). | Tiempos de carga inicial lenta. | **Corregido.** Se aplicó `manualChunks` separando `@supabase` reduciendo el bloque principal a 374 kB. |
-| H03 | Baja | `frontend/vite.config.ts` | Se cargaban 47 variantes de WOFF/WOFF2 de Poppins. | Ocupaba más de 1.6 MB en caché innecesariamente (56 entradas). | **Corregido.** Se importó solo el subconjunto `latin` reduciendo el precaché a 905 kB (23 entradas). |
-| H04 | Riesgo | `MapPage.tsx` | Redirección a Google Maps. | Google Maps no sirve *offline*. | **Corregido.** Se modificó la interfaz para advertir claramente que requiere red externa, y se diferenció el error de desconexión. |
-| H05 | Bloqueo | Repositorio general | Ausencia de `Iconografia.pdf`. | Impide generar PWA Maskable real. | **Pendiente.** A la espera de recibir el material gráfico oficial. |
+| H02 | Media | `frontend/vite.config.ts` | El *bundle* JavaScript original superaba los 500 kB (588 kB). | Tiempos de carga inicial lenta. | **Parcial.** Se aplicó `manualChunks` separando `@supabase` (214 kB). Esto resuelve la advertencia técnica y paralela las descargas, pero no reduce el volumen total descargado al inicio, ya que AuthContext demanda Supabase de inmediato. |
+| H03 | Baja | `frontend/vite.config.ts` | Se cargaban 47 variantes de WOFF/WOFF2 de Poppins. | Ocupaba más de 1.6 MB en caché innecesariamente (56 entradas). | **Corregido y Verificado.** Se importó solo el subconjunto `latin` reduciendo el precaché a 905 kB (23 entradas). |
+| H04 | Riesgo | `MapPage.tsx` | Redirección a Google Maps. | Google Maps no sirve *offline*. | **Corregido (Pendiente revisión visual).** Se programó en el código la diferenciación de errores y el descargo de responsabilidad sobre el uso de red para Google Maps. |
+| H05 | Bloqueo | Repositorio general | Ausencia de `Iconografia.pdf`. | Impide generar PWA Maskable real. | **Bloqueado.** A la espera de recibir el material gráfico oficial. |
 
 ## 4. Pasos para Reproducir Errores Comprobados y Pruebas Ejecutadas
 *   **Sincronización (H00):**
-    Se creó y ejecutó el script `frontend/scripts/test-sync-logic.mjs` que simula concurrencia (respuestas tardías de 50ms vs clics de 10ms). **Resultado comprobado**: Solo se borran de `localStorage` los ítems efectivamente enviados.
+    Se programó y ejecutó exitosamente el test unitario `test-sync-logic.mjs` que replica de forma determinista la lógica real usada en `useFavorites.ts`. Se ejecutaron flujos de *Fallo de red*, *Añadir ID distinto*, *Re-añadir el mismo ID* y *Cerrar sesión velozmente*. Todos demostraron que la memoria `localStorage` ahora se protege y no sufre pérdidas por carreras de condiciones. (Son pruebas unitarias a nivel Node).
 *   **Partición de bundle (H02):**
-    `npm run build` confirma un `index-[hash].js` de 374 kB y un `supabase-[hash].js` de 214 kB.
+    `npm run build` confirma un `index-[hash].js` de 374 kB y un `supabase-[hash].js` de 214 kB. Se aclara que ambos se cargan al inicio (no hay ahorro real de bytes procesados, solo de organización de chunks).
 *   **Fuentes y Precaché PWA (H03):**
     `npm run build` confirma que la PWA redujo sus entradas de 56 a 23, pesando 905.03 KiB.
 *   **Google Maps fallback (H04):**
-    Probado aislando la clave vacía. El texto diferencia "No se pudo conectar con el servicio" vs "falta de configuración".
+    El código se auditó estáticamente en `MapPage.tsx` para garantizar que la bifurcación lógica (`? :`) separe el error nativo del proveedor de los errores de desconexión. No se modificaron credenciales.
 
 ## 5. Pruebas Ejecutadas y Resultados
 *   `npm run build` (Backend/Frontend): **Exitoso**.
 *   `npm run lint` (Frontend): **Exitoso**.
-*   `npm test` (Backend): **21 pruebas aprobadas** (mocks).
-*   **Prueba de Lógica (test-sync-logic.mjs)**: **3/3 pruebas aprobadas** (comprobando carreras de condiciones y aislamiento).
+*   `npm test` (Backend): **21 pruebas aprobadas** (mocks unitarios).
+*   **Prueba Lógica (test-sync-logic.mjs)**: **5/5 pruebas aprobadas** (pruebas unitarias independientes de React que evalúan el control de concurrencia y los cierres (closures) del hook original).
 
-## 6. Comprobaciones Bloqueadas o Limitaciones
-*   **Renderizado visual real:** Queda **no comprobado** de manera automatizada en celular/escritorio real.
-*   La sincronización se marca como **Cumplida**, ya que la falla H00 fue solucionada, pero su persistencia estricta a caídas abruptas del navegador depende de las políticas nativas.
+## 6. Comprobaciones Bloqueadas o Limitaciones (Falta de navegador real)
+*   **Renderizado de interfaz y Rutas:** Al operar estrictamente por comandos (sin Cypress o Playwright configurado en el proyecto), **todas las comprobaciones de renderizado real quedan como no comprobadas**. Los estados de error de red (ORS vs Offline) y los clics de Favoritos se auditaron inspeccionando los componentes y simulando sus funciones base, pero no fueron verificados viendo la UI real en un DOM de navegador.
+*   El modo *Offline* de la PWA se verifica parcialmente validando que el ServiceWorker incluya los archivos en *precaché*, pero su montaje físico sin internet requiere un navegador.
 
 ## 7. Acciones Pendientes
 1.  **Aportar PDF:** Subir el material gráfico para reemplazar los íconos genéricos actuales.

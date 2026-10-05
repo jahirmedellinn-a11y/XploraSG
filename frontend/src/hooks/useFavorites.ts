@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { getLocalFavorites, addLocalFavorite, removeLocalFavorite } from '../services/localFavorites';
+import { getLocalFavorites, getLocalFavoritesDetails, addLocalFavorite, removeLocalFavorite, removeSyncedLocalFavorites } from '../services/localFavorites';
 import { getFavorites, addFavorite, removeFavorite, syncFavorites } from '../services/favoritesApi';
 import type { Place } from '../types/catalog';
 
@@ -16,11 +16,14 @@ export const useFavorites = () => {
       setLoading(true);
       if (isAuthenticated) {
         try {
-          const localIdsToSync = getLocalFavorites();
+          const localFavsToSync = getLocalFavoritesDetails();
+          const localIdsToSync = localFavsToSync.map(f => f.id);
+          
           if (localIdsToSync.length > 0) {
             await syncFavorites(localIdsToSync);
-            // Remove exactly what was synced, to prevent wiping items added mid-flight
-            localIdsToSync.forEach(id => removeLocalFavorite(id));
+            if (!ignore) {
+              removeSyncedLocalFavorites(localFavsToSync);
+            }
           }
           const data = await getFavorites();
           if (!ignore) {
