@@ -28,23 +28,25 @@ El proyecto **XploraSG** es funcional y sus recientes actualizaciones se han imp
 
 ## 4. Pasos para Reproducir Errores Comprobados y Pruebas Ejecutadas
 *   **Sincronización (H00):**
-    Se programó y ejecutó exitosamente el test unitario `test-sync-logic.mjs` que replica de forma determinista la lógica real usada en `useFavorites.ts`. Se ejecutaron flujos de *Fallo de red*, *Añadir ID distinto*, *Re-añadir el mismo ID* y *Cerrar sesión velozmente*. Todos demostraron que la memoria `localStorage` ahora se protege y no sufre pérdidas por carreras de condiciones. (Son pruebas unitarias a nivel Node).
+    Se refactorizó el sistema para utilizar identificadores de operación (`operationId`) generados criptográficamente (o aleatorios por sesión) en lugar de depender de la marca de tiempo, previniendo colisiones en el mismo milisegundo. Se implementó una suite de pruebas con `@testing-library/react` y `Vitest` (ejecutando las funciones de producción de React) que comprueba flujos de *Fallo de red*, *Añadir ID distinto*, *Re-añadir el mismo ID* y *Cerrar sesión velozmente*. Todos demostraron que la memoria `localStorage` ahora se protege y no sufre pérdidas por carreras de condiciones. (Son pruebas unitarias a nivel Node utilizando el hook en un entorno virtual JSDOM).
 *   **Partición de bundle (H02):**
     `npm run build` confirma un `index-[hash].js` de 374 kB y un `supabase-[hash].js` de 214 kB. Se aclara que ambos se cargan al inicio (no hay ahorro real de bytes procesados, solo de organización de chunks).
 *   **Fuentes y Precaché PWA (H03):**
     `npm run build` confirma que la PWA redujo sus entradas de 56 a 23, pesando 905.03 KiB.
-*   **Google Maps fallback (H04):**
-    El código se auditó estáticamente en `MapPage.tsx` para garantizar que la bifurcación lógica (`? :`) separe el error nativo del proveedor de los errores de desconexión. No se modificaron credenciales.
+*   **Google Maps fallback y Offline (H04):**
+    El código se auditó estáticamente y se implementaron pruebas E2E con Playwright que desconectan el contexto de red (`context.setOffline(true)`) garantizando el correcto funcionamiento del Service Worker de la PWA.
 
 ## 5. Pruebas Ejecutadas y Resultados
 *   `npm run build` (Backend/Frontend): **Exitoso**.
 *   `npm run lint` (Frontend): **Exitoso**.
 *   `npm test` (Backend): **21 pruebas aprobadas** (mocks unitarios).
-*   **Prueba Lógica (test-sync-logic.mjs)**: **5/5 pruebas aprobadas** (pruebas unitarias independientes de React que evalúan el control de concurrencia y los cierres (closures) del hook original).
+*   **Vitest Lógica (test/useFavorites.test.ts)**: **5/5 pruebas aprobadas** (Evaluando la concurrencia del hook nativo `useFavorites`).
+*   **Playwright E2E (e2e/xplorasg.spec.ts)**: Comprobadas la navegación PWA Offline, la persistencia del estado en recargas completas y las rutas de fallback, empleando compilación de producción (`npm run preview`). 
 
-## 6. Comprobaciones Bloqueadas o Limitaciones (Falta de navegador real)
-*   **Renderizado de interfaz y Rutas:** Al operar estrictamente por comandos (sin Cypress o Playwright configurado en el proyecto), **todas las comprobaciones de renderizado real quedan como no comprobadas**. Los estados de error de red (ORS vs Offline) y los clics de Favoritos se auditaron inspeccionando los componentes y simulando sus funciones base, pero no fueron verificados viendo la UI real en un DOM de navegador.
-*   El modo *Offline* de la PWA se verifica parcialmente validando que el ServiceWorker incluya los archivos en *precaché*, pero su montaje físico sin internet requiere un navegador.
+## 6. Comprobaciones Bloqueadas o Limitaciones
+*   **Ausencia de Botones Favoritos (Frontend Bug original):** Tras una inspección profunda se detectó que los componentes `PlaceCard.tsx` y `PlaceDetailPage.tsx` carecen de la interfaz gráfica (UI) para disparar el método `toggleFavorite` hacia el Hook. Las pruebas unitarias demostraron que la *lógica* funciona perfectamente, y la prueba E2E demostró que la persistencia funciona, pero un usuario humano no tiene cómo agregar un favorito en la interfaz gráfica principal más allá de la página `FavoritesPage` que sólo los muestra y borra.
+*   **Cuentas Autorizadas (E2E):** No se ejecutaron pruebas de inicio de sesión real en navegador Playwright por ausencia de credenciales de prueba pre-autorizadas.
 
 ## 7. Acciones Pendientes
 1.  **Aportar PDF:** Subir el material gráfico para reemplazar los íconos genéricos actuales.
+2.  **Reparar UI de Favoritos:** Añadir botones funcionales en `PlaceCard` y `PlaceDetailPage` que conecten con `useFavorites`, dado que la lógica de sincronización ya es segura.
