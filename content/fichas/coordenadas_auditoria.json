@@ -1,0 +1,31 @@
+{
+  "generado_el": "2026-10-03",
+  "criterio": "Sólo las coordenadas respaldadas por una fuente institucional se marcan como verificadas. Los resultados de OpenStreetMap/Nominatim son candidatos editoriales y no se aplican automáticamente.",
+  "fuentes": {
+    "unesco": "https://whc.unesco.org/en/decisions/721",
+    "nominatim": "https://nominatim.openstreetmap.org/",
+    "osm_attribution": "© OpenStreetMap contributors, ODbL"
+  },
+  "lugares": [
+    { "slug": "mision-de-jalpan", "estado": "verificada", "latitud": 21.20438889, "longitud": -99.46411111, "fuente": "unesco" },
+    { "slug": "mision-de-landa", "estado": "verificada", "latitud": 21.16922222, "longitud": -99.31083333, "fuente": "unesco" },
+    { "slug": "mision-de-tilaco", "estado": "verificada", "latitud": 21.16119444, "longitud": -99.19263889, "fuente": "unesco" },
+    { "slug": "mision-de-tancoyol", "estado": "verificada", "latitud": 21.40041667, "longitud": -99.32802778, "fuente": "unesco" },
+    { "slug": "mision-de-san-miguel-conca", "estado": "verificada", "latitud": 21.44469444, "longitud": -99.63694444, "fuente": "unesco" },
+    { "slug": "las-adjuntas", "estado": "candidata_ficha", "latitud": 21.3934, "longitud": -99.5852, "nota": "La ficha aporta coordenadas, pero no una fuente cartográfica verificable." },
+    { "slug": "presa-jalpan", "estado": "candidata_osm", "latitud": 21.1968262, "longitud": -99.4759869, "tipo_osm": "reservoir", "consulta": "Presa Jalpan, Jalpan de Serra, Querétaro" },
+    { "slug": "tancama", "estado": "candidata_osm_baja_confianza", "latitud": 21.1720865, "longitud": -99.4224773, "tipo_osm": "hamlet", "consulta": "Tancama, Querétaro", "nota": "El resultado identifica la localidad, no la entrada de la zona arqueológica." },
+    { "slug": "sotano-del-barro", "estado": "candidata_osm", "latitud": 21.3107279, "longitud": -99.6679319, "tipo_osm": "cave_entrance", "consulta": "Sótano del Barro, Arroyo Seco, Querétaro" },
+    { "slug": "neblinas", "estado": "candidata_osm_baja_confianza", "latitud": 21.270042, "longitud": -99.0559602, "tipo_osm": "village", "consulta": "Neblinas, Landa de Matamoros, Querétaro", "nota": "El resultado identifica la comunidad, no el punto turístico del río." },
+    { "slug": "rio-verdito", "estado": "candidata_osm_baja_confianza", "latitud": 21.2463889, "longitud": -99.1225, "tipo_osm": "village", "consulta": "Río Verdito, Landa de Matamoros, Querétaro", "nota": "El resultado identifica la comunidad, no la cascada." },
+    { "slug": "balneario-el-oasis", "estado": "candidata_osm", "latitud": 20.9994829, "longitud": -99.7082484, "tipo_osm": "restaurant", "consulta": "Balneario El Oasis, Peñamiller, Querétaro" },
+    { "slug": "canon-del-paraiso", "estado": "candidata_osm", "latitud": 21.0210376, "longitud": -99.699701, "tipo_osm": "canyon", "consulta": "Cañón del Paraíso, Peñamiller, Querétaro" },
+    { "slug": "vestigios-prehistoricos", "estado": "sin_coincidencia", "consulta": "Pinturas Rupestres, Peñamiller, Querétaro" },
+    { "slug": "cuatro-palos", "estado": "candidata_osm", "latitud": 21.0803308, "longitud": -99.6620781, "tipo_osm": "viewpoint", "consulta": "Mirador Cuatro Palos, Pinal de Amoles, Querétaro" },
+    { "slug": "el-chuveje", "estado": "candidata_osm", "latitud": 21.1617655, "longitud": -99.5612834, "tipo_osm": "waterfall", "consulta": "Cascada El Chuveje, Pinal de Amoles, Querétaro" },
+    { "slug": "mirador-de-cristal", "estado": "candidata_osm", "latitud": 21.113008, "longitud": -99.6245562, "tipo_osm": "viewpoint", "consulta": "Peña de las Guacamayas, Pinal de Amoles, Querétaro" },
+    { "slug": "cascadas-maravilla", "estado": "sin_coincidencia", "consulta": "Cascada Las Maravillas, San Joaquín, Querétaro" },
+    { "slug": "grutas-de-los-herrera", "estado": "sin_coincidencia", "consulta": "Grutas de los Herrera, San Joaquín, Querétaro" },
+    { "slug": "ranas", "estado": "candidata_osm", "latitud": 20.925993, "longitud": -99.564193, "tipo_osm": "ruins", "consulta": "Zona Arqueológica Ranas, San Joaquín, Querétaro" }
+  ]
+}

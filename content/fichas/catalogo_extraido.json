@@ -1,0 +1,1346 @@
+{
+  "version": 1,
+  "estado": "borrador",
+  "criterio": {
+    "lugares": 20,
+    "servicios_en_fichas": 16,
+    "servicios_en_plantilla": 15,
+    "nota": "Se conservan los 16 servicios de las fichas sin publicar. Pinal de Amoles no tiene ficha de servicio y la distribución difiere de la plantilla."
+  },
+  "lugares": [
+    {
+      "tipo": "lugar",
+      "municipio": "Arroyo Seco",
+      "nombre": "Las Adjuntas",
+      "slug": "las-adjuntas",
+      "categoria_fuente": "Río / Atractivo Natural",
+      "prestador": null,
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre oficial": "Las Adjuntas",
+        "Municipio y localidad": "Ayutla, Arroyo Seco, Querétaro.",
+        "Categoría": "Río / Atractivo Natural",
+        "Descripción": "Punto donde convergen las aguas termales y transparentes del Río Santa María con las aguas frías y de tono azul del Río Ayutla, creando una temperatura ideal y una vista espectacular.",
+        "Ubicación exacta": "Coordenadas aproximadas: 21.3934, -99.5852. Enlace de Google Maps pendiente. Punto de acceso en la comunidad de Ayutla.",
+        "Cómo llegar": "Desde la cabecera municipal de Arroyo Seco, tomar la carretera principal hacia Jalpan y desviarse en Ayutla. El acceso final es de terracería, recomendable vehículo alto o caminar.",
+        "Horarios": "Abierto todos los días. Se recomienda visitar con luz de día (08:00 - 18:00).",
+        "Costo": "Entrada general libre, pero los ejidatarios pueden cobrar una cuota de mantenimiento de $30 a $50 MXN por vehículo o campamento.",
+        "Actividades": "Natación, campismo, senderismo, fotografía y observación de flora/fauna.",
+        "Servicios disponibles": "Estacionamiento rústico, asadores y renta de cabañas cercanas en la comunidad de Ayutla.",
+        "Accesibilidad": "Acceso complicado para personas con movilidad reducida debido al terreno irregular de terracería y piedras de río.",
+        "Recomendaciones y restricciones": "Llevar repelente ecológico, zapatos para agua, no dejar basura. En temporada de lluvias fuertes el caudal puede ser peligroso.",
+        "Contacto": "No cuenta con administración centralizada; contactar a prestadores de servicios de Ayutla.",
+        "Fotografías y videos": "Fotografía del lugar adjunta.",
+        "Fuente y fecha de verificación": "de-paseo.com (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/lugares/las-adjuntas.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/bbdaa75fb72145072c3ad88ca92c740483c1fdc2.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Fichas_Lugares_Arroyo_Seco_Con_Imagenes.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "lugar",
+      "municipio": "Arroyo Seco",
+      "nombre": "Misión de San Miguel Concá",
+      "slug": "mision-de-san-miguel-conca",
+      "categoria_fuente": "Misión Franciscana / Arquitectura Histórica",
+      "prestador": null,
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre oficial": "Misión de San Miguel Concá",
+        "Municipio y localidad": "Concá, Arroyo Seco, Querétaro.",
+        "Categoría": "Misión Franciscana / Arquitectura Histórica",
+        "Descripción": "Es la más pequeña de las cinco misiones de la Sierra Gorda y la primera en terminarse (1754). Se caracteriza por la presencia del águila bicéfala (símbolo de los Habsburgo) y detalles indígenas como flores, follaje y animales.",
+        "Ubicación exacta": "Frente a la plaza principal de Concá. Enlace a Google Maps pendiente.",
+        "Cómo llegar": "Accesible por carretera pavimentada (Carretera Federal 69, Jalpan - Río Verde).",
+        "Horarios": "Abierta durante el día para visitas, misas en horarios dominicales y festivos.",
+        "Costo": "Entrada libre.",
+        "Actividades": "Turismo religioso, cultural, arquitectónico y fotografía.",
+        "Servicios disponibles": "En el pueblo hay tiendas, baños públicos y opciones de comida.",
+        "Accesibilidad": "Accesible en la entrada, algunas zonas interiores pueden tener desniveles.",
+        "Recomendaciones y restricciones": "Guardar respeto, no usar flash en el interior.",
+        "Contacto": "Parroquia local de Concá.",
+        "Fotografías y videos": "Fotografía del lugar adjunta.",
+        "Fuente y fecha de verificación": "volviendoalabiblia.com.mx (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/lugares/mision-de-san-miguel-conca.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/5f11c8bb9c11108dd3c3e234eb04c8ed84aa81db.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Fichas_Lugares_Arroyo_Seco_Con_Imagenes.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "lugar",
+      "municipio": "Arroyo Seco",
+      "nombre": "Sótano del Barro",
+      "slug": "sotano-del-barro",
+      "categoria_fuente": "Reserva Natural / Sima (Sótano)",
+      "prestador": null,
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre oficial": "Sótano del Barro",
+        "Municipio y localidad": "Santa María de los Cocos, Arroyo Seco, Querétaro.",
+        "Categoría": "Reserva Natural / Sima (Sótano)",
+        "Descripción": "Una de las simas (cavernas verticales) más grandes del mundo con una profundidad de 410 metros y un diámetro de 500 metros. Es hogar y refugio principal de la guacamaya verde, una especie en peligro de extinción.",
+        "Ubicación exacta": "Ubicado en la sierra a 2 horas de camino a pie desde la comunidad de Santa María de los Cocos.",
+        "Cómo llegar": "En auto hasta Santa María de los Cocos, y de ahí se emprende una caminata guiada cuesta arriba (aprox. 1.5 a 2 horas).",
+        "Horarios": "El recorrido debe iniciar antes del amanecer (aprox. 4:00 am) para observar el avistamiento de las guacamayas al salir el sol.",
+        "Costo": "Se debe pagar a los guías comunitarios locales autorizados. Costos varían.",
+        "Actividades": "Senderismo de montaña, observación de aves (guacamaya verde), paisajismo.",
+        "Servicios disponibles": "Servicios nulos en la cima. En la comunidad base se ofrece comida y estacionamiento.",
+        "Accesibilidad": "Solo para personas con buena condición física. NO accesible para sillas de ruedas.",
+        "Recomendaciones y restricciones": "Llevar linterna frontal, ropa abrigadora, agua y calzado de senderismo. Está prohibido gritar o hacer ruido al borde del sótano.",
+        "Contacto": "Cooperativa comunitaria de Santa María de los Cocos.",
+        "Fotografías y videos": "Fotografía del lugar adjunta.",
+        "Fuente y fecha de verificación": "ecured.cu (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/lugares/sotano-del-barro.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/3e5a2c2614370ccfbe944a6a89fa390a5e92f1ac.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Fichas_Lugares_Arroyo_Seco_Con_Imagenes.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "lugar",
+      "municipio": "Jalpan de Serra",
+      "nombre": "Misión de Santiago Apóstol de Jalpan",
+      "slug": "mision-de-jalpan",
+      "categoria_fuente": "Misión Franciscana / Patrimonio de la Humanidad",
+      "prestador": null,
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre oficial": "Misión de Santiago Apóstol de Jalpan",
+        "Municipio y localidad": "Jalpan de Serra, Querétaro.",
+        "Categoría": "Misión Franciscana / Patrimonio de la Humanidad",
+        "Descripción": "Fue la primera de las cinco misiones franciscanas construidas bajo la dirección de Fray Junípero Serra en la Sierra Gorda (construida entre 1751 y 1758). Destaca por su fachada de estilo barroco mestizo en estuco, donde elementos europeos se mezclan con flora y símbolos indígenas.",
+        "Ubicación exacta": "Frente a la plaza principal de Jalpan de Serra.",
+        "Cómo llegar": "Ubicada en el corazón de la cabecera municipal, sobre la Plaza Principal, fácilmente accesible a pie o en vehículo.",
+        "Horarios": "09:00 a 18:00 hrs todos los días.",
+        "Costo": "Entrada gratuita.",
+        "Actividades": "Turismo cultural y religioso, fotografía arquitectónica.",
+        "Servicios disponibles": "Servicios comerciales, restaurantes y baños públicos disponibles alrededor de la plaza principal.",
+        "Accesibilidad": "Alta accesibilidad. Atrio y nave principal a nivel de calle, apto para personas con movilidad reducida.",
+        "Recomendaciones y restricciones": "Se recomienda observar los detalles de la fachada al atardecer para apreciar el relieve.",
+        "Contacto": "Parroquia de Santiago Apóstol.",
+        "Fotografías y videos": "Fotografía real del lugar adjunta.",
+        "Fuente y fecha de verificación": "INAH / mexicodesconocido.com.mx (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/lugares/mision-de-jalpan.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/688dde669db3013a2d09cc58d7ab5967515776b3.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Fichas_Lugares_Jalpan_V3.docx",
+        "version": "V3"
+      }
+    },
+    {
+      "tipo": "lugar",
+      "municipio": "Jalpan de Serra",
+      "nombre": "Misión de Nuestra Señora de la Luz de Tancoyol",
+      "slug": "mision-de-tancoyol",
+      "categoria_fuente": "Misión Franciscana / Patrimonio de la Humanidad",
+      "prestador": null,
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre oficial": "Misión de Nuestra Señora de la Luz de Tancoyol",
+        "Municipio y localidad": "Jalpan de Serra, Querétaro.",
+        "Categoría": "Misión Franciscana / Patrimonio de la Humanidad",
+        "Descripción": "Misión franciscana que se caracteriza por poseer la fachada más elaborada iconográficamente de las cinco misiones, dedicada a Nuestra Señora de la Luz. Fue construida por las comunidades pames bajo supervisión franciscana.",
+        "Ubicación exacta": "Comunidad de Tancoyol, Jalpan de Serra.",
+        "Cómo llegar": "A 45 minutos al noreste de Jalpan de Serra, tomando la desviación en la carretera 120 hacia Tancoyol.",
+        "Horarios": "09:00 a 17:00 hrs todos los días.",
+        "Costo": "Entrada gratuita.",
+        "Actividades": "Turismo cultural y religioso, fotografía.",
+        "Servicios disponibles": "Servicios básicos en la pequeña comunidad de Tancoyol.",
+        "Accesibilidad": "Accesible en silla de ruedas hasta el atrio; escalones bajos en la entrada principal.",
+        "Recomendaciones y restricciones": "Cargar gasolina en Jalpan antes de tomar la desviación, ya que en la ruta hay menos servicios.",
+        "Contacto": "Diócesis de Querétaro.",
+        "Fotografías y videos": "Fotografía real del lugar adjunta.",
+        "Fuente y fecha de verificación": "UNESCO / Turismo de Querétaro (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/lugares/mision-de-tancoyol.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/38cce4480a64f3c65dfa4e08795af0ee76815555.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Fichas_Lugares_Jalpan_V3.docx",
+        "version": "V3"
+      }
+    },
+    {
+      "tipo": "lugar",
+      "municipio": "Jalpan de Serra",
+      "nombre": "Presa de Jalpan",
+      "slug": "presa-jalpan",
+      "categoria_fuente": "Presa / Atractivo Natural",
+      "prestador": null,
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre oficial": "Presa de Jalpan",
+        "Municipio y localidad": "Jalpan de Serra, Querétaro.",
+        "Categoría": "Presa / Atractivo Natural",
+        "Descripción": "Un oasis artificial que se ha integrado perfectamente al ecosistema de la Sierra Gorda. Fue declarada sitio Ramsar (humedal de importancia internacional) por la gran cantidad de aves migratorias que recibe.",
+        "Ubicación exacta": "A 1.5 km al sur de la plaza principal de Jalpan.",
+        "Cómo llegar": "Se puede llegar caminando desde el centro de Jalpan a través del andador arbolado, o en vehículo en 5 minutos.",
+        "Horarios": "Espacio público abierto 24 horas (horario recomendado: 07:00 a 19:00 hrs).",
+        "Costo": "Acceso libre.",
+        "Actividades": "Paseos en lancha, kayak, pesca deportiva, ciclismo de montaña (circuito alrededor de la presa), observación de aves.",
+        "Servicios disponibles": "Renta de kayaks, palapas, asadores, renta de bicicletas, cabañas ecoturísticas aledañas.",
+        "Accesibilidad": "Alta en el andador principal y zonas de palapas. Baja en los senderos perimetrales no pavimentados.",
+        "Recomendaciones y restricciones": "Llevar binoculares para observación de aves. Usar chaleco salvavidas para actividades acuáticas.",
+        "Contacto": "Turismo Municipal de Jalpan de Serra.",
+        "Fotografías y videos": "Fotografía real del lugar adjunta.",
+        "Fuente y fecha de verificación": "sitiosramsar.conanp.gob.mx (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/lugares/presa-jalpan.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/c9e869c33aee99d7f26a7c5b23af79cc71ffbd41.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Fichas_Lugares_Jalpan_V3.docx",
+        "version": "V3"
+      }
+    },
+    {
+      "tipo": "lugar",
+      "municipio": "Jalpan de Serra",
+      "nombre": "Zona Arqueológica Tancama",
+      "slug": "tancama",
+      "categoria_fuente": "Zona Arqueológica",
+      "prestador": null,
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre oficial": "Zona Arqueológica Tancama",
+        "Municipio y localidad": "Jalpan de Serra, Querétaro.",
+        "Categoría": "Zona Arqueológica",
+        "Descripción": "Asentamiento de la cultura huasteca cuyo nombre significa 'Cerro de fuego'. Destaca por su adaptación a la topografía de la sierra, con plazas escalonadas (El Mirador, Santiago, La Promesa) y arquitectura de basamentos circulares.",
+        "Ubicación exacta": "Aproximadamente a 30 minutos de la cabecera municipal de Jalpan. [Enlace a Google Maps]",
+        "Cómo llegar": "Desde Jalpan, tomar la carretera federal 120 hacia Xilitla y luego la desviación asfaltada señalizada hacia Tancama.",
+        "Horarios": "Martes a Domingo de 09:00 a 16:00 hrs.",
+        "Costo": "Aprox $75 MXN (Exentos: menores, estudiantes e INAPAM).",
+        "Actividades": "Turismo arqueológico, observación de basamentos, fotografía de paisaje serrano.",
+        "Servicios disponibles": "Custodia del INAH, taquilla, sanitarios, señalética.",
+        "Accesibilidad": "Baja accesibilidad para sillas de ruedas por ser terreno natural y plataformas escalonadas.",
+        "Recomendaciones y restricciones": "Llevar agua y protector solar. Respetar los senderos delimitados.",
+        "Contacto": "INAH Centro Querétaro.",
+        "Fotografías y videos": "Fotografía real del lugar adjunta.",
+        "Fuente y fecha de verificación": "INAH (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/lugares/tancama.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/ad7ff03183df0d2543363c3c7fd274f3eed6aaed.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Fichas_Lugares_Jalpan_V3.docx",
+        "version": "V3"
+      }
+    },
+    {
+      "tipo": "lugar",
+      "municipio": "Landa de Matamoros",
+      "nombre": "Misión de Santa María del Agua de Landa",
+      "slug": "mision-de-landa",
+      "categoria_fuente": "Misión Franciscana, Patrimonio de la Humanidad (UNESCO)",
+      "prestador": null,
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre oficial": "Misión de Santa María del Agua de Landa",
+        "Municipio y localidad": "Landa de Matamoros, Querétaro.",
+        "Categoría": "Misión Franciscana, Patrimonio de la Humanidad (UNESCO)",
+        "Descripción": "Construida entre 1761 y 1764, es considerada la misión con la fachada más ornamentada y teológicamente profunda. Dedicada a la Purísima Concepción, representa la Ciudad de Dios y fue el punto de partida misionero hacia Texas y California.",
+        "Ubicación exacta": "Centro Histórico de Landa de Matamoros. [Enlace a Google Maps]",
+        "Cómo llegar": "Accesible por la carretera federal 120 (San Juan del Río - Xilitla). Se encuentra en la plaza principal del municipio, a 20 km de Jalpan.",
+        "Horarios": "Lunes a Domingo de 08:00 a 18:00 hrs.",
+        "Costo": "Entrada libre.",
+        "Actividades": "Turismo religioso y cultural, arquitectura histórica y fotografía.",
+        "Servicios disponibles": "Alimentos, cajeros y pequeños comercios en los alrededores de la plaza.",
+        "Accesibilidad": "Acceso pavimentado y a nivel de calle.",
+        "Recomendaciones y restricciones": "Procurar silencio en interiores y no utilizar flash fotográfico.",
+        "Contacto": "Parroquia local de Landa.",
+        "Fotografías y videos": "Fotografía real del lugar adjunta.",
+        "Fuente y fecha de verificación": "queretaro.travel (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/lugares/mision-de-landa.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/356cc20a07b00bef009c032d58770c638b221526.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Fichas_Lugares_Landa_de_Matamoros.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "lugar",
+      "municipio": "Landa de Matamoros",
+      "nombre": "Misión de San Francisco del Valle de Tilaco",
+      "slug": "mision-de-tilaco",
+      "categoria_fuente": "Misión Franciscana, Patrimonio de la Humanidad (UNESCO)",
+      "prestador": null,
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre oficial": "Misión de San Francisco del Valle de Tilaco",
+        "Municipio y localidad": "Tilaco, Landa de Matamoros, Querétaro.",
+        "Categoría": "Misión Franciscana, Patrimonio de la Humanidad (UNESCO)",
+        "Descripción": "Es la misión más pequeña pero con una ornamentación ingenua y alegre que incluye sirenas, un elemento inusual en el arte sacro. Construida entre 1754 y 1762 en un pequeño valle rodeado de montañas.",
+        "Ubicación exacta": "Comunidad de Tilaco, Landa de Matamoros. [Enlace a Google Maps]",
+        "Cómo llegar": "Desde Landa, continuar por la federal 120 y tomar la desviación pavimentada hacia Tilaco (aprox. 30 minutos).",
+        "Horarios": "Lunes a Domingo de 09:00 a 17:00 hrs.",
+        "Costo": "Entrada libre.",
+        "Actividades": "Turismo cultural y arquitectónico.",
+        "Servicios disponibles": "Fondas familiares, pequeñas posadas locales.",
+        "Accesibilidad": "Rampa en la entrada, plaza plana, sin embargo los accesos secundarios pueden tener desniveles.",
+        "Recomendaciones y restricciones": "Ideal visitarla durante el día para apreciar mejor el valle y los detalles arquitectónicos.",
+        "Contacto": "Delegación comunitaria.",
+        "Fotografías y videos": "Fotografía real del lugar adjunta.",
+        "Fuente y fecha de verificación": "mexicodesconocido.com.mx (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/lugares/mision-de-tilaco.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/cc1b86ea3ab682286b1da13f4b65031f3183177d.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Fichas_Lugares_Landa_de_Matamoros.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "lugar",
+      "municipio": "Landa de Matamoros",
+      "nombre": "Comunidad de Neblinas / Río Neblinas",
+      "slug": "neblinas",
+      "categoria_fuente": "Comunidad Rural / Naturaleza / Río y Cascadas",
+      "prestador": null,
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre oficial": "Comunidad de Neblinas / Río Neblinas",
+        "Municipio y localidad": "Neblinas, Landa de Matamoros, Querétaro.",
+        "Categoría": "Comunidad Rural / Naturaleza / Río y Cascadas",
+        "Descripción": "Es el punto más oriental del estado de Querétaro, caracterizado por sus bosques de niebla, cafetales y su cercanía con el río Moctezuma. Destaca la Cascada de Neblinas y su exuberante biodiversidad.",
+        "Ubicación exacta": "Comunidad de Neblinas, al este de Landa de Matamoros. [Enlace a Google Maps]",
+        "Cómo llegar": "El camino es de terracería sinuosa. Se recomienda vehículo 4x4 o camioneta alta. Desde la carretera 120, tomar la desviación en La Lagunita.",
+        "Horarios": "Abierto 24 hrs, pero se requiere viajar con luz de día.",
+        "Costo": "Generalmente gratuito, cuotas ejidales simbólicas.",
+        "Actividades": "Senderismo, campismo, fotografía de paisajes, convivencia rural.",
+        "Servicios disponibles": "Servicios muy básicos en la comunidad (tiendas de abarrotes y hospedaje rústico muy limitado).",
+        "Accesibilidad": "Dificultad alta; caminos de terracería resbaladiza en temporada de lluvias. No apto para movilidad reducida.",
+        "Recomendaciones y restricciones": "Viajar en temporada seca, llevar provisiones y preguntar por guías locales.",
+        "Contacto": "Autoridades ejidales de Neblinas.",
+        "Fotografías y videos": "Fotografía real del lugar adjunta.",
+        "Fuente y fecha de verificación": "mapcarta.com (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/lugares/neblinas.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/b810e2302116496d33f5936a6b69f4e52fbbbec0.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Fichas_Lugares_Landa_de_Matamoros.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "lugar",
+      "municipio": "Landa de Matamoros",
+      "nombre": "Cascada de Río Verdito",
+      "slug": "rio-verdito",
+      "categoria_fuente": "Cascada / Río / Atractivo Natural",
+      "prestador": null,
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre oficial": "Cascada de Río Verdito",
+        "Municipio y localidad": "Río Verdito, Landa de Matamoros, Querétaro.",
+        "Categoría": "Cascada / Río / Atractivo Natural",
+        "Descripción": "Hermosa cascada rodeada de vegetación tipo selva baja y bosque. Sus aguas corren limpias y cristalinas formando pozas naturales de tonos verde esmeralda.",
+        "Ubicación exacta": "Comunidad de Río Verdito, Landa de Matamoros. [Enlace a Google Maps]",
+        "Cómo llegar": "Desde la carretera principal (120), tomar la desviación hacia Agua Zarca y posteriormente hacia Río Verdito. Camino pavimentado hasta el pueblo, seguido de un sendero peatonal.",
+        "Horarios": "Luz de día (07:00 a 18:00 hrs).",
+        "Costo": "Contribución comunitaria de entre $20 y $50 MXN.",
+        "Actividades": "Natación, senderismo, ecoturismo y días de campo.",
+        "Servicios disponibles": "Comedores de comida típica, baños rústicos y zonas de campamento (administrados por la comunidad).",
+        "Accesibilidad": "El sendero hacia la cascada incluye escalones de piedra y pendientes resbaladizas; no es apto para sillas de ruedas.",
+        "Recomendaciones y restricciones": "Llevar repelente ecológico, zapato acuático, bolsas para basura.",
+        "Contacto": "Comité turístico de Río Verdito.",
+        "Fotografías y videos": "Fotografía real del lugar adjunta.",
+        "Fuente y fecha de verificación": "mexico.pueblosamerica.com (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/lugares/rio-verdito.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/420e5fb37de58061ed779717ba90003fa36fac37.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Fichas_Lugares_Landa_de_Matamoros.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "lugar",
+      "municipio": "Peñamiller",
+      "nombre": "Balneario El Oasis",
+      "slug": "balneario-el-oasis",
+      "categoria_fuente": "Balneario / Manantial / Parque Acuático",
+      "prestador": null,
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre oficial": "Balneario El Oasis",
+        "Municipio y localidad": "Peñamiller, Querétaro.",
+        "Categoría": "Balneario / Manantial / Parque Acuático",
+        "Descripción": "Un balneario natural y semi-urbanizado escondido entre las montañas semiáridas de Peñamiller. Alimentado por manantiales de aguas cristalinas, es un verdadero 'oasis' en medio de la Sierra Gorda que ofrece descanso y diversión para toda la familia.",
+        "Ubicación exacta": "A pocos kilómetros de la cabecera municipal de Peñamiller. [Enlace a Google Maps]",
+        "Cómo llegar": "Accesible por carretera pavimentada y un tramo corto de terracería en buenas condiciones. Ubicado cerca del cauce del río.",
+        "Horarios": "Martes a Domingo de 09:00 a 18:00 hrs (Sujeto a cambios).",
+        "Costo": "Entrada general aproximada: $70 - $100 MXN.",
+        "Actividades": "Natación en albercas, campismo, convivencias familiares, días de campo.",
+        "Servicios disponibles": "Albercas familiares y chapoteaderos, asadores, sanitarios, regaderas, áreas verdes y zona de acampar.",
+        "Accesibilidad": "Zonas planas con andadores de concreto, accesible para personas con movilidad reducida (hasta el área de albercas).",
+        "Recomendaciones y restricciones": "Llevar bloqueador solar biodegradable, no introducir envases de vidrio. Fines de semana suele estar concurrido.",
+        "Contacto": "Administración local de El Oasis.",
+        "Fotografías y videos": "Fotografía real del lugar adjunta.",
+        "Fuente y fecha de verificación": "ciudadypoder.mx (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/lugares/balneario-el-oasis.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/e00b00fc63ae9a32bfe5a62c7fb4ce30c960e911.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Fichas_Lugares_Penamiller.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "lugar",
+      "municipio": "Peñamiller",
+      "nombre": "Cañón del Paraíso",
+      "slug": "canon-del-paraiso",
+      "categoria_fuente": "Cañón / Río / Atractivo Natural de Aventura",
+      "prestador": null,
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre oficial": "Cañón del Paraíso",
+        "Municipio y localidad": "Río Blanco, Peñamiller, Querétaro.",
+        "Categoría": "Cañón / Río / Atractivo Natural de Aventura",
+        "Descripción": "Un espectacular desfiladero natural flanqueado por inmensas paredes de mármol negro. Es surcado por el río Extoraz, lo que lo convierte en un paisaje místico y desafiante ideal para los amantes del turismo de aventura y el senderismo extremo.",
+        "Ubicación exacta": "Comunidad de Río Blanco, Peñamiller. [Enlace a Google Maps]",
+        "Cómo llegar": "Se llega hasta la comunidad de Río Blanco en auto, y a partir de ahí se debe realizar una caminata (senderismo acuático) por el cauce del río Extoraz.",
+        "Horarios": "Recorridos desde el amanecer hasta media tarde para evitar la noche en el cañón.",
+        "Costo": "Acceso gratuito, pero se recomienda ampliamente contratar un guía local ($200-$400 MXN aprox).",
+        "Actividades": "Senderismo acuático (caminar sobre el río), cañonismo, fotografía de paisaje y observación geológica.",
+        "Servicios disponibles": "Ninguno en el cañón. En la comunidad de Río Blanco hay servicios básicos de tiendas.",
+        "Accesibilidad": "Muy difícil. Requiere caminar sobre piedras de río, cruzar corrientes de agua y escalar rocas. Inadecuado para sillas de ruedas o niños muy pequeños.",
+        "Recomendaciones y restricciones": "Uso obligatorio de chaleco salvavidas (en pozas), zapatos acuáticos o tenis con buen agarre. NO visitar en temporada de lluvias intensas por riesgo de crecidas repentinas.",
+        "Contacto": "Guías comunitarios de Río Blanco.",
+        "Fotografías y videos": "Fotografía real del lugar adjunta.",
+        "Fuente y fecha de verificación": "elsouvenir.com (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/lugares/canon-del-paraiso.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/e260d1b21f8396da5b749a50883048d708359fa3.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Fichas_Lugares_Penamiller.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "lugar",
+      "municipio": "Peñamiller",
+      "nombre": "Vestigios y Pinturas Rupestres en Peñamiller",
+      "slug": "vestigios-prehistoricos",
+      "categoria_fuente": "Zona Arqueológica / Vestigios Históricos",
+      "prestador": null,
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre oficial": "Vestigios y Pinturas Rupestres en Peñamiller",
+        "Municipio y localidad": "Diversas zonas alrededor de Peñamiller, Querétaro.",
+        "Categoría": "Zona Arqueológica / Vestigios Históricos",
+        "Descripción": "La zona semiárida de Peñamiller alberga antiguas manifestaciones humanas. Destacan restos de asentamientos antiguos de culturas locales y pinturas rupestres que evidencian la importancia de la región como ruta de paso prehispánica.",
+        "Ubicación exacta": "Cerros aledaños a la cabecera municipal. (Zonas no habilitadas turísticamente al 100%). [Enlace a Google Maps]",
+        "Cómo llegar": "Depende de la zona específica. Generalmente se requiere senderismo desde la cabecera o comunidades cercanas guiado por lugareños.",
+        "Horarios": "A coordinar con guías locales.",
+        "Costo": "Cuota de guía local (variable).",
+        "Actividades": "Senderismo histórico, exploración cultural y arqueológica.",
+        "Servicios disponibles": "Servicios nulos en las zonas arqueológicas; todos los servicios están en Peñamiller Centro.",
+        "Accesibilidad": "Ascensos a campo traviesa o senderos irregulares. No apto para movilidad reducida.",
+        "Recomendaciones y restricciones": "Contratar obligatoriamente un guía local que conozca los senderos. Prohibido tocar o dañar las pinturas y vestigios.",
+        "Contacto": "Dirección de Turismo de Peñamiller.",
+        "Fotografías y videos": "Fotografía real del lugar adjunta.",
+        "Fuente y fecha de verificación": "mexicotravelclub.com (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/lugares/vestigios-prehistoricos.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/baa33787408b99e9d18de2448edbfc702a954035.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Fichas_Lugares_Penamiller.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "lugar",
+      "municipio": "Pinal de Amoles",
+      "nombre": "Mirador Cuatro Palos",
+      "slug": "cuatro-palos",
+      "categoria_fuente": "Mirador Natural / Montaña",
+      "prestador": null,
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre oficial": "Mirador Cuatro Palos",
+        "Municipio y localidad": "Comunidad Cuatro Palos, Pinal de Amoles, Querétaro.",
+        "Categoría": "Mirador Natural / Montaña",
+        "Descripción": "Uno de los puntos más altos y espectaculares de la Sierra Gorda. Famoso por su vista panorámica donde el semidesierto se encuentra con los bosques de encino, y por el fenómeno del 'mar de nubes' durante el amanecer.",
+        "Ubicación exacta": "En lo alto del Cerro de la Media Luna, comunidad de Cuatro Palos. [Enlace a Google Maps]",
+        "Cómo llegar": "Desviación en la comunidad de La Cañada (Carretera 120), subir por un camino de terracería de aprox. 5 km. Se recomienda vehículo alto o contratar transporte local.",
+        "Horarios": "06:00 a 18:00 hrs (Ideal llegar al amanecer).",
+        "Costo": "Acceso aprox: $80 - $100 MXN.",
+        "Actividades": "Observación de paisajes, fotografía de amaneceres, senderismo, campismo.",
+        "Servicios disponibles": "Guías comunitarios (obligatorios para acceder al mirador), área de acampar, baños rústicos, venta de antojitos los fines de semana.",
+        "Accesibilidad": "Dificultad media. Caminata en ascenso por sendero de terracería y escalones de piedra. Inadecuado para sillas de ruedas.",
+        "Recomendaciones y restricciones": "Llevar ropa muy abrigadora (hace mucho frío de madrugada), calzado de montaña. No subir en caso de tormenta.",
+        "Contacto": "Comité de Turismo Cuatro Palos.",
+        "Fotografías y videos": "Fotografía real del lugar adjunta.",
+        "Fuente y fecha de verificación": "queretaro.travel (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/lugares/cuatro-palos.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/642c4400d9dc4381b28d610bca9a606c9af56bc7.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Fichas_Lugares_Pinal_de_Amoles.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "lugar",
+      "municipio": "Pinal de Amoles",
+      "nombre": "Cascada El Chuveje",
+      "slug": "el-chuveje",
+      "categoria_fuente": "Cascada / Río / Bosque",
+      "prestador": null,
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre oficial": "Cascada El Chuveje",
+        "Municipio y localidad": "Pinal de Amoles, Querétaro.",
+        "Categoría": "Cascada / Río / Bosque",
+        "Descripción": "Espléndida caída de agua de casi 30 metros de altura rodeada de un exuberante bosque de álamos, sauces y helechos. Sus aguas cristalinas corren formando pozas naturales.",
+        "Ubicación exacta": "A pocos kilómetros de la cabecera municipal rumbo a Jalpan. [Enlace a Google Maps]",
+        "Cómo llegar": "Sobre la carretera 120 (San Juan del Río-Xilitla), a unos 18 km de Pinal de Amoles, tomar la desviación señalizada y bajar por terracería hasta el estacionamiento.",
+        "Horarios": "Lunes a Domingo de 08:00 a 17:00 hrs.",
+        "Costo": "Entrada general: $80 MXN aprox.",
+        "Actividades": "Senderismo ligero, fotografía, observación de flora y fauna, días de campo.",
+        "Servicios disponibles": "Estacionamiento, baños, puestos de comida regional (fines de semana), zona de campamento regulada.",
+        "Accesibilidad": "Sendero de tierra plano y arbolado de unos 15-20 minutos desde el estacionamiento. Accesible para la mayoría, aunque complicado para sillas de ruedas en temporada de lluvias por el lodo.",
+        "Recomendaciones y restricciones": "ESTÁ PROHIBIDO NADAR (es reserva natural para proteger fauna endémica como el ajolote). No introducir bebidas alcohólicas ni mascotas.",
+        "Contacto": "CONANP / Administración de El Chuveje.",
+        "Fotografías y videos": "Fotografía real del lugar adjunta.",
+        "Fuente y fecha de verificación": "huellasdesal.com (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/lugares/el-chuveje.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/0d1a76d998f2efdc11f9682fc3f395fc96752815.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Fichas_Lugares_Pinal_de_Amoles.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "lugar",
+      "municipio": "Pinal de Amoles",
+      "nombre": "Mirador de Cristal (Peña de las Guacamayas)",
+      "slug": "mirador-de-cristal",
+      "categoria_fuente": "Mirador de Aventura",
+      "prestador": null,
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre oficial": "Mirador de Cristal (Peña de las Guacamayas)",
+        "Municipio y localidad": "Pinal de Amoles, Querétaro.",
+        "Categoría": "Mirador de Aventura",
+        "Descripción": "Atractivo turístico reciente que consiste en una plataforma de cristal transparente suspendida a más de 120 metros de altura sobre un acantilado, ofreciendo vistas de vértigo del cañón y la sierra verde.",
+        "Ubicación exacta": "Cercano a la Puerta del Cielo y a la cabecera municipal. [Enlace a Google Maps]",
+        "Cómo llegar": "Acceso desde la carretera principal 120, a escasos minutos del centro de Pinal de Amoles.",
+        "Horarios": "Lunes a Domingo de 09:00 a 18:00 hrs (Sujeto a clima).",
+        "Costo": "Acceso aprox: $150 MXN (Incluye uso del mirador de cristal por tiempo limitado).",
+        "Actividades": "Fotografía de aventura, apreciación del paisaje.",
+        "Servicios disponibles": "Fotógrafo en el sitio (opcional con costo extra), sanitarios, tirolesa (en algunos complejos aledaños).",
+        "Accesibilidad": "Accesible mediante escaleras de madera y metal. Prohibido entrar con zapatos (te prestan cubrecalzado para proteger el cristal).",
+        "Recomendaciones y restricciones": "No apto para personas con fobia extrema a las alturas. Seguir las instrucciones de tiempo máximo en la plataforma.",
+        "Contacto": "Turismo Municipal Pinal de Amoles.",
+        "Fotografías y videos": "Fotografía real del lugar adjunta.",
+        "Fuente y fecha de verificación": "pinaldeamoles.travel (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/lugares/mirador-de-cristal.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/c539a3f91b37e721ea080e906bbaa23dedec455f.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Fichas_Lugares_Pinal_de_Amoles.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "lugar",
+      "municipio": "San Joaquín",
+      "nombre": "Cascadas Maravillas / Cascada Las Maravillas",
+      "slug": "cascadas-maravilla",
+      "categoria_fuente": "Cascada / Río / Atractivo Natural",
+      "prestador": null,
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre oficial": "Cascadas Maravillas / Cascada Las Maravillas",
+        "Municipio y localidad": "San Joaquín, Querétaro.",
+        "Categoría": "Cascada / Río / Atractivo Natural",
+        "Descripción": "Una impresionante caída de agua rodeada de un paisaje boscoso y húmedo que caracteriza la entrada a la Sierra Gorda. Ideal para desconectarse y disfrutar de la naturaleza en estado puro.",
+        "Ubicación exacta": "Aproximadamente a 20 minutos de la cabecera municipal de San Joaquín. [Enlace a Google Maps]",
+        "Cómo llegar": "Desde la plaza principal de San Joaquín, se toma un camino de terracería en dirección a la zona boscosa. Se recomienda vehículo alto o cuatrimoto, seguido de una caminata en descenso.",
+        "Horarios": "08:00 a 17:00 hrs (recomedado con luz de día).",
+        "Costo": "Aproximadamente $50 MXN (Cuota comunitaria).",
+        "Actividades": "Senderismo, fotografía de paisaje, días de campo, ecoturismo.",
+        "Servicios disponibles": "Servicios rústicos y básicos administrados por la comunidad local (palapas y venta ocasional de alimentos en temporada alta).",
+        "Accesibilidad": "Accesibilidad baja. El sendero es de terracería con pendientes pronunciadas y piedras. Inadecuado para sillas de ruedas o personas con movilidad reducida.",
+        "Recomendaciones y restricciones": "Llevar calzado con buen agarre (antiderrapante), agua potable, repelente de insectos ecológico. Evitar nadar en épocas de fuertes corrientes.",
+        "Contacto": "Comunidad local de San Joaquín.",
+        "Fotografías y videos": "Fotografía real del lugar adjunta.",
+        "Fuente y fecha de verificación": "mexicodesconocido.com.mx (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/lugares/cascadas-maravilla.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/8c55bcf0edb61d2d460d2976ffafa69889e79b96.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Fichas_Lugares_San_Joaquin.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "lugar",
+      "municipio": "San Joaquín",
+      "nombre": "Grutas de los Herrera",
+      "slug": "grutas-de-los-herrera",
+      "categoria_fuente": "Grutas / Formación Geológica",
+      "prestador": null,
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre oficial": "Grutas de los Herrera",
+        "Municipio y localidad": "San Joaquín, Querétaro.",
+        "Categoría": "Grutas / Formación Geológica",
+        "Descripción": "Espectaculares cavernas milenarias acondicionadas para el turismo, donde se pueden admirar impresionantes formaciones de estalactitas y estalagmitas que la naturaleza ha esculpido durante miles de años.",
+        "Ubicación exacta": "A tan solo 10 minutos de la cabecera municipal de San Joaquín. [Enlace a Google Maps]",
+        "Cómo llegar": "Acceso pavimentado muy cerca del centro de San Joaquín. Hay señalamientos claros sobre la carretera principal.",
+        "Horarios": "Martes a Domingo de 10:00 a 17:00 hrs.",
+        "Costo": "Entrada general: $40 - $50 MXN.",
+        "Actividades": "Exploración de cavernas, fotografía geológica, turismo familiar.",
+        "Servicios disponibles": "Estacionamiento, sanitarios, andadores de concreto iluminados y escalinatas con pasamanos en el interior de la gruta.",
+        "Accesibilidad": "El interior está adaptado con escaleras y barandales seguros, pero no es accesible para sillas de ruedas debido a los desniveles naturales de la cueva.",
+        "Recomendaciones y restricciones": "Usar zapatos cómodos y cerrados. No tocar las formaciones rocosas para evitar dañar su crecimiento natural.",
+        "Contacto": "Administración turística municipal.",
+        "Fotografías y videos": "Fotografía real del lugar adjunta.",
+        "Fuente y fecha de verificación": "queretaro.travel / mexicodesconocido.com.mx (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/lugares/grutas-de-los-herrera.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/206986ac05ffefb583d1af85995b8c424d1e7f6d.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Fichas_Lugares_San_Joaquin.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "lugar",
+      "municipio": "San Joaquín",
+      "nombre": "Zona Arqueológica Ranas",
+      "slug": "ranas",
+      "categoria_fuente": "Zona Arqueológica / Patrimonio Histórico",
+      "prestador": null,
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre oficial": "Zona Arqueológica Ranas",
+        "Municipio y localidad": "San Joaquín, Querétaro.",
+        "Categoría": "Zona Arqueológica / Patrimonio Histórico",
+        "Descripción": "Importante centro ceremonial, político y religioso asociado a la explotación minera prehispánica (especialmente el cinabrio) durante el periodo Clásico. Sus estructuras están construidas estratégicamente sobre elevaciones naturales con lajas de piedra.",
+        "Ubicación exacta": "A 3 km al norte de la cabecera municipal de San Joaquín. [Enlace a Google Maps]",
+        "Cómo llegar": "Camino pavimentado desde el centro de San Joaquín, se puede llegar en vehículo o caminando en aproximadamente 45 minutos.",
+        "Horarios": "Lunes a Domingo de 09:00 a 17:00 hrs.",
+        "Costo": "Entrada general aproximada: $75 MXN (Exentos: menores de 13 años, estudiantes, maestros e INAPAM).",
+        "Actividades": "Turismo arqueológico, fotografía, conocimiento de las culturas de la Sierra Gorda, observación de las canchas del juego de pelota.",
+        "Servicios disponibles": "Custodia del INAH, taquilla, sanitarios en la entrada, señalética informativa.",
+        "Accesibilidad": "Terreno irregular, con senderos de terracería y escalinatas prehispánicas. Complicado para personas con movilidad reducida.",
+        "Recomendaciones y restricciones": "Llevar sombrero, bloqueador solar y agua. Respetar las delimitaciones y no subir a las estructuras restringidas.",
+        "Contacto": "INAH Querétaro.",
+        "Fotografías y videos": "Fotografía real del lugar adjunta.",
+        "Fuente y fecha de verificación": "mexicodesconocido.com.mx / INAH (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/lugares/ranas.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/bb9f684c15a44192444641bb25f53543161bdf45.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Fichas_Lugares_San_Joaquin.docx",
+        "version": null
+      }
+    }
+  ],
+  "servicios": [
+    {
+      "tipo": "servicio",
+      "municipio": "Arroyo Seco",
+      "nombre": "Hotel Hacienda Misión Concá",
+      "slug": "hotel-hacienda-mision-conca",
+      "categoria_fuente": "Hospedaje, Restaurante y Eventos",
+      "prestador": "Hoteles Misión",
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre": "Hotel Hacienda Misión Concá",
+        "Tipo de servicio": "Hospedaje, Restaurante y Eventos",
+        "Prestador responsable": "Hoteles Misión",
+        "Descripción": "Hotel con arquitectura tipo ex-hacienda. Ofrece habitaciones confortables, alberca, amplios jardines y restaurante de comida regional.",
+        "Municipio y localidad": "Concá, Arroyo Seco, Querétaro",
+        "Ubicación": "Carretera Jalpan-Río Verde Km 32, C.P. 76340, Concá, Qro.",
+        "Contacto público": "Tel: +52 487 877 4001 / Web: www.hotelesmision.com",
+        "Horarios": "Recepción 24 horas. Restaurante de 07:00 a 22:00 hrs.",
+        "Precio": "Desde $1,500 MXN a $2,500 MXN por noche.",
+        "Reservación": "Se sugiere reservar a través de su sitio web o vía telefónica.",
+        "Capacidad y requisitos": "Variedad de habitaciones (sencillas, dobles y suites familiares).",
+        "Accesibilidad": "Rampas en áreas comunes y habitaciones en planta baja.",
+        "Lugares relacionados": "Misión de San Miguel Concá y Las Adjuntas.",
+        "Fotografías": "Fotografía referencial del platillo adjunta.",
+        "Fuente y verificación": "Directorio Mexicoo.mx / Datos de cadena hotelera (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/servicios/hotel-hacienda-mision-conca.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/940a40ea3e859deb942840e9ce3530c4b3b87ef9.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Servicios_Turisticos_Arroyo_Seco_Con_Imagenes.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "servicio",
+      "municipio": "Arroyo Seco",
+      "nombre": "Villas Villa Riviera",
+      "slug": "villas-villa-riviera",
+      "categoria_fuente": "Hospedaje (Villas y Cabañas)",
+      "prestador": "Propietario Local",
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre": "Villas Villa Riviera",
+        "Tipo de servicio": "Hospedaje (Villas y Cabañas)",
+        "Prestador responsable": "Propietario Local",
+        "Descripción": "Conjunto de villas turísticas rodeadas de entorno natural. Ideal para viajes familiares y grupos.",
+        "Municipio y localidad": "Arroyo Seco, Querétaro",
+        "Ubicación": "Carretera principal de Arroyo Seco, C.P. 76430.",
+        "Contacto público": "Consultas presenciales o en oficinas de turismo municipal.",
+        "Horarios": "Horario administrativo de 09:00 a 18:00 hrs.",
+        "Precio": "Desde $1,200 MXN por noche (Cabaña básica).",
+        "Reservación": "Mediante contacto directo vía WhatsApp.",
+        "Capacidad y requisitos": "Villas adaptadas para grupos de 4 hasta 12 personas.",
+        "Accesibilidad": "Acceso rústico, limitaciones para sillas de ruedas en jardines.",
+        "Lugares relacionados": "Río Santa María y Las Adjuntas.",
+        "Fotografías": "Fotografía referencial del platillo adjunta.",
+        "Fuente y verificación": "villariviera.com.mx (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/servicios/villas-villa-riviera.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/e5bec808c4200314788ec100b81a372e0d16b170.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Servicios_Turisticos_Arroyo_Seco_Con_Imagenes.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "servicio",
+      "municipio": "Arroyo Seco",
+      "nombre": "Restaurante Coral",
+      "slug": "restaurante-coral",
+      "categoria_fuente": "Alimentación (Restaurante a la carta y comida corrida)",
+      "prestador": "Comercio Local (Familiar)",
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre": "Restaurante Coral",
+        "Tipo de servicio": "Alimentación (Restaurante a la carta y comida corrida)",
+        "Prestador responsable": "Comercio Local (Familiar)",
+        "Descripción": "Restaurante tradicional de Arroyo Seco. Ofrece platillos típicos regionales.",
+        "Municipio y localidad": "Arroyo Seco, Querétaro",
+        "Ubicación": "Zona céntrica comercial de Arroyo Seco.",
+        "Contacto público": "https://www.facebook.com/p/Restaurante-Coral-100067955036860/",
+        "Horarios": "Lunes a Domingo de 08:00 a 19:00 hrs.",
+        "Precio": "Consumo promedio de $120 a $250 MXN por persona.",
+        "Reservación": "No requiere reservación previa.",
+        "Capacidad y requisitos": "Comedor con capacidad aproximada para 30 a 40 personas.",
+        "Accesibilidad": "Acceso a nivel de calle.",
+        "Lugares relacionados": "Ubicado en la cabecera municipal, paso hacia Sótano del Barro.",
+        "Fotografías": "Fotografía referencial del platillo adjunta.",
+        "Fuente y verificación": "Facebook Oficial (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/servicios/restaurante-coral.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/3238156f8676c735e9b36a1ee37e7adea5e464b2.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Servicios_Turisticos_Arroyo_Seco_Con_Imagenes.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "servicio",
+      "municipio": "Jalpan de Serra",
+      "nombre": "Hotel Misión Jalpan",
+      "slug": "hotel-mision-jalpan",
+      "categoria_fuente": "Hospedaje, Restaurante",
+      "prestador": "Hoteles Misión",
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre": "Hotel Misión Jalpan",
+        "Tipo de servicio": "Hospedaje, Restaurante",
+        "Prestador responsable": "Hoteles Misión",
+        "Descripción": "Hotel de estilo colonial ubicado justo frente a la Misión principal. Ofrece habitaciones confortables, alberca al aire libre, y restaurante que sirve gastronomía típica regional.",
+        "Municipio y localidad": "Jalpan de Serra, Querétaro",
+        "Ubicación": "Av. Fray Junípero Serra 3, Centro, 76340 Jalpan de Serra, Qro.",
+        "Contacto público": "Tel: +52 441 296 0445 / Web: hotelesmision.com",
+        "Horarios": "Recepción 24 horas.",
+        "Precio": "Desde $1,800 MXN hasta $3,000 MXN por noche dependiendo de la temporada.",
+        "Reservación": "Vía portal web o por teléfono, políticas de cancelación estándar de 48 hrs.",
+        "Capacidad y requisitos": "Habitaciones para 2 a 4 personas. Cuenta con áreas para eventos.",
+        "Accesibilidad": "Rampas en el primer piso y acceso al restaurante para personas con sillas de ruedas.",
+        "Lugares relacionados": "Ubicado a unos pasos de la Misión Santiago Apóstol de Jalpan.",
+        "Fotografías": "Fotografía real del servicio adjunta.",
+        "Fuente y verificación": "Directorio Mexicoo.mx / Conocimiento general (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/servicios/hotel-mision-jalpan.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/f06af3208fb72b3c50874cdbedb9baa957082190.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Servicios_Turisticos_Jalpan_V2.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "servicio",
+      "municipio": "Jalpan de Serra",
+      "nombre": "Cabañas Centro Ecoturístico Presa Jalpan",
+      "slug": "cabanas-centro-ecoturistico-presa-jalpan",
+      "categoria_fuente": "Hospedaje (Cabañas) / Renta de lanchas y bicis",
+      "prestador": "Comunidad / Cooperativa Local",
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre": "Cabañas Centro Ecoturístico Presa Jalpan",
+        "Tipo de servicio": "Hospedaje (Cabañas) / Renta de lanchas y bicis",
+        "Prestador responsable": "Comunidad / Cooperativa Local",
+        "Descripción": "Cabañas rústicas pero cómodas situadas a orillas de la Presa de Jalpan. Se rentan kayaks, lanchas de pedales y bicicletas de montaña para recorrer los andadores del humedal.",
+        "Municipio y localidad": "Jalpan de Serra, Querétaro",
+        "Ubicación": "Carretera Jalpan - Río Verde s/n, a orillas de la Presa Jalpan.",
+        "Contacto público": "Consultar en el módulo turístico o directamente en la Presa.",
+        "Horarios": "Oficina de 09:00 a 18:00 hrs. Hospedaje 24 hrs.",
+        "Precio": "Cabañas desde $1,200 MXN por noche. Renta de bicicletas y kayaks aprox $100 - $150 MXN por hora.",
+        "Reservación": "Anticipación de 1 semana en temporada baja y 1 mes en temporada alta.",
+        "Capacidad y requisitos": "Grupos familiares de hasta 6 personas por cabaña.",
+        "Accesibilidad": "Acceso rústico en terracería, algunas áreas pueden dificultar el paso a sillas de ruedas.",
+        "Lugares relacionados": "Presa de Jalpan (Humedal RAMSAR).",
+        "Fotografías": "Fotografía real del servicio adjunta.",
+        "Fuente y verificación": "Directorio Mexicoo.mx / Conocimiento general (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/servicios/cabanas-centro-ecoturistico-presa-jalpan.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/d2da421d8137f27cf0dd8e609ee9f2bef81d8657.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Servicios_Turisticos_Jalpan_V2.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "servicio",
+      "municipio": "Jalpan de Serra",
+      "nombre": "Restaurantes Tradicionales del Centro (Especialidad: Cecina Serrana)",
+      "slug": "restaurantes-tradicionales-del-centro-especialidad-cecina-serrana",
+      "categoria_fuente": "Alimentación (Restaurante regional)",
+      "prestador": "Comercios Locales (Centro)",
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre": "Restaurantes Tradicionales del Centro (Especialidad: Cecina Serrana)",
+        "Tipo de servicio": "Alimentación (Restaurante regional)",
+        "Prestador responsable": "Comercios Locales (Centro)",
+        "Descripción": "Representación de la gastronomía típica de la zona que incluye cecina serrana, enchiladas huastecas y queretanas, gorditas de maíz quebrado y bocoles.",
+        "Municipio y localidad": "Jalpan de Serra, Querétaro",
+        "Ubicación": "Zona de Portales y Centro Histórico de Jalpan.",
+        "Contacto público": "N/A (Atención sin reservación en la mayoría de fondas).",
+        "Horarios": "Lunes a Domingo de 08:00 a 20:00 hrs.",
+        "Precio": "Consumo promedio de $150 a $250 MXN por persona.",
+        "Reservación": "No requiere reservación.",
+        "Capacidad y requisitos": "Comedores con mesas de 4 a 8 personas.",
+        "Accesibilidad": "Fácil acceso desde la plaza principal pavimentada.",
+        "Lugares relacionados": "Misión Santiago Apóstol de Jalpan.",
+        "Fotografías": "Fotografía real del servicio adjunta.",
+        "Fuente y verificación": "Directorio Mexicoo.mx / Gastronomía Regional (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/servicios/restaurantes-tradicionales-del-centro-especialidad-cecina-serrana.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/ef077c09eb1fc86cc2d4021e7c4b4de842c34442.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Servicios_Turisticos_Jalpan_V2.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "servicio",
+      "municipio": "Jalpan de Serra",
+      "nombre": "Sierra Gorda Ecotours / Operadora de Grupo Ecológico Sierra Gorda",
+      "slug": "sierra-gorda-ecotours-operadora-de-grupo-ecologico-sierra-gorda",
+      "categoria_fuente": "Guías Turísticos y Tour Operador Ecológico",
+      "prestador": "Grupo Ecológico Sierra Gorda I.A.P.",
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre": "Sierra Gorda Ecotours / Operadora de Grupo Ecológico Sierra Gorda",
+        "Tipo de servicio": "Guías Turísticos y Tour Operador Ecológico",
+        "Prestador responsable": "Grupo Ecológico Sierra Gorda I.A.P.",
+        "Descripción": "Operadora turística oficial comunitaria. Ofrece recorridos guiados por las misiones franciscanas, talleres de cerámica, caminatas en la naturaleza, observación de aves y paquetes integrales con transporte y comida.",
+        "Municipio y localidad": "Jalpan de Serra, Querétaro (Abarca toda la Reserva)",
+        "Ubicación": "Centro de Información Turística, Juárez s/n, Centro, Jalpan de Serra.",
+        "Contacto público": "Tel: +52 441 296 0700 / Web: sierragordaecotours.com",
+        "Horarios": "Oficinas: Lunes a Sábado de 09:00 a 18:00 hrs.",
+        "Precio": "Tours desde $400 MXN hasta paquetes de varios días de $4,000+ MXN por persona.",
+        "Reservación": "Requiere reservación previa en línea o vía telefónica para asegurar disponibilidad de guías.",
+        "Capacidad y requisitos": "Atienden desde viajeros individuales hasta grupos grandes (camiones).",
+        "Accesibilidad": "Las oficinas son accesibles; la accesibilidad de los recorridos depende del paquete elegido.",
+        "Lugares relacionados": "Misión Jalpan, Presa de Jalpan y gestión de visitas a la Reserva de la Biosfera en general.",
+        "Fotografías": "Fotografía real del servicio adjunta.",
+        "Fuente y verificación": "sierragordaecotours.com (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/servicios/sierra-gorda-ecotours-operadora-de-grupo-ecologico-sierra-gorda.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/956ad6b2fe2fffa3db29b64925fa5e4810adb6da.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Servicios_Turisticos_Jalpan_V2.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "servicio",
+      "municipio": "Jalpan de Serra",
+      "nombre": "Casa de las Artesanías / Talleres Locales",
+      "slug": "casa-de-las-artesanias-talleres-locales",
+      "categoria_fuente": "Venta de Artesanías y Productos Locales",
+      "prestador": "Artesanos Locales / Municipio de Jalpan",
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre": "Casa de las Artesanías / Talleres Locales",
+        "Tipo de servicio": "Venta de Artesanías y Productos Locales",
+        "Prestador responsable": "Artesanos Locales / Municipio de Jalpan",
+        "Descripción": "Espacio dedicado a la exhibición y venta de productos regionales: cerámica policromada, textiles bordados, cestería, miel, licores de frutas, café serrano y talabartería elaborada por las comunidades.",
+        "Municipio y localidad": "Jalpan de Serra, Querétaro",
+        "Ubicación": "A un costado de la plaza principal y en el interior de los portales del centro histórico.",
+        "Contacto público": "Venta directa en tienda.",
+        "Horarios": "Lunes a Domingo de 10:00 a 19:00 hrs.",
+        "Precio": "Productos desde $50 MXN (souvenirs) hasta $2,000+ MXN (piezas grandes de cerámica).",
+        "Reservación": "No requiere cita, entrada libre.",
+        "Capacidad y requisitos": "Abierto al público general.",
+        "Accesibilidad": "Acceso nivelado para sillas de ruedas en la mayoría de las tiendas ubicadas en el centro.",
+        "Lugares relacionados": "Misión Santiago Apóstol de Jalpan y Centro Histórico.",
+        "Fotografías": "Fotografía real del servicio adjunta.",
+        "Fuente y verificación": "Conocimiento General de Turismo Qro. (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/servicios/casa-de-las-artesanias-talleres-locales.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/24348c9d08c8bd1526caaf27a5d634b2b3f74e74.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Servicios_Turisticos_Jalpan_V2.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "servicio",
+      "municipio": "Landa de Matamoros",
+      "nombre": "Hotel Plaza Landa",
+      "slug": "hotel-plaza-landa",
+      "categoria_fuente": "Hospedaje",
+      "prestador": "Propietario Local",
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre": "Hotel Plaza Landa",
+        "Tipo de servicio": "Hospedaje",
+        "Prestador responsable": "Propietario Local",
+        "Descripción": "Hotel céntrico ubicado frente a la Misión. Ofrece habitaciones familiares con aire acondicionado, Wi-Fi y vistas a la plaza, siendo una de las opciones más cómodas en pleno centro de Landa.",
+        "Municipio y localidad": "Landa de Matamoros, Querétaro",
+        "Ubicación": "Frente a la plaza principal, Centro de Landa de Matamoros.",
+        "Contacto público": "Airbnb o Booking (Hotel Plaza Landa)",
+        "Horarios": "Recepción en horarios diurnos.",
+        "Precio": "Habitaciones desde $900 MXN a $1,500 MXN por noche.",
+        "Reservación": "Mediante plataforma digital (Airbnb/Booking).",
+        "Capacidad y requisitos": "Habitaciones para 2 a 4 personas.",
+        "Accesibilidad": "El edificio cuenta con múltiples pisos, acceso por escaleras.",
+        "Lugares relacionados": "Misión de Santa María del Agua de Landa.",
+        "Fotografías": "Fotografía real del servicio adjunta.",
+        "Fuente y verificación": "Airbnb (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/servicios/hotel-plaza-landa.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/9758c705486592e65ecd4d3611407da6328b3d2d.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Servicios_Turisticos_Landa_de_Matamoros_Real.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "servicio",
+      "municipio": "Landa de Matamoros",
+      "nombre": "Pollos Brandon / Comedores de Landa",
+      "slug": "pollos-brandon-comedores-de-landa",
+      "categoria_fuente": "Alimentación (Comedor Local)",
+      "prestador": "Comercio Local Familiar",
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre": "Pollos Brandon / Comedores de Landa",
+        "Tipo de servicio": "Alimentación (Comedor Local)",
+        "Prestador responsable": "Comercio Local Familiar",
+        "Descripción": "Uno de los lugares de comida más populares y valorados por los lugareños en Landa de Matamoros. Ofrecen pollos asados, platillos típicos, gorditas y antojitos mexicanos ideales para reponer energía tras un día de expedición.",
+        "Municipio y localidad": "Landa de Matamoros, Querétaro",
+        "Ubicación": "Zona Centro, Landa de Matamoros.",
+        "Contacto público": "Atención directa en mostrador.",
+        "Horarios": "Lunes a Domingo desde mediodía hasta la tarde/noche.",
+        "Precio": "Consumo promedio de $100 a $150 MXN por persona.",
+        "Reservación": "No requiere reservación.",
+        "Capacidad y requisitos": "Mesas compartidas para grupos pequeños.",
+        "Accesibilidad": "Acceso a nivel de calle.",
+        "Lugares relacionados": "Centro de Landa de Matamoros.",
+        "Fotografías": "Fotografía real del servicio adjunta.",
+        "Fuente y verificación": "Restaurant Guru Landa (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/servicios/pollos-brandon-comedores-de-landa.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/dc6e3bda24eb91b3a82c97a0b9b85528b9687103.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Servicios_Turisticos_Landa_de_Matamoros_Real.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "servicio",
+      "municipio": "Peñamiller",
+      "nombre": "Campamento y Cabañas El Oasis",
+      "slug": "campamento-y-cabanas-el-oasis",
+      "categoria_fuente": "Hospedaje (Cabañas y Camping)",
+      "prestador": "Ejido Local (Cooperativa El Oasis)",
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre": "Campamento y Cabañas El Oasis",
+        "Tipo de servicio": "Hospedaje (Cabañas y Camping)",
+        "Prestador responsable": "Ejido Local (Cooperativa El Oasis)",
+        "Descripción": "Alojamiento en cabañas rústicas y renta de espacios para acampar a la orilla del río Extoraz, dentro de las instalaciones del balneario natural. Ideal para turismo de descanso y ecoturismo.",
+        "Municipio y localidad": "Peñamiller, Querétaro",
+        "Ubicación": "Comunidad Adjuntas de Higueras, a 15 km de la cabecera municipal.",
+        "Contacto público": "WhatsApp: +52 441 292 9000 (Aproximado / A través de su FB Oficial)",
+        "Horarios": "Abierto 24 horas para huéspedes. Entrada recomendada antes de las 18:00 hrs.",
+        "Precio": "Cabañas desde $800 MXN a $1,500 MXN por noche. Camping: $150 MXN por casa de campaña.",
+        "Reservación": "Mediante mensaje a la página de Facebook 'Eloasis Semidesierto' o WhatsApp con al menos 1 semana de anticipación.",
+        "Capacidad y requisitos": "Cabañas dobles o familiares de hasta 8 personas.",
+        "Accesibilidad": "Accesible hasta el área de acampar y algunas cabañas en planta baja.",
+        "Lugares relacionados": "Balneario El Oasis, Río Extoraz.",
+        "Fotografías": "Fotografía real del servicio adjunta.",
+        "Fuente y verificación": "Facebook Oficial Eloasis Semidesierto (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/servicios/campamento-y-cabanas-el-oasis.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/33ecd23a540dd11883e0069db59febf49d129afb.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Servicios_Turisticos_Penamiller.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "servicio",
+      "municipio": "Peñamiller",
+      "nombre": "Guías Locales Comunitarios - Río Blanco",
+      "slug": "guias-locales-comunitarios-rio-blanco",
+      "categoria_fuente": "Guía Turístico / Cañonismo",
+      "prestador": "Guías Ejidales Autorizados (ej. Arturo, Jesús Alvarado)",
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre": "Guías Locales Comunitarios - Río Blanco",
+        "Tipo de servicio": "Guía Turístico / Cañonismo",
+        "Prestador responsable": "Guías Ejidales Autorizados (ej. Arturo, Jesús Alvarado)",
+        "Descripción": "Servicio de guianza experta para recorrer de manera segura el cauce del río Extoraz y explorar las profundidades de las imponentes paredes de mármol del Cañón del Paraíso. Proveen equipo básico y recomendaciones.",
+        "Municipio y localidad": "Peñamiller, Querétaro",
+        "Ubicación": "Comunidad de Río Blanco, entrada al Cañón del Paraíso.",
+        "Contacto público": "Contacto a la llegada a la comunidad o vía Turismo del Municipio (Tel: 442 406 7956 / 442 120 5652).",
+        "Horarios": "Recorridos desde las 07:00 hasta las 15:00 hrs (para evitar que oscurezca en el cañón).",
+        "Precio": "Desde $150 a $300 MXN por persona o tarifas grupales a convenir.",
+        "Reservación": "Se sugiere contactarlos 1 o 2 días antes, especialmente en temporada alta o fines de semana.",
+        "Capacidad y requisitos": "Grupos desde 2 hasta 15 personas por guía.",
+        "Accesibilidad": "No accesible para sillas de ruedas; requiere esfuerzo físico, cruce de ríos y caminata sobre piedras.",
+        "Lugares relacionados": "Cañón del Paraíso, Río Extoraz.",
+        "Fotografías": "Fotografía real del servicio adjunta.",
+        "Fuente y verificación": "ivandeviaje.com / mexicodesconocido.com.mx (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/servicios/guias-locales-comunitarios-rio-blanco.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/912bdc583bd009ebe9b0ee000b992468c74c58c8.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Servicios_Turisticos_Penamiller.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "servicio",
+      "municipio": "Peñamiller",
+      "nombre": "Restaurantes Tradicionales y Fondas (Peñamiller)",
+      "slug": "restaurantes-tradicionales-y-fondas-penamiller",
+      "categoria_fuente": "Alimentación (Restaurante / Fonda)",
+      "prestador": "Cocineras Tradicionales y Comercios Familiares",
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre": "Restaurantes Tradicionales y Fondas (Peñamiller)",
+        "Tipo de servicio": "Alimentación (Restaurante / Fonda)",
+        "Prestador responsable": "Cocineras Tradicionales y Comercios Familiares",
+        "Descripción": "Establecimientos de comida regional que ofrecen el platillo estrella de la región: 'El Chivo Tapeado' (carne de chivo de leche preparada con chiles secos, horneada en olla de barro), además de gorditas, nopales con pipián y atole de teja.",
+        "Municipio y localidad": "Peñamiller, Querétaro",
+        "Ubicación": "Alrededor de la Plaza Principal y mercado de Peñamiller.",
+        "Contacto público": "Atención directa en los establecimientos.",
+        "Horarios": "Todos los días de 08:00 a 19:00 hrs. El chivo tapeado suele prepararse principalmente los fines de semana o bajo pedido.",
+        "Precio": "Platillos desde $100 a $250 MXN.",
+        "Reservación": "Para grandes grupos o asegurar el 'Chivo Tapeado' en día de semana, se requiere encargo previo.",
+        "Capacidad y requisitos": "Mesas familiares (hasta 30 personas dependiendo del local).",
+        "Accesibilidad": "Accesos nivelados en las fondas del centro histórico.",
+        "Lugares relacionados": "Centro Histórico de Peñamiller y rutas a los balnearios.",
+        "Fotografías": "Fotografía real del servicio adjunta.",
+        "Fuente y verificación": "Turismo del Estado de Querétaro (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/servicios/restaurantes-tradicionales-y-fondas-penamiller.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/41bb33ef2cc5e318994f2f58607a32c3bfe17050.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Servicios_Turisticos_Penamiller.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "servicio",
+      "municipio": "San Joaquín",
+      "nombre": "Campamento y Zona Ecológica Campo Alegre",
+      "slug": "campamento-y-zona-ecologica-campo-alegre",
+      "categoria_fuente": "Hospedaje (Cabañas y Camping)",
+      "prestador": "Administración Parque Nacional / INDEREQ",
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre": "Campamento y Zona Ecológica Campo Alegre",
+        "Tipo de servicio": "Hospedaje (Cabañas y Camping)",
+        "Prestador responsable": "Administración Parque Nacional / INDEREQ",
+        "Descripción": "Espectacular área boscosa llena de pinos y encinos, acondicionada con palapas, asadores, regaderas y cabañas rústicas. Ideal para un retiro de la ciudad, hacer carne asada y pernoctar en la montaña.",
+        "Municipio y localidad": "San Joaquín, Querétaro.",
+        "Ubicación": "A 5 minutos del centro de San Joaquín, sobre la carretera a la Zona Arqueológica de Ranas.",
+        "Contacto público": "Teléfono Turismo Municipal: (441) 293 5022",
+        "Horarios": "Ingreso diario de 08:00 a 18:00 hrs. Área de campamento abierta las 24 hrs para huéspedes.",
+        "Precio": "Entrada general: $20 MXN. Derecho de piso para acampar: $100 - $150 MXN por tienda. Cabañas desde $800 MXN.",
+        "Reservación": "Para acampar no se requiere previa reservación, excepto en fechas del Concurso Nacional de Huapango (Abril). Para cabañas, llamar con 15 días de anticipación.",
+        "Capacidad y requisitos": "Capacidad amplia para cientos de campistas. Cabañas familiares de 4 a 10 personas.",
+        "Accesibilidad": "Accesible para vehículos y sillas de ruedas en las áreas principales de asadores, aunque los senderos del bosque son irregulares.",
+        "Lugares relacionados": "Zona Arqueológica Ranas (está en la misma ruta).",
+        "Fotografías": "Fotografía real del servicio adjunta.",
+        "Fuente y verificación": "queretaro.travel / mexicodesconocido.com.mx (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/servicios/campamento-y-zona-ecologica-campo-alegre.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/1288eaf36e04867d5f1093135820275e6903a00c.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Servicios_Turisticos_San_Joaquin.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "servicio",
+      "municipio": "San Joaquín",
+      "nombre": "Fondas Tradicionales y Productores de Licor",
+      "slug": "fondas-tradicionales-y-productores-de-licor",
+      "categoria_fuente": "Alimentación y Productos Locales",
+      "prestador": "Cocineras Tradicionales y Casas Productoras (Ej. Casa Loreto)",
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre": "Fondas Tradicionales y Productores de Licor",
+        "Tipo de servicio": "Alimentación y Productos Locales",
+        "Prestador responsable": "Cocineras Tradicionales y Casas Productoras (Ej. Casa Loreto)",
+        "Descripción": "Servicio gastronómico donde se ofrecen platillos locales como carne de cerdo en salsa verde con nopales, enchiladas queretanas y barbacoa de borrego, acompañado de la bebida insignia del municipio: el licor de manzana artesanal.",
+        "Municipio y localidad": "San Joaquín, Querétaro.",
+        "Ubicación": "Mercado Municipal de San Joaquín y restaurantes aledaños a la Plaza Principal.",
+        "Contacto público": "Locales de atención directa al público en el centro.",
+        "Horarios": "08:00 a 18:00 hrs. Licorerías artesanales abren de 10:00 a 19:00 hrs.",
+        "Precio": "Comidas completas desde $80 a $150 MXN. Botellas de licor de manzana desde $120 MXN.",
+        "Reservación": "No requiere reservación.",
+        "Capacidad y requisitos": "Múltiples mesas en el mercado municipal y restaurantes del centro.",
+        "Accesibilidad": "Las calles del centro y el mercado cuentan con rampas para acceso peatonal.",
+        "Lugares relacionados": "Cercano a las Grutas de los Herrera.",
+        "Fotografías": "Fotografía real del servicio adjunta.",
+        "Fuente y verificación": "escapadas.mexicodesconocido.com.mx (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/servicios/fondas-tradicionales-y-productores-de-licor.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/9674f3ad9d4a3da8661741ed72960503fc1c7b6b.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Servicios_Turisticos_San_Joaquin.docx",
+        "version": null
+      }
+    },
+    {
+      "tipo": "servicio",
+      "municipio": "San Joaquín",
+      "nombre": "Renta y Tours en Cuatrimoto (San Joaquín Ecotours)",
+      "slug": "renta-y-tours-en-cuatrimoto-san-joaquin-ecotours",
+      "categoria_fuente": "Transporte Turístico / Deportes de Aventura",
+      "prestador": "Operadores y Guías Locales Autorizados",
+      "estado_aprobacion": "borrador",
+      "campos": {
+        "Nombre": "Renta y Tours en Cuatrimoto (San Joaquín Ecotours)",
+        "Tipo de servicio": "Transporte Turístico / Deportes de Aventura",
+        "Prestador responsable": "Operadores y Guías Locales Autorizados",
+        "Descripción": "Recorridos guiados a través de rutas de terracería y senderos boscosos. Es la forma más popular y emocionante de llegar a puntos de difícil acceso como las Cascadas Maravillas o los miradores altos del municipio.",
+        "Municipio y localidad": "San Joaquín, Querétaro.",
+        "Ubicación": "Salidas desde la Plaza Principal de San Joaquín o módulos de información turística.",
+        "Contacto público": "Módulo de Información Turística en la Plaza Principal.",
+        "Horarios": "09:00 a 16:00 hrs. Sujeto a condiciones climáticas (no operan con lluvia fuerte).",
+        "Precio": "Aproximadamente $400 - $600 MXN por hora de recorrido (2 personas por cuatrimoto).",
+        "Reservación": "Se pueden contratar en el momento, pero en fines de semana largos se recomienda contactar a Turismo Municipal para asegurar disponibilidad.",
+        "Capacidad y requisitos": "Grupos guiados de hasta 10 cuatrimotos (20 personas). Edad mínima para manejar: 18 años con licencia.",
+        "Accesibilidad": "Actividad de aventura extrema. No apta para personas con problemas de espalda o movilidad reducida debido al impacto en terracería.",
+        "Lugares relacionados": "Cascadas Maravillas, Mirador San Antonio.",
+        "Fotografías": "Fotografía real del servicio adjunta.",
+        "Fuente y verificación": "Turismo del Estado de Querétaro (Octubre 2026)"
+      },
+      "imagen": {
+        "archivo": "content/fichas/media/servicios/renta-y-tours-en-cuatrimoto-san-joaquin-ecotours.jpg",
+        "mime_type": "image/jpeg",
+        "target_docx_original": "media/ce429242276da8912641254dde72e232cfed92ec.undefined",
+        "derechos_verificados": false,
+        "destino_recomendado": "xplorasg-review"
+      },
+      "fuente": {
+        "archivo": "Servicios_Turisticos_San_Joaquin.docx",
+        "version": null
+      }
+    }
+  ]
+}
