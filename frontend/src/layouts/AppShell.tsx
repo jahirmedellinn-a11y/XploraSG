@@ -110,9 +110,9 @@ export const AppShell = () => {
         )}
       </header>
 
-      <main><Outlet /></main>
+      <main className="pb-20 md:pb-0"><Outlet /></main>
 
-      <footer className="border-t border-stone-200 bg-emerald-950 text-emerald-50">
+      <footer className="border-t border-stone-200 bg-emerald-950 text-emerald-50 mb-16 md:mb-0">
         <div className="mx-auto grid max-w-7xl gap-7 px-5 py-10 sm:grid-cols-[1fr_auto] sm:items-end lg:px-8">
           <div>
             <p className="text-xl font-black">XploraSG</p>
@@ -123,6 +123,27 @@ export const AppShell = () => {
           <p className="text-xs text-emerald-100/60">Datos cartográficos © OpenStreetMap contributors</p>
         </div>
       </footer>
+
+      <nav className="fixed bottom-0 left-0 z-50 w-full border-t border-stone-200 bg-white md:hidden" aria-label="Navegación móvil inferior">
+        <div className="grid h-16 grid-cols-4 items-center px-2">
+          <NavLink to="/explorar" className={({ isActive }) => `flex flex-col items-center justify-center gap-1 ${isActive ? 'text-emerald-800 font-bold' : 'text-stone-500 hover:text-emerald-700'}`}>
+            <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
+            <span className="text-[10px]">Explorar</span>
+          </NavLink>
+          <NavLink to="/mapa" className={({ isActive }) => `flex flex-col items-center justify-center gap-1 ${isActive ? 'text-emerald-800 font-bold' : 'text-stone-500 hover:text-emerald-700'}`}>
+            <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" /></svg>
+            <span className="text-[10px]">Mapa</span>
+          </NavLink>
+          <NavLink to="/servicios" className={({ isActive }) => `flex flex-col items-center justify-center gap-1 ${isActive ? 'text-emerald-800 font-bold' : 'text-stone-500 hover:text-emerald-700'}`}>
+            <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.999 2.999 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.999 2.999 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z" /></svg>
+            <span className="text-[10px]">Servicios</span>
+          </NavLink>
+          <NavLink to="/agenda" className={({ isActive }) => `flex flex-col items-center justify-center gap-1 ${isActive ? 'text-emerald-800 font-bold' : 'text-stone-500 hover:text-emerald-700'}`}>
+            <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg>
+            <span className="text-[10px]">Agenda</span>
+          </NavLink>
+        </div>
+      </nav>
     </div>
   );
 };

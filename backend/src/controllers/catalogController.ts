@@ -417,3 +417,88 @@ export const getContentStatus = async (_req: Request, res: Response): Promise<vo
     res.status(500).json({ error: 'No fue posible consultar el estado del contenido.' });
   }
 };
+export const getServiceBySlug = async (req: Request, res: Response): Promise<void> => {
+  const rawSlug = req.params.slug;
+  const slug = Array.isArray(rawSlug) ? rawSlug[0]?.trim() : rawSlug?.trim();
+  if (!slug || slug.length > 255) {
+    res.status(400).json({ error: 'Slug de servicio inválido.' });
+    return;
+  }
+
+  try {
+    const service = await pool.query<ServiceRow>(
+      `SELECT
+         s.id, s.slug, s.nombre, s.descripcion, s.rango_precio, s.contacto,
+         s.horario, s.latitud, s.longitud, s.tipo_servicio, s.ubicacion,
+         s.reservacion, s.capacidad_requisitos, s.accesibilidad,
+         s.lugares_relacionados, s.fuente_verificacion,
+         p.nombre_comercial AS prestador,
+         ca.nombre AS categoria,
+         l.nombre AS lugar,
+         mu.nombre AS municipio,
+         media.id AS media_id,
+         media.tipo AS media_tipo,
+         media.url AS media_url,
+         media.bucket_id AS media_bucket_id,
+         media.object_path AS media_object_path,
+         media.alt_text AS media_alt_text,
+         media.titulo AS media_titulo
+       FROM public.servicios AS s
+       JOIN public.prestadores AS p ON p.id = s.prestador_id
+       LEFT JOIN public.categorias AS ca ON ca.id = s.categoria_id
+       LEFT JOIN public.lugares_turisticos AS l ON l.id = s.lugar_id
+       LEFT JOIN public.municipios AS mu ON mu.id = COALESCE(s.municipio_id, l.municipio_id)
+       LEFT JOIN LATERAL (
+         SELECT m.id, m.tipo, m.url, m.bucket_id, m.object_path, m.alt_text, m.titulo
+         FROM public.servicio_multimedia AS sm
+         JOIN public.multimedia AS m ON m.id = sm.multimedia_id
+         WHERE sm.servicio_id = s.id
+           AND m.deleted_at IS NULL
+           AND (m.bucket_id = 'xplorasg-public' OR m.url IS NOT NULL)
+         ORDER BY sm.es_principal DESC, sm.orden ASC, m.id ASC
+         LIMIT 1
+       ) AS media ON TRUE
+       WHERE s.slug = $1
+         AND s.estado_aprobacion = 'aprobado'
+         AND s.deleted_at IS NULL
+         AND p.estado_aprobacion = 'aprobado'
+         AND p.deleted_at IS NULL`,
+      [slug],
+    );
+
+    if (service.rows.length === 0) {
+      res.status(404).json({ error: 'Servicio no encontrado o no disponible.' });
+      return;
+    }
+
+    const row = service.rows[0];
+    res.status(200).json({
+      data: {
+        id: row.id,
+        slug: row.slug,
+        nombre: row.nombre,
+        descripcion: row.descripcion,
+        rangoPrecio: row.rango_precio,
+        contacto: row.contacto,
+        horario: row.horario,
+        latitud: row.latitud,
+        longitud: row.longitud,
+        tipoServicio: row.tipo_servicio,
+        ubicacion: row.ubicacion,
+        reservacion: row.reservacion,
+        capacidadRequisitos: row.capacidad_requisitos,
+        accesibilidad: row.accesibilidad,
+        lugaresRelacionados: row.lugares_relacionados,
+        fuenteVerificacion: row.fuente_verificacion,
+        prestador: row.prestador,
+        categoria: row.categoria,
+        lugar: row.lugar,
+        municipio: row.municipio,
+        imagenPrincipal: serializeMedia(mediaFromRow(row)),
+      },
+    });
+  } catch (error) {
+    console.error('Error obteniendo servicio por slug:', error);
+    res.status(500).json({ error: 'No fue posible consultar el servicio.' });
+  }
+};

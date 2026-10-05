@@ -280,7 +280,16 @@ export const MapPage = () => {
                     {route.durationSeconds !== null && ` · ${Math.round(route.durationSeconds / 60)} min`}
                   </p>
                 )}
-                {routeError && <p role="alert" className="mt-3 text-xs font-semibold leading-5 text-red-700">{routeError}</p>}
+                {routeError && (
+                  <div role="alert" className="mt-3 text-xs font-semibold leading-5 text-red-700">
+                    <p>{routeError === 'El servicio de rutas aún no tiene configurada su clave.' ? 'El trazado interno de rutas no está disponible temporalmente.' : routeError}</p>
+                    {routeError.includes('aún no tiene configurada su clave') && destination.latitud && destination.longitud && (
+                      <a href={`https://www.google.com/maps/dir/?api=1&destination=${destination.latitud},${destination.longitud}${userLocation ? `&origin=${userLocation[0]},${userLocation[1]}` : ''}`} target="_blank" rel="noreferrer" className="mt-2 block w-full rounded-xl border border-red-200 bg-white px-3 py-2 text-center text-xs font-bold text-stone-700 hover:bg-stone-50 hover:text-emerald-700">
+                        Abrir ruta en Google Maps
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             ) : (
               <p className="mt-3 text-sm leading-6 text-stone-600">Selecciona “Preparar ruta” en la ficha de un marcador publicado.</p>

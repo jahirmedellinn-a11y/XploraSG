@@ -89,9 +89,12 @@ export const AssistantPage = () => {
               <button type="submit" disabled={!isOnline || loading || question.trim().length < 3} className="rounded-full bg-emerald-950 px-5 py-3 text-sm font-black text-white disabled:cursor-not-allowed disabled:opacity-40">
                 {loading ? 'Consultando…' : 'Consultar'}
               </button>
-              <button type="button" disabled={locationLoading} onClick={requestLocation} className="rounded-full border border-emerald-900/20 px-5 py-3 text-sm font-black text-emerald-950 disabled:opacity-40">
-                {locationLoading ? 'Obteniendo ubicación…' : location ? 'Ubicación agregada' : 'Usar mi ubicación'}
-              </button>
+              <div className="flex flex-col gap-1 items-start">
+                <button type="button" disabled={locationLoading} onClick={requestLocation} className="rounded-full border border-emerald-900/20 px-5 py-3 text-sm font-black text-emerald-950 disabled:opacity-40">
+                  {locationLoading ? 'Obteniendo ubicación…' : location ? 'Ubicación agregada' : 'Usar mi ubicación'}
+                </button>
+                <span className="text-[10px] text-stone-500 ml-3">Compartir tu ubicación es opcional</span>
+              </div>
             </div>
           </form>
 

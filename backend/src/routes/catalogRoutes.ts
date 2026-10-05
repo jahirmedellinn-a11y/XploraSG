@@ -2,6 +2,7 @@ import { Router } from 'express';
 import {
   getContentStatus,
   getPlaceBySlug,
+  getServiceBySlug,
   listCategories,
   listMunicipalities,
   listPlaces,
@@ -18,6 +19,7 @@ router.get('/categorias', listCategories);
 router.get('/lugares', listPlaces);
 router.get('/lugares/:slug', getPlaceBySlug);
 router.get('/servicios', listServices);
+router.get('/servicios/:slug', getServiceBySlug);
 router.get('/admin/estado', requireAuth, requireRole(['administrador']), getContentStatus);
 router.get('/admin/revision', requireAuth, requireRole(['administrador']), listReviewContent);
 router.patch('/admin/revision/:tipo/:id', requireAuth, requireRole(['administrador']), updateReviewState);

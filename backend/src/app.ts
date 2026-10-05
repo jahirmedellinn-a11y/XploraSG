@@ -7,6 +7,7 @@ import testRoutes from './routes/testRoutes';
 import catalogRoutes from './routes/catalogRoutes';
 import travelRoutes from './routes/travelRoutes';
 import assistantRoutes from './routes/assistantRoutes';
+import favoritesRoutes from './routes/favoritesRoutes';
 
 const app = express();
 const allowedOrigins = (process.env.CORS_ORIGINS || 'http://localhost:5173')
@@ -46,5 +47,6 @@ app.use('/api/test', testRoutes);
 app.use('/api/catalogo', catalogRoutes);
 app.use('/api/viaje', travelRoutes);
 app.use('/api/asistente', assistantRoutes);
+app.use('/api/favoritos', favoritesRoutes);
 
 export default app;

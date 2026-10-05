@@ -84,5 +84,9 @@ export const catalogApi = {
       `/api/catalogo/servicios${queryString(filters)}`,
       signal,
     ),
+
+  service: (slug: string, signal?: AbortSignal) =>
+    getJson<{ data: TourismService }>(`/api/catalogo/servicios/${encodeURIComponent(slug)}`, signal),
 };
+
 
