@@ -7,6 +7,7 @@ import {
   parseRouteProfile,
   TravelServiceError,
 } from '../services/travelService';
+import { getLang } from '../services/i18n';
 
 const respondWithError = (res: Response, error: unknown, fallback: string) => {
   if (error instanceof TravelServiceError) {
@@ -26,7 +27,7 @@ export const currentWeather = async (req: Request, res: Response): Promise<void>
   }
 
   try {
-    res.status(200).json({ data: await getWeather({ latitud, longitud }) });
+    res.status(200).json({ data: await getWeather({ latitud, longitud }, getLang(req)) });
   } catch (error) {
     respondWithError(res, error, 'No fue posible consultar el clima.');
   }
@@ -42,7 +43,7 @@ export const calculateRoute = async (req: Request, res: Response): Promise<void>
   }
 
   try {
-    res.status(200).json({ data: await getRoute(origin, destination, profile) });
+    res.status(200).json({ data: await getRoute(origin, destination, profile, getLang(req)) });
   } catch (error) {
     respondWithError(res, error, 'No fue posible calcular la ruta.');
   }

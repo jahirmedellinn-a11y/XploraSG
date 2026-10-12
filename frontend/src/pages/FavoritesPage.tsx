@@ -1,12 +1,52 @@
 import { useState, useEffect } from 'react';
-import { useFavorites } from '../contexts/FavoritesContext';
+import { useFavorites } from '../hooks/useFavorites';
 import { PlaceCard } from '../components/PlaceCard';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import { catalogApi } from '../services/catalogApi';
 import type { Place } from '../types/catalog';
+import { usePageTitle } from '../hooks/usePageTitle';
+import { defineMessages, useMessages } from '../i18n';
+import { ItalicTail, TextLink } from '../components/home/HomeUi';
+import { PageHero } from '../components/ui/PageHero';
+
+const messages = defineMessages({
+  pageTitle: 'Mis favoritos',
+  title: 'Tus Favoritos',
+  subtitle: 'Lugares que has guardado para visitar.',
+  loading: 'Cargando favoritos...',
+  emptyTitle: 'Tus favoritos están vacíos',
+  emptyText: 'Explora la Sierra Gorda y guarda los lugares que te gustaría visitar presionando el ícono de corazón.',
+  localNote: 'Tus favoritos se guardan en este dispositivo.',
+  signIn: 'Inicia sesión',
+  syncNote: 'para sincronizarlos en todos tus dispositivos.',
+  explorePlaces: 'Explorar lugares',
+  eyebrow: 'Tu viaje',
+  openMap: 'Ver en el mapa',
+  count: (n: number) => `${n} ${n === 1 ? 'lugar guardado' : 'lugares guardados'}`,
+  savedLabel: 'guardados',
+  emptyEyebrow: 'Empieza tu lista',
+}, {
+  pageTitle: 'My favorites',
+  title: 'Your Favorites',
+  subtitle: 'Places you have saved to visit.',
+  loading: 'Loading favorites...',
+  emptyTitle: 'You have no favorites yet',
+  emptyText: 'Explore the Sierra Gorda and save the places you would like to visit by tapping the heart icon.',
+  localNote: 'Your favorites are saved on this device.',
+  signIn: 'Sign in',
+  syncNote: 'to sync them across all your devices.',
+  explorePlaces: 'Explore places',
+  eyebrow: 'Your trip',
+  openMap: 'View on the map',
+  count: (n: number) => `${n} ${n === 1 ? 'saved place' : 'saved places'}`,
+  savedLabel: 'saved',
+  emptyEyebrow: 'Start your list',
+});
 
 export const FavoritesPage = () => {
+  const m = useMessages(messages);
+  usePageTitle(m.pageTitle);
   const { favoriteIds, remoteFavorites, loading } = useFavorites();
   const { isAuthenticated } = useAuth();
   const [localPlaces, setLocalPlaces] = useState<Place[]>([]);
@@ -43,44 +83,61 @@ export const FavoritesPage = () => {
   const places = isAuthenticated ? remoteFavorites : localPlaces;
   const isLoading = loading || loadingLocal;
 
-  return (
-    <div className="mx-auto max-w-7xl px-5 py-8 lg:px-8">
-      <header className="mb-8">
-        <h1 className="text-3xl font-black tracking-tight text-emerald-950">Tus Favoritos</h1>
-        <p className="mt-2 text-stone-600">Lugares que has guardado para visitar.</p>
-      </header>
+  const heroPhoto = places.find((place) => place.imagenPrincipal?.url)?.imagenPrincipal;
+  const hasPlaces = !isLoading && places.length > 0;
 
-      {isLoading ? (
-        <div className="flex h-32 items-center justify-center font-bold text-stone-500">
-          Cargando favoritos...
-        </div>
-      ) : places.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-stone-300 bg-stone-50 py-16 text-center">
-          <div className="mb-4 grid size-16 place-items-center rounded-full bg-emerald-100 text-emerald-700">
-            <svg viewBox="0 0 24 24" className="size-8" fill="none" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-            </svg>
+  const syncNote = !isAuthenticated && (
+    <p className="text-[13px] leading-6 text-brand-blue/70">
+      {m.localNote}{' '}
+      <Link to="/login" className="font-medium text-brand-green underline decoration-brand-green/30 underline-offset-4 hover:decoration-brand-green">{m.signIn}</Link>{' '}
+      {m.syncNote}
+    </p>
+  );
+
+  return (
+    <>
+      <PageHero
+        eyebrow={m.eyebrow}
+        title={<ItalicTail text={m.title} words={1} />}
+        subtitle={m.subtitle}
+        image={heroPhoto ? { url: heroPhoto.url, alt: '' } : null}
+        actions={hasPlaces && <TextLink to="/mapa">{m.openMap}</TextLink>}
+        stats={hasPlaces ? [{ value: places.length, label: m.savedLabel }] : undefined}
+      />
+
+      <div className="mx-auto max-w-7xl px-5 pb-20 pt-12 lg:px-8 lg:pb-28 lg:pt-16">
+        {isLoading ? (
+          <div className="grid grid-cols-1 gap-x-6 gap-y-12 border-t border-brand-sand pt-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" aria-label={m.loading} aria-busy="true">
+            {[0, 1, 2].map((item) => <div key={item} className="aspect-[4/3] animate-pulse rounded-xl bg-brand-sand/60" />)}
+            <span className="sr-only">{m.loading}</span>
           </div>
-          <h2 className="text-lg font-bold text-stone-900">Tus favoritos están vacíos</h2>
-          <p className="mt-2 max-w-sm text-sm text-stone-600">
-            Explora la Sierra Gorda y guarda los lugares que te gustaría visitar presionando el ícono de corazón.
-          </p>
-          {!isAuthenticated && (
-            <p className="mt-4 text-xs text-stone-500">
-              Tus favoritos se guardan en este dispositivo. <Link to="/login" className="text-emerald-700 underline font-bold">Inicia sesión</Link> para sincronizarlos en todos tus dispositivos.
-            </p>
-          )}
-          <Link to="/explorar" className="mt-6 rounded-full bg-emerald-950 px-6 py-2.5 text-sm font-bold text-white shadow-sm hover:bg-emerald-900">
-            Explorar lugares
-          </Link>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {places.map((place) => (
-            <PlaceCard key={place.id} place={place} />
-          ))}
-        </div>
-      )}
-    </div>
+        ) : places.length === 0 ? (
+          <div className="rounded-xl bg-brand-light px-6 py-16 text-center sm:px-12 sm:py-24">
+            <p className="eyebrow">{m.emptyEyebrow}</p>
+            <h2 className="mx-auto mt-5 max-w-xl text-[2rem] leading-[1.1] text-brand-blue sm:text-[2.75rem]">{m.emptyTitle}</h2>
+            <p className="mx-auto mt-4 max-w-md text-[15px] leading-7 text-brand-blue/75">{m.emptyText}</p>
+            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+              <Link to="/explorar" className="btn btn-primary min-h-12 px-7">{m.explorePlaces}</Link>
+              <Link to="/mapa" className="btn btn-secondary min-h-12 px-7">{m.openMap}</Link>
+            </div>
+            {syncNote && <div className="mx-auto mt-8 max-w-md">{syncNote}</div>}
+          </div>
+        ) : (
+          <>
+            <div className="flex items-center justify-between gap-4 border-b border-brand-sand pb-4">
+              <p className="text-sm text-brand-blue/70" aria-live="polite">{m.count(places.length)}</p>
+            </div>
+            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
+              {places.map((place) => (
+                <div key={place.id} className="min-w-0">
+                  <PlaceCard place={place} />
+                </div>
+              ))}
+            </div>
+            {syncNote && <div className="mt-14 border-t border-brand-sand pt-6 text-center">{syncNote}</div>}
+          </>
+        )}
+      </div>
+    </>
   );
 };

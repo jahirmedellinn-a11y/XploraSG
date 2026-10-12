@@ -65,7 +65,33 @@ const weatherDescriptions: Record<number, string> = {
   99: 'Tormenta con granizo intenso',
 };
 
-export const describeWeatherCode = (code: number): string => weatherDescriptions[code] || 'Condición variable';
+const weatherDescriptionsEn: Record<number, string> = {
+  0: 'Clear sky',
+  1: 'Mostly clear',
+  2: 'Partly cloudy',
+  3: 'Overcast',
+  45: 'Fog',
+  48: 'Freezing fog',
+  51: 'Light drizzle',
+  53: 'Moderate drizzle',
+  55: 'Heavy drizzle',
+  61: 'Light rain',
+  63: 'Moderate rain',
+  65: 'Heavy rain',
+  71: 'Light snow',
+  73: 'Moderate snow',
+  75: 'Heavy snow',
+  80: 'Light showers',
+  81: 'Moderate showers',
+  82: 'Heavy showers',
+  95: 'Thunderstorm',
+  96: 'Thunderstorm with light hail',
+  99: 'Thunderstorm with heavy hail',
+};
+
+export const describeWeatherCode = (code: number, lang: 'es' | 'en' = 'es'): string => lang === 'en'
+  ? weatherDescriptionsEn[code] || 'Variable conditions'
+  : weatherDescriptions[code] || 'Condición variable';
 
 const fetchWithTimeout = async (url: string, init?: RequestInit) => {
   try {
@@ -80,6 +106,10 @@ const fetchWithTimeout = async (url: string, init?: RequestInit) => {
 
 interface OpenMeteoResponse {
   timezone?: string;
+  latitude?: number;
+  longitude?: number;
+  /** Altitud del punto (modelo digital de elevación de Open-Meteo, en metros). */
+  elevation?: number;
   current?: {
     time?: string;
     temperature_2m?: number;
@@ -87,6 +117,8 @@ interface OpenMeteoResponse {
     precipitation?: number;
     weather_code?: number;
     wind_speed_10m?: number;
+    relative_humidity_2m?: number;
+    uv_index?: number;
   };
   current_units?: Record<string, string>;
   daily?: {
@@ -95,15 +127,16 @@ interface OpenMeteoResponse {
     temperature_2m_max?: number[];
     temperature_2m_min?: number[];
     precipitation_probability_max?: number[];
+    uv_index_max?: number[];
   };
 }
 
-export const getWeather = async (point: Coordinate) => {
+export const getWeather = async (point: Coordinate, lang: 'es' | 'en' = 'es') => {
   const query = new URLSearchParams({
     latitude: String(point.latitud),
     longitude: String(point.longitud),
-    current: 'temperature_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m',
-    daily: 'weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max',
+    current: 'temperature_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m,relative_humidity_2m,uv_index',
+    daily: 'weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,uv_index_max',
     forecast_days: '3',
     timezone: 'auto',
   });
@@ -116,21 +149,29 @@ export const getWeather = async (point: Coordinate) => {
 
   return {
     timezone: data.timezone ?? null,
+    // Coordenadas consultadas (exactas) y altitud del terreno según Open-Meteo.
+    location: {
+      latitude: point.latitud,
+      longitude: point.longitud,
+      elevation: typeof data.elevation === 'number' ? Math.round(data.elevation) : null,
+    },
     current: {
       time: data.current?.time ?? null,
       temperature: data.current?.temperature_2m ?? null,
       apparentTemperature: data.current?.apparent_temperature ?? null,
       precipitation: data.current?.precipitation ?? null,
       windSpeed: data.current?.wind_speed_10m ?? null,
+      humidity: data.current?.relative_humidity_2m ?? null,
+      uvIndex: data.current?.uv_index ?? data.daily?.uv_index_max?.[0] ?? null,
       weatherCode: currentCode,
-      condition: describeWeatherCode(currentCode),
+      condition: describeWeatherCode(currentCode, lang),
     },
     forecast: dates.map((date, index) => {
       const code = data.daily?.weather_code?.[index] ?? -1;
       return {
         date,
         weatherCode: code,
-        condition: describeWeatherCode(code),
+        condition: describeWeatherCode(code, lang),
         temperatureMax: data.daily?.temperature_2m_max?.[index] ?? null,
         temperatureMin: data.daily?.temperature_2m_min?.[index] ?? null,
         precipitationProbability: data.daily?.precipitation_probability_max?.[index] ?? null,
@@ -149,51 +190,110 @@ interface OpenRouteResponse {
   features?: OpenRouteFeature[];
 }
 
-export const getRoute = async (origin: Coordinate, destination: Coordinate, profile: RouteProfile) => {
+const haversineDistanceMeters = (origin: Coordinate, destination: Coordinate): number => {
+  const radians = (degrees: number) => (degrees * Math.PI) / 180;
+  const latitudeDelta = radians(destination.latitud - origin.latitud);
+  const longitudeDelta = radians(destination.longitud - origin.longitud);
+  const firstLatitude = radians(origin.latitud);
+  const secondLatitude = radians(destination.latitud);
+  const calculation =
+    Math.sin(latitudeDelta / 2) ** 2 +
+    Math.cos(firstLatitude) * Math.cos(secondLatitude) * Math.sin(longitudeDelta / 2) ** 2;
+  return 6371000 * 2 * Math.atan2(Math.sqrt(calculation), Math.sqrt(1 - calculation));
+};
+
+const estimateDurationSeconds = (distanceMeters: number, profile: RouteProfile): number => {
+  const km = distanceMeters / 1000;
+  const speedKmH = profile === 'driving-car' ? 50 : profile === 'cycling-regular' ? 15 : profile === 'foot-hiking' ? 3.5 : 4.5;
+  return Math.round((km / speedKmH) * 3600);
+};
+
+const ORS_PRIMARY_URL = 'https://api.openrouteservice.org';
+const ORS_SECONDARY_URL = 'https://api.heigit.org/openrouteservice';
+
+export const getRoute = async (origin: Coordinate, destination: Coordinate, profile: RouteProfile, lang: 'es' | 'en' = 'es') => {
+  const distanceMeters = haversineDistanceMeters(origin, destination);
+  const estimatedSeconds = estimateDurationSeconds(distanceMeters, profile);
+  const fallbackGeometry = {
+    type: 'LineString' as const,
+    coordinates: [
+      [origin.longitud, origin.latitud],
+      [destination.longitud, destination.latitud],
+    ],
+  };
+
   const apiKey = process.env.OPEN_ROUTE_SERVICE_API_KEY?.trim();
+
+  // Si no hay API Key o falla el proveedor externo, devolvemos una ruta de resiliencia (GeoJSON directo con distancia real)
   if (!apiKey) {
-    throw new TravelServiceError('El servicio de rutas aún no tiene configurada su clave.', 503);
+    return {
+      profile,
+      distanceMeters: Math.round(distanceMeters),
+      durationSeconds: estimatedSeconds,
+      geometry: fallbackGeometry,
+      isFallback: true,
+      fallbackNotice: lang === 'en'
+        ? 'Direct reference route displayed. Open in Google Maps for turn-by-turn navigation.'
+        : 'Se muestra la ruta directa de referencia. Abre Google Maps para navegación giro a giro.',
+    };
   }
 
-  const response = await fetchWithTimeout(
-    `https://api.openrouteservice.org/v2/directions/${profile}/geojson`,
-    {
-      method: 'POST',
-      headers: {
-        Authorization: apiKey,
-        'Content-Type': 'application/json',
-        Accept: 'application/geo+json, application/json',
-      },
-      body: JSON.stringify({
-        coordinates: [
-          [origin.longitud, origin.latitud],
-          [destination.longitud, destination.latitud],
-        ],
-        language: 'es',
-        instructions: true,
-      }),
-    },
-  );
+  const customBase = process.env.ORS_BASE_URL?.trim();
+  const endpoints = customBase ? [customBase.replace(/\/+$/, '')] : [ORS_PRIMARY_URL, ORS_SECONDARY_URL];
 
-  if (!response.ok) {
-    throw new TravelServiceError(
-      response.status === 429
-        ? 'El servicio de rutas alcanzó temporalmente su límite de consultas.'
-        : 'OpenRouteService no pudo calcular esta ruta.',
-      response.status === 429 ? 429 : 502,
-    );
+  for (const baseUrl of endpoints) {
+    try {
+      const response = await fetchWithTimeout(
+        `${baseUrl}/v2/directions/${profile}/geojson`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: apiKey,
+            'Content-Type': 'application/json',
+            Accept: 'application/geo+json, application/json',
+          },
+          body: JSON.stringify({
+            coordinates: [
+              [origin.longitud, origin.latitud],
+              [destination.longitud, destination.latitud],
+            ],
+            language: lang,
+            instructions: true,
+            radiuses: [3000, 3000],
+          }),
+        },
+      );
+
+      if (response.ok) {
+        const data = await response.json() as OpenRouteResponse;
+        const feature = data.features?.[0];
+        const coordinates = feature?.geometry?.coordinates;
+        if (feature && coordinates?.length) {
+          return {
+            profile,
+            distanceMeters: feature.properties?.summary?.distance ?? Math.round(distanceMeters),
+            durationSeconds: feature.properties?.summary?.duration ?? estimatedSeconds,
+            geometry: { type: 'LineString' as const, coordinates },
+            isFallback: false,
+          };
+        }
+      }
+    } catch (err) {
+      console.warn(`Intento de conexión a ${baseUrl} falló:`, err instanceof Error ? err.message : String(err));
+    }
   }
 
-  const data = await response.json() as OpenRouteResponse;
-  const feature = data.features?.[0];
-  const coordinates = feature?.geometry?.coordinates;
-  if (!feature || !coordinates?.length) throw new TravelServiceError('La ruta no devolvió una geometría válida.', 502);
-
+  // Si todas las llamadas a la API fallan por red, límite de cuota o 404 de caminos, devolvemos el fallback resiliente sin congelar la app
   return {
     profile,
-    distanceMeters: feature.properties?.summary?.distance ?? null,
-    durationSeconds: feature.properties?.summary?.duration ?? null,
-    geometry: { type: 'LineString', coordinates },
+    distanceMeters: Math.round(distanceMeters),
+    durationSeconds: estimatedSeconds,
+    geometry: fallbackGeometry,
+    isFallback: true,
+    fallbackNotice: lang === 'en'
+      ? 'Route calculated with local fallback. Tap Google Maps for detailed turn-by-turn routing.'
+      : 'Ruta trazada con respaldo local. Toca "Abrir en Google Maps" para navegación detallada.',
   };
 };
+
 

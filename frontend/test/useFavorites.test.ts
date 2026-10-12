@@ -1,6 +1,11 @@
 import { renderHook, act, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { createElement, type ReactNode } from 'react';
 import { useFavorites } from '../src/hooks/useFavorites';
+import { FavoritesProvider } from '../src/contexts/FavoritesContext';
+
+// El hook lee el contexto, así que cada prueba lo monta dentro de su proveedor.
+const wrapper = ({ children }: { children: ReactNode }) => createElement(FavoritesProvider, null, children);
 import * as AuthContext from '../src/contexts/AuthContext';
 import * as favoritesApi from '../src/services/favoritesApi';
 import * as localFavorites from '../src/services/localFavorites';
@@ -53,7 +58,7 @@ describe('useFavorites (Lógica de concurrencia y sincronización)', () => {
     localFavorites.addLocalFavorite(1);
     localFavorites.addLocalFavorite(2);
     
-    const { result } = renderHook(() => useFavorites());
+    const { result } = renderHook(() => useFavorites(), { wrapper });
     
     // Wait for the sync to finish
     await waitFor(() => {
@@ -67,7 +72,7 @@ describe('useFavorites (Lógica de concurrencia y sincronización)', () => {
   it('Fallo de red conserva favoritos locales', async () => {
     localFavorites.addLocalFavorite(999);
     
-    const { result } = renderHook(() => useFavorites());
+    const { result } = renderHook(() => useFavorites(), { wrapper });
     
     await waitFor(() => {
       expect(result.current.loading).toBe(false);
@@ -80,7 +85,7 @@ describe('useFavorites (Lógica de concurrencia y sincronización)', () => {
   it('Modificaciones durante sincronización (añadir distinto)', async () => {
     localFavorites.addLocalFavorite(10);
     
-    const { result } = renderHook(() => useFavorites());
+    const { result } = renderHook(() => useFavorites(), { wrapper });
     
     // En vuelo, a los 10ms, el usuario añade otro favorito
     await act(async () => {
@@ -100,7 +105,7 @@ describe('useFavorites (Lógica de concurrencia y sincronización)', () => {
   it('Modificaciones durante sincronización (eliminar y re-añadir mismo ID)', async () => {
     localFavorites.addLocalFavorite(40);
     
-    const { result } = renderHook(() => useFavorites());
+    const { result } = renderHook(() => useFavorites(), { wrapper });
     
     await act(async () => {
       await new Promise(r => setTimeout(r, 10));
@@ -119,7 +124,7 @@ describe('useFavorites (Lógica de concurrencia y sincronización)', () => {
   it('Cierre de sesión rápido (unmount)', async () => {
     localFavorites.addLocalFavorite(50);
     
-    const { unmount } = renderHook(() => useFavorites());
+    const { unmount } = renderHook(() => useFavorites(), { wrapper });
     
     // Desmontar inmediatamente, forzando ignore = true
     unmount();

@@ -99,3 +99,15 @@ test-results/
 
 # Word temporary files
 ~$*.docx
+
+# Respaldos locales y reportes generados
+_respaldo*
+_tmp_sync/
+entregas_y_respaldos/
+bundle-stats.html
+playwright-report/
+blob-report/
+
+# Archivos multimedia pesados (>100MB bloqueados por GitHub)
+*.mp4
+

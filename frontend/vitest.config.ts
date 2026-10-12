@@ -7,5 +7,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
+    // Las pruebas end-to-end se ejecutan con Playwright (npx playwright test), no con Vitest.
+    exclude: ['e2e/**', 'node_modules/**', 'dist/**'],
   },
 });

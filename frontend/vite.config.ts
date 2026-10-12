@@ -15,26 +15,17 @@ export default defineConfig({
       manifest: {
         name: 'XploraSG',
         short_name: 'XploraSG',
-        description: 'Plataforma turística de la Sierra Gorda',
-        theme_color: '#064e3b',
-        background_color: '#f7f7f2',
+        description: 'Turismo inteligente en la Sierra Gorda de Querétaro. Explora. Conecta. Vive la Sierra Gorda.',
+        theme_color: '#2F5D3E',
+        background_color: '#FAF7F1',
         lang: 'es-MX',
         display: 'standalone',
         start_url: '/',
         scope: '/',
         icons: [
-          {
-            src: '/xplorasg-icon-192.png',
-            sizes: '192x192',
-            type: 'image/png',
-            purpose: 'any',
-          },
-          {
-            src: '/xplorasg-icon-512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any maskable',
-          },
+          { src: '/xplorasg-icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+          { src: '/xplorasg-icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+          { src: '/xplorasg-icon-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
       },
       workbox: {
@@ -42,7 +33,9 @@ export default defineConfig({
         clientsClaim: true,
         skipWaiting: true,
         navigateFallback: '/index.html',
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2,woff}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff2,woff}'],
+        // La foto del equipo no hace falta sin conexión.
+        globIgnores: ['equipo/**'],
         runtimeCaching: [
           {
             urlPattern: /^https?:\/\/[^/]+\/api\/catalogo\/(municipios|categorias|lugares|servicios)(?:\/|\?|$)/,

@@ -10,9 +10,12 @@
     "test:offline": "node scripts/e2e-offline.mjs",
     "pwa:verify": "node scripts/verify-pwa.mjs",
     "lint": "oxlint src vite.config.ts",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@fontsource/fraunces": "^5.3.0",
     "@fontsource/poppins": "^5.3.0",
     "@supabase/supabase-js": "^2.117.2",
     "axios": "^1.20.0",

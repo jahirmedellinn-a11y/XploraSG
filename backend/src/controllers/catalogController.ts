@@ -6,6 +6,7 @@ import {
   parsePage,
   serializeMedia,
 } from '../services/catalogService';
+import { getLang, localizeRow } from '../services/i18n';
 
 interface PlaceRow {
   id: number;
@@ -27,6 +28,7 @@ interface PlaceRow {
   fuente_verificacion: string | null;
   municipio: string;
   categoria: string;
+  traducciones?: Record<string, Record<string, unknown>> | null;
   media_id: number | null;
   media_tipo: string | null;
   media_url: string | null;
@@ -57,6 +59,7 @@ interface ServiceRow {
   categoria: string | null;
   lugar: string | null;
   municipio: string | null;
+  traducciones?: Record<string, Record<string, unknown>> | null;
   media_id: number | null;
   media_tipo: string | null;
   media_url: string | null;
@@ -86,6 +89,7 @@ interface PlaceDetailRow {
   fuente_verificacion: string | null;
   municipio: string;
   categoria: string;
+  traducciones?: Record<string, Record<string, unknown>> | null;
 }
 
 const mediaFromRow = (row: PlaceRow | ServiceRow): MediaRecord | null => {
@@ -142,6 +146,7 @@ export const listCategories = async (_req: Request, res: Response): Promise<void
 };
 
 export const listPlaces = async (req: Request, res: Response): Promise<void> => {
+  const lang = getLang(req);
   const page = parsePage(req.query.page);
   const limit = parseLimit(req.query.limit);
   const offset = (page - 1) * limit;
@@ -157,7 +162,7 @@ export const listPlaces = async (req: Request, res: Response): Promise<void> => 
            l.id, l.nombre, l.slug, l.descripcion, l.latitud, l.longitud,
            l.altitud, l.direccion, l.info_acceso, l.horarios, l.costo,
            l.actividades, l.servicios_disponibles, l.accesibilidad,
-           l.recomendaciones, l.contacto, l.fuente_verificacion,
+           l.recomendaciones, l.contacto, l.fuente_verificacion, (to_jsonb(l)->'traducciones') AS traducciones,
            mu.nombre AS municipio,
            ca.nombre AS categoria,
            media.id AS media_id,
@@ -184,7 +189,7 @@ export const listPlaces = async (req: Request, res: Response): Promise<void> => 
            AND l.deleted_at IS NULL
            AND ($1::TEXT IS NULL OR mu.nombre = $1)
            AND ($2::TEXT IS NULL OR ca.nombre = $2)
-           AND ($3::TEXT IS NULL OR l.nombre ILIKE '%' || $3 || '%' OR l.descripcion ILIKE '%' || $3 || '%')
+           AND ($3::TEXT IS NULL OR l.nombre ILIKE '%' || $3 || '%' OR l.descripcion ILIKE '%' || $3 || '%' OR (to_jsonb(l)->'traducciones')->'en'->>'descripcion' ILIKE '%' || $3 || '%')
          ORDER BY l.nombre
          LIMIT $4 OFFSET $5`,
         filters,
@@ -198,13 +203,13 @@ export const listPlaces = async (req: Request, res: Response): Promise<void> => 
            AND l.deleted_at IS NULL
            AND ($1::TEXT IS NULL OR mu.nombre = $1)
            AND ($2::TEXT IS NULL OR ca.nombre = $2)
-           AND ($3::TEXT IS NULL OR l.nombre ILIKE '%' || $3 || '%' OR l.descripcion ILIKE '%' || $3 || '%')`,
+           AND ($3::TEXT IS NULL OR l.nombre ILIKE '%' || $3 || '%' OR l.descripcion ILIKE '%' || $3 || '%' OR (to_jsonb(l)->'traducciones')->'en'->>'descripcion' ILIKE '%' || $3 || '%')`,
         [municipio, categoria, search],
       ),
     ]);
 
     res.status(200).json({
-      data: items.rows.map((row) => ({
+      data: items.rows.map((raw) => localizeRow(raw, lang)).map((row) => ({
         id: row.id,
         nombre: row.nombre,
         slug: row.slug,
@@ -235,6 +240,7 @@ export const listPlaces = async (req: Request, res: Response): Promise<void> => 
 };
 
 export const getPlaceBySlug = async (req: Request, res: Response): Promise<void> => {
+  const lang = getLang(req);
   const rawSlug = req.params.slug;
   const slug = Array.isArray(rawSlug) ? rawSlug[0]?.trim() : rawSlug?.trim();
   if (!slug || slug.length > 255) {
@@ -248,7 +254,7 @@ export const getPlaceBySlug = async (req: Request, res: Response): Promise<void>
          l.id, l.nombre, l.slug, l.descripcion, l.latitud, l.longitud,
          l.altitud, l.direccion, l.info_acceso, l.horarios, l.costo,
          l.actividades, l.servicios_disponibles, l.accesibilidad,
-         l.recomendaciones, l.contacto, l.fuente_verificacion,
+         l.recomendaciones, l.contacto, l.fuente_verificacion, (to_jsonb(l)->'traducciones') AS traducciones,
          mu.nombre AS municipio,
          ca.nombre AS categoria
        FROM public.lugares_turisticos AS l
@@ -277,7 +283,7 @@ export const getPlaceBySlug = async (req: Request, res: Response): Promise<void>
       [place.rows[0].id],
     );
 
-    const row = place.rows[0];
+    const row = localizeRow(place.rows[0], lang);
     res.status(200).json({
       data: {
         ...row,
@@ -297,6 +303,7 @@ export const getPlaceBySlug = async (req: Request, res: Response): Promise<void>
 };
 
 export const listServices = async (req: Request, res: Response): Promise<void> => {
+  const lang = getLang(req);
   const page = parsePage(req.query.page);
   const limit = parseLimit(req.query.limit);
   const offset = (page - 1) * limit;
@@ -312,7 +319,7 @@ export const listServices = async (req: Request, res: Response): Promise<void> =
            s.id, s.slug, s.nombre, s.descripcion, s.rango_precio, s.contacto,
            s.horario, s.latitud, s.longitud, s.tipo_servicio, s.ubicacion,
            s.reservacion, s.capacidad_requisitos, s.accesibilidad,
-           s.lugares_relacionados, s.fuente_verificacion,
+           s.lugares_relacionados, s.fuente_verificacion, (to_jsonb(s)->'traducciones') AS traducciones,
            p.nombre_comercial AS prestador,
            ca.nombre AS categoria,
            l.nombre AS lugar,
@@ -345,7 +352,7 @@ export const listServices = async (req: Request, res: Response): Promise<void> =
            AND p.deleted_at IS NULL
            AND ($1::TEXT IS NULL OR mu.nombre = $1)
            AND ($2::TEXT IS NULL OR ca.nombre = $2)
-           AND ($3::TEXT IS NULL OR s.nombre ILIKE '%' || $3 || '%' OR s.descripcion ILIKE '%' || $3 || '%')
+           AND ($3::TEXT IS NULL OR s.nombre ILIKE '%' || $3 || '%' OR s.descripcion ILIKE '%' || $3 || '%' OR (to_jsonb(s)->'traducciones')->'en'->>'descripcion' ILIKE '%' || $3 || '%')
          ORDER BY s.nombre
          LIMIT $4 OFFSET $5`,
         filters,
@@ -363,13 +370,13 @@ export const listServices = async (req: Request, res: Response): Promise<void> =
            AND p.deleted_at IS NULL
            AND ($1::TEXT IS NULL OR mu.nombre = $1)
            AND ($2::TEXT IS NULL OR ca.nombre = $2)
-           AND ($3::TEXT IS NULL OR s.nombre ILIKE '%' || $3 || '%' OR s.descripcion ILIKE '%' || $3 || '%')`,
+           AND ($3::TEXT IS NULL OR s.nombre ILIKE '%' || $3 || '%' OR s.descripcion ILIKE '%' || $3 || '%' OR (to_jsonb(s)->'traducciones')->'en'->>'descripcion' ILIKE '%' || $3 || '%')`,
         [municipio, categoria, search],
       ),
     ]);
 
     res.status(200).json({
-      data: items.rows.map((row) => ({
+      data: items.rows.map((raw) => localizeRow(raw, lang)).map((row) => ({
         id: row.id,
         slug: row.slug,
         nombre: row.nombre,
@@ -418,6 +425,7 @@ export const getContentStatus = async (_req: Request, res: Response): Promise<vo
   }
 };
 export const getServiceBySlug = async (req: Request, res: Response): Promise<void> => {
+  const lang = getLang(req);
   const rawSlug = req.params.slug;
   const slug = Array.isArray(rawSlug) ? rawSlug[0]?.trim() : rawSlug?.trim();
   if (!slug || slug.length > 255) {
@@ -431,7 +439,7 @@ export const getServiceBySlug = async (req: Request, res: Response): Promise<voi
          s.id, s.slug, s.nombre, s.descripcion, s.rango_precio, s.contacto,
          s.horario, s.latitud, s.longitud, s.tipo_servicio, s.ubicacion,
          s.reservacion, s.capacidad_requisitos, s.accesibilidad,
-         s.lugares_relacionados, s.fuente_verificacion,
+         s.lugares_relacionados, s.fuente_verificacion, (to_jsonb(s)->'traducciones') AS traducciones,
          p.nombre_comercial AS prestador,
          ca.nombre AS categoria,
          l.nombre AS lugar,
@@ -471,7 +479,7 @@ export const getServiceBySlug = async (req: Request, res: Response): Promise<voi
       return;
     }
 
-    const row = service.rows[0];
+    const row = localizeRow(service.rows[0], lang);
     res.status(200).json({
       data: {
         id: row.id,

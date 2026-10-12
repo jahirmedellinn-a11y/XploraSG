@@ -184,7 +184,9 @@ def normalize_record(
 
 
 def extract_source(root: Path, output: Path, source: Source) -> list[dict[str, object]]:
-    source_path = root / source.filename
+    source_path = root / "content" / "fichas_docx" / source.filename
+    if not source_path.is_file():
+        source_path = root / source.filename
     if not source_path.is_file():
         raise FileNotFoundError(source_path)
 

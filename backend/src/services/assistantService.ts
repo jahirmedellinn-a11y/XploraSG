@@ -20,6 +20,12 @@ export interface AssistantReference {
   municipio: string;
   resumen: string | null;
   distanciaKm: number | null;
+  /** Lugar con coordenadas verificadas (se puede abrir en el mapa). */
+  enMapa?: boolean;
+  /** Contacto del servicio (para el botón Contactar). */
+  contacto?: string | null;
+  /** Precio (servicios) o qué hacer (lugares), para la tarjeta. */
+  detalle?: string | null;
 }
 
 interface Coordinates {

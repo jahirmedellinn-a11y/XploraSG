@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title description">
-  <title id="title">XploraSG</title>
-  <description id="description">Montañas de la Sierra Gorda y un sol</description>
-  <rect width="512" height="512" rx="112" fill="#022c22"/>
-  <circle cx="370" cy="146" r="50" fill="#bef264"/>
-  <path d="M72 370 190 170l78 120 54-79 118 159" fill="none" stroke="#ecfccb" stroke-linecap="round" stroke-linejoin="round" stroke-width="34"/>
-  <path d="M76 386h360" fill="none" stroke="#6ee7b7" stroke-linecap="round" stroke-width="28"/>
-</svg>

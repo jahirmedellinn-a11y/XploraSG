@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import {
   adminReviewApi,
@@ -6,6 +7,20 @@ import {
   type ReviewKind,
   type ReviewState,
 } from '../services/adminReviewApi';
+import { categoryVisual } from '../components/brand/icons';
+import { AlertIcon, CheckCircleIcon, ExternalIcon, InboxIcon } from '../components/admin/AdminIcons';
+import { BackLink, EmptyState, Notice, PageHeader, StatusPill } from '../components/admin/AdminUi';
+import {
+  fieldLabel,
+  filterChipClass,
+  panelSurface,
+  quietAccent,
+  quietButton,
+  quietDanger,
+  quietGhost,
+  tabClass,
+} from '../components/admin/classes';
+import { statusOf } from '../components/admin/status';
 
 const stateLabels: Record<ReviewState, string> = {
   borrador: 'Borrador',
@@ -15,13 +30,7 @@ const stateLabels: Record<ReviewState, string> = {
   suspendido: 'Suspendido',
 };
 
-const stateTone: Record<ReviewState, string> = {
-  borrador: 'bg-stone-200 text-stone-800',
-  en_revision: 'bg-sky-100 text-sky-900',
-  aprobado: 'bg-emerald-100 text-emerald-900',
-  rechazado: 'bg-red-100 text-red-900',
-  suspendido: 'bg-amber-100 text-amber-950',
-};
+const updatedFormatter = new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'short', timeZone: 'America/Mexico_City' });
 
 export const AdminContentPage = () => {
   const { token } = useAuth();
@@ -29,6 +38,7 @@ export const AdminContentPage = () => {
   const [state, setState] = useState<ReviewState | ''>('');
   const [items, setItems] = useState<ReviewItem[]>([]);
   const [reasons, setReasons] = useState<Record<number, string>>({});
+  const [rejecting, setRejecting] = useState<Record<number, boolean>>({});
   const [loading, setLoading] = useState(true);
   const [savingId, setSavingId] = useState<number | null>(null);
   const [error, setError] = useState('');
@@ -39,7 +49,7 @@ export const AdminContentPage = () => {
     setError('');
     try {
       const response = await adminReviewApi.list(token, kind, state);
-      setItems(response.data);
+      setItems(Array.isArray(response?.data) ? response.data : []);
     } catch (requestError) {
       setError(requestError instanceof Error ? requestError.message : 'No fue posible cargar la bandeja editorial.');
     } finally {
@@ -65,68 +75,150 @@ export const AdminContentPage = () => {
     }
   };
 
-  return (
-    <section className="mx-auto max-w-7xl px-5 py-14 lg:px-8">
-      <p className="text-xs font-black uppercase tracking-[0.2em] text-emerald-700">Administración editorial</p>
-      <h1 className="mt-3 text-4xl font-black tracking-tight">Revisión de contenido</h1>
-      <p className="mt-3 max-w-3xl leading-7 text-stone-600">
-        Revisa borradores y controla su publicación. El sistema bloquea la aprobación cuando faltan coordenadas, fuente o multimedia pública autorizada.
-      </p>
+  const ready = items.filter((item) => !item.faltantes.length).length;
 
-      <div className="mt-8 flex flex-wrap gap-3 rounded-3xl border border-stone-200 bg-white p-3 shadow-sm">
-        <div className="flex rounded-2xl bg-stone-100 p-1">
+  return (
+    <section className="mx-auto max-w-7xl px-5 pb-20 pt-10 lg:px-8">
+      <PageHeader
+        before={<BackLink to="/admin">Panel de administración</BackLink>}
+        eyebrow="Administración editorial"
+        title="Revisión de contenido"
+        meta={<p className="max-w-3xl">Revisa borradores y controla su publicación. El sistema bloquea la aprobación cuando faltan coordenadas, fuente o multimedia pública autorizada.</p>}
+      />
+
+      {/* Barra de herramientas: tipo como pestañas subrayadas, estado como filtros */}
+      <div className="mt-10 border-b border-brand-sand">
+        <div className="flex gap-8" role="group" aria-label="Tipo de contenido">
           {(['lugar', 'servicio'] as ReviewKind[]).map((value) => (
-            <button key={value} type="button" onClick={() => setKind(value)} className={`rounded-xl px-4 py-2 text-sm font-black ${kind === value ? 'bg-emerald-950 text-white' : 'text-stone-600'}`}>
+            <button key={value} type="button" aria-pressed={kind === value} onClick={() => setKind(value)} className={tabClass(kind === value)}>
               {value === 'lugar' ? 'Lugares' : 'Servicios'}
             </button>
           ))}
         </div>
-        <label className="sr-only" htmlFor="review-state">Estado</label>
-        <select id="review-state" value={state} onChange={(event) => setState(event.target.value as ReviewState | '')} className="min-h-11 rounded-2xl border border-stone-200 bg-stone-50 px-4 text-sm font-bold">
-          <option value="">Todos los estados</option>
-          {Object.entries(stateLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
-        </select>
+      </div>
+      <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="-mx-5 flex gap-1.5 overflow-x-auto px-5 pb-0.5 [scrollbar-width:none] sm:mx-0 sm:px-0" role="group" aria-label="Estado">
+          {([['', 'Todos'], ...Object.entries(stateLabels)] as Array<[ReviewState | '', string]>).map(([value, label]) => {
+            const selected = state === value;
+            const tone = value ? statusOf(value).tone : null;
+            return (
+              <button key={value || 'todos'} type="button" aria-pressed={selected} onClick={() => setState(value)} className={filterChipClass(selected)}>
+                {tone && <span className={`size-1.5 rounded-full ${selected ? 'bg-white' : dotClass[tone]}`} aria-hidden="true" />}
+                {label}
+              </button>
+            );
+          })}
+        </div>
+        {!loading && !error && (
+          <p className="shrink-0 text-xs text-brand-blue/70" aria-live="polite">
+            {items.length} {kind === 'lugar' ? (items.length === 1 ? 'lugar' : 'lugares') : (items.length === 1 ? 'servicio' : 'servicios')}
+            {items.length > 0 && <> · {ready} listos para publicar</>}
+          </p>
+        )}
       </div>
 
-      {error && <div role="alert" className="mt-6 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-800">{error}</div>}
+      {error && <Notice tone="error" className="mt-6">{error}</Notice>}
 
       {loading ? (
-        <div className="mt-8 grid gap-5 md:grid-cols-2">{[0, 1, 2, 3].map((item) => <div key={item} className="h-72 animate-pulse rounded-3xl bg-stone-200" />)}</div>
+        <div className="mt-6 grid gap-4 lg:grid-cols-2">{[0, 1, 2, 3].map((item) => <div key={item} className="h-56 animate-pulse rounded-xl border border-brand-sand bg-white" />)}</div>
       ) : (
-        <div className="mt-8 grid gap-5 md:grid-cols-2">
-          {items.map((item) => (
-            <article key={`${item.tipo}-${item.id}`} className="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <p className="text-xs font-black uppercase tracking-wider text-emerald-700">{item.municipio || 'Sin municipio'} · {item.categoria || 'Sin categoría'}</p>
-                  <h2 className="mt-2 text-xl font-black">{item.nombre}</h2>
+        <div className="mt-6 grid gap-4 lg:grid-cols-2">
+          {items.map((item) => {
+            const visual = categoryVisual(item.categoria);
+            const saving = savingId === item.id;
+            const reason = reasons[item.id] || '';
+            const publicPath = item.slug ? `/${item.tipo === 'lugar' ? 'lugares' : 'servicios'}/${item.slug}` : null;
+            return (
+              <article key={`${item.tipo}-${item.id}`} className={`${panelSurface} flex min-w-0 flex-col transition-opacity ${saving ? 'opacity-60' : ''}`}>
+                <div className="flex items-start gap-3.5 px-5 pt-5 sm:px-6">
+                  <span className={`grid size-9 shrink-0 place-items-center rounded-full bg-brand-light ${visual.tone}`}><visual.Icon className="size-[18px]" /></span>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-1.5">
+                      <h2 className="min-w-0 font-sans text-[15px] font-medium leading-6 tracking-normal text-brand-blue">{item.nombre}</h2>
+                      <StatusPill {...statusOf(item.estado, stateLabels)} />
+                    </div>
+                    <p className="mt-0.5 text-xs leading-5 text-brand-blue/70">
+                      {item.municipio || 'Sin municipio'} · {item.categoria || 'Sin categoría'}
+                      {item.updatedAt && <> · editado {updatedFormatter.format(new Date(item.updatedAt))}</>}
+                    </p>
+                  </div>
                 </div>
-                <span className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-black ${stateTone[item.estado]}`}>{stateLabels[item.estado]}</span>
-              </div>
 
-              {item.faltantes.length ? (
-                <div className="mt-5 rounded-2xl bg-amber-50 p-4 text-sm text-amber-950">
-                  <p className="font-black">No puede publicarse todavía</p>
-                  <ul className="mt-2 list-disc space-y-1 pl-5">{item.faltantes.map((missing) => <li key={missing}>{missing}</li>)}</ul>
+                <div className="px-5 pb-5 sm:px-6">
+                  {item.faltantes.length ? (
+                    <p className="mt-4 flex flex-wrap items-center gap-x-1.5 gap-y-1 rounded-lg border border-ochre-200 bg-ochre-50/70 px-3 py-2 text-xs leading-5 text-ochre-900">
+                      <AlertIcon className="size-3.5 shrink-0 text-ochre-600" />
+                      <span className="font-medium">Falta para publicar:</span>
+                      {item.faltantes.join(' · ')}
+                    </p>
+                  ) : (
+                    <p className="mt-4 flex items-center gap-1.5 text-xs font-medium text-brand-green">
+                      <CheckCircleIcon className="size-3.5" /> Listo para publicar
+                    </p>
+                  )}
+
+                  {item.motivoRevision && <p className="mt-3 text-xs leading-5 text-brand-blue/75"><span className="font-medium text-brand-blue">Último motivo:</span> {item.motivoRevision}</p>}
+
+                  {/* El motivo sólo aparece cuando se va a rechazar: tarjetas más limpias. */}
+                  {rejecting[item.id] && (
+                    <div className="animate-fade-up mt-4 grid gap-1.5">
+                      <label className={fieldLabel} htmlFor={`reason-${item.id}`}>Motivo del rechazo (lo verá el equipo editorial)</label>
+                      <textarea
+                        id={`reason-${item.id}`}
+                        value={reason}
+                        autoFocus
+                        onChange={(event) => setReasons((current) => ({ ...current, [item.id]: event.target.value }))}
+                        rows={2}
+                        className="field min-h-0 resize-y"
+                        placeholder="Ej. Faltan coordenadas verificadas"
+                      />
+                    </div>
+                  )}
                 </div>
-              ) : <p className="mt-5 rounded-2xl bg-emerald-50 p-4 text-sm font-bold text-emerald-900">Cumple los requisitos automáticos de publicación.</p>}
 
-              {item.motivoRevision && <p className="mt-4 text-sm text-stone-600"><strong>Último motivo:</strong> {item.motivoRevision}</p>}
-
-              <label className="mt-5 block text-xs font-bold text-stone-600" htmlFor={`reason-${item.id}`}>Motivo o nota editorial</label>
-              <textarea id={`reason-${item.id}`} value={reasons[item.id] || ''} onChange={(event) => setReasons((current) => ({ ...current, [item.id]: event.target.value }))} rows={2} className="mt-2 w-full rounded-2xl border border-stone-200 bg-stone-50 px-3 py-2 text-sm" placeholder="Obligatorio para rechazar o suspender" />
-
-              <div className="mt-4 flex flex-wrap gap-2">
-                {item.estado !== 'en_revision' && <button type="button" disabled={savingId === item.id} onClick={() => void updateState(item, 'en_revision')} className="rounded-full bg-sky-100 px-4 py-2 text-xs font-black text-sky-900 disabled:opacity-50">Enviar a revisión</button>}
-                <button type="button" disabled={savingId === item.id || item.faltantes.length > 0} onClick={() => void updateState(item, 'aprobado')} className="rounded-full bg-emerald-900 px-4 py-2 text-xs font-black text-white disabled:cursor-not-allowed disabled:opacity-35">Aprobar</button>
-                <button type="button" disabled={savingId === item.id || !(reasons[item.id] || '').trim()} onClick={() => void updateState(item, 'rechazado')} className="rounded-full border border-red-200 px-4 py-2 text-xs font-black text-red-700 disabled:cursor-not-allowed disabled:opacity-35">Rechazar</button>
-              </div>
-            </article>
-          ))}
-          {!items.length && <p className="col-span-full rounded-3xl border border-dashed border-stone-300 p-12 text-center text-stone-600">No hay contenido con estos filtros.</p>}
+                <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-brand-sand px-5 py-3.5 sm:px-6">
+                  <button type="button" disabled={saving || item.faltantes.length > 0} onClick={() => void updateState(item, 'aprobado')} className={quietAccent}>
+                    <CheckCircleIcon className="size-4" /> Aprobar
+                  </button>
+                  {item.estado !== 'en_revision' && (
+                    <button type="button" disabled={saving} onClick={() => void updateState(item, 'en_revision')} className={quietButton}>
+                      Enviar a revisión
+                    </button>
+                  )}
+                  {rejecting[item.id] ? (
+                    <>
+                      <button type="button" disabled={saving || !reason.trim()} onClick={() => void updateState(item, 'rechazado')} className="btn min-h-9 bg-clay-700 px-4 py-1.5 !text-[13px] text-white hover:bg-clay-800">
+                        Confirmar rechazo
+                      </button>
+                      <button type="button" onClick={() => setRejecting((current) => ({ ...current, [item.id]: false }))} className={quietGhost}>
+                        Cancelar
+                      </button>
+                    </>
+                  ) : (
+                    <button type="button" disabled={saving} onClick={() => setRejecting((current) => ({ ...current, [item.id]: true }))} className={quietDanger}>
+                      Rechazar
+                    </button>
+                  )}
+                  {publicPath && item.estado === 'aprobado' && (
+                    <Link to={publicPath} className="ml-auto inline-flex items-center gap-1 text-xs text-brand-blue/75 underline-offset-2 hover:text-brand-blue hover:underline">
+                      Ver ficha <ExternalIcon className="size-3.5" />
+                    </Link>
+                  )}
+                </div>
+              </article>
+            );
+          })}
+          {!items.length && (
+            <div className="col-span-full">
+              <EmptyState icon={InboxIcon} title="No hay contenido con estos filtros" text="Prueba con otro estado o cambia entre lugares y servicios." />
+            </div>
+          )}
         </div>
       )}
     </section>
   );
 };
 
+const dotClass: Record<string, string> = {
+  green: 'bg-brand-green', teal: 'bg-brand-teal', gold: 'bg-brand-gold', red: 'bg-clay-600', amber: 'bg-ochre-500', blue: 'bg-brand-blue/50',
+};

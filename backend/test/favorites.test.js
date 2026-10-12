@@ -1,3 +1,5 @@
+// Las pruebas unitarias no abren conexión real; basta con una URL de ejemplo para cargar el módulo de BD.
+process.env.DATABASE_URL = process.env.DATABASE_URL || 'postgresql://test:test@localhost:5432/test';
 const assert = require('node:assert/strict');
 const { test, describe, mock } = require('node:test');
 

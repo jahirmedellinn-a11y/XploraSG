@@ -51,8 +51,28 @@ export const requireAuth = async (req: Request, res: Response, next: NextFunctio
       [userId]
     );
 
+    if (result.rows.length === 0 && typeof decoded.email === 'string' && decoded.email) {
+      // Respaldo por si el trigger de Supabase (003) no creó el perfil: se crea SIEMPRE como turista.
+      // Nunca se toma el rol del token, así que esto no permite escalar privilegios.
+      const metadata = (decoded as { user_metadata?: { nombre?: unknown } }).user_metadata;
+      const nombre = typeof metadata?.nombre === 'string' ? metadata.nombre.slice(0, 100) : null;
+      await pool.query(
+        `INSERT INTO usuarios (id, email, rol_id, nombre)
+         SELECT $1, $2, r.id, $3 FROM roles r WHERE r.nombre = 'turista'
+         ON CONFLICT DO NOTHING`,
+        [userId, decoded.email.toLowerCase(), nombre],
+      );
+      const created = await pool.query(
+        `SELECT u.id, u.email, u.nombre, r.nombre as rol_nombre
+         FROM usuarios u JOIN roles r ON u.rol_id = r.id
+         WHERE u.id = $1 AND u.deleted_at IS NULL`,
+        [userId],
+      );
+      result.rows.push(...created.rows);
+    }
+
     if (result.rows.length === 0) {
-      res.status(401).json({ error: 'No autorizado. Usuario no existe o fue eliminado de la base de datos.' });
+      res.status(401).json({ error: 'Tu cuenta no tiene un perfil activo en XploraSG. Contacta al equipo para reactivarla.' });
       return;
     }
 

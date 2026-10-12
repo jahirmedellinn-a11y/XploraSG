@@ -6,6 +6,7 @@ import type {
   TourismService,
 } from '../types/catalog';
 import { readCatalogCache, writeCatalogCache } from './offlineCatalog';
+import { getLang } from '../i18n';
 
 const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '');
 
@@ -21,13 +22,21 @@ export class CatalogApiError extends Error {
 
 type WithOffline<T> = T & { _offline?: boolean; _storedAt?: string };
 
-const getJson = async <T>(path: string, signal?: AbortSignal): Promise<WithOffline<T>> => {
+/** Agrega ?lang=en cuando el sitio está en inglés (la caché sin conexión queda separada por idioma). */
+const withLang = (path: string) => {
+  const lang = getLang();
+  if (lang === 'es') return path;
+  return `${path}${path.includes('?') ? '&' : '?'}lang=${lang}`;
+};
+
+export const getJson = async <T>(rawPath: string, signal?: AbortSignal): Promise<WithOffline<T>> => {
+  const path = withLang(rawPath);
   try {
     const response = await fetch(`${API_URL}${path}`, { signal });
     const body = (await response.json().catch(() => null)) as ({ error?: string } & T) | null;
 
     if (!response.ok) {
-      throw new CatalogApiError(body?.error || 'No fue posible consultar el catálogo.', response.status);
+      throw new CatalogApiError(body?.error || (getLang() === 'en' ? 'The catalog could not be loaded.' : 'No fue posible consultar el catálogo.'), response.status);
     }
 
     await writeCatalogCache(path, body as T);

@@ -1,0 +1,28 @@
+# Blueprint de Render para la API de XploraSG (https://render.com/docs/blueprint-spec)
+# Las variables marcadas con sync: false se capturan en el panel de Render (nunca en el repositorio).
+services:
+  - type: web
+    name: xplorasg-api
+    runtime: node
+    rootDir: backend
+    plan: free
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TRUST_PROXY
+        value: "1"
+      - key: AUTH_MODE
+        value: supabase
+      - key: SUPABASE_JWT_AUDIENCE
+        value: authenticated
+      - key: DATABASE_URL
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+      - key: OPEN_ROUTE_SERVICE_API_KEY
+        sync: false

@@ -1,47 +1,84 @@
 import { Link } from 'react-router-dom';
 import type { Place } from '../types/catalog';
+import { activityTags, isClosedNotice } from '../utils/text';
 import { FavoriteButton } from './FavoriteButton';
+import { defineMessages, useLanguage, useMessages } from '../i18n';
+import { categoryLabel } from '../i18n/common';
+import { ArrowRightIcon } from './brand/icons';
+import { Photo } from './home/HomeUi';
+import { photoLabelClass } from './ui/visuals';
 
-const categoryTone = (category: string) => {
-  const value = category.toLocaleLowerCase('es');
-  if (value.includes('naturaleza')) return 'bg-emerald-100 text-emerald-900';
-  if (value.includes('cultura') || value.includes('arqueolog')) return 'bg-amber-100 text-amber-950';
-  if (value.includes('aventura')) return 'bg-orange-100 text-orange-950';
-  return 'bg-sky-100 text-sky-950';
-};
+const messages = defineMessages({
+  closed: 'Cerrado temporalmente',
+  noDescription: 'La información verificada de este lugar estará disponible próximamente.',
+  activities: 'Actividades',
+  seePlace: 'Ver lugar',
+  viewPlace: (name: string) => `Ver lugar: ${name}`,
+}, {
+  closed: 'Temporarily closed',
+  noDescription: 'Verified information about this place will be available soon.',
+  activities: 'Activities',
+  seePlace: 'View place',
+  viewPlace: (name: string) => `View place: ${name}`,
+});
 
-export const PlaceCard = ({ place }: { place: Place }) => (
-  <article className="group overflow-hidden rounded-[1.75rem] border border-stone-200 bg-white shadow-[0_18px_50px_rgba(38,60,48,0.08)] transition hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(38,60,48,0.14)] relative">
-    <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-700 to-lime-600">
-      {place.imagenPrincipal?.url ? (
-        <img
-          src={place.imagenPrincipal.url}
-          alt={place.imagenPrincipal.altText || place.nombre}
-          className="size-full object-cover transition duration-500 group-hover:scale-105"
+// Tarjeta de revista (v3 · Editorial natural): fotografía con etiqueta de categoría y favorito discreto,
+// luego municipio en versalitas, nombre en serif, una línea de descripción, actividades como lista
+// tranquila separada por puntos y un enlace de texto "Ver lugar →". Toda la tarjeta es clicable.
+export const PlaceCard = ({ place, showActivities = true }: { place: Place; showActivities?: boolean }) => {
+  const tags = showActivities ? activityTags(place.actividades) : [];
+  const closed = isClosedNotice(place.horarios);
+  const { lang } = useLanguage();
+  const m = useMessages(messages);
+
+  return (
+    <article className="group relative flex h-full flex-col">
+      <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+        <Photo
+          src={place.imagenPrincipal?.url}
+          name={place.nombre}
+          alt={place.imagenPrincipal?.altText || place.nombre}
+          imgClassName="img-zoom"
+          nameClassName="text-xl"
         />
-      ) : (
-        <div className="absolute inset-0 grid place-items-center">
-          <svg viewBox="0 0 120 80" className="w-2/3 text-white/50" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-            <path d="M8 67 37 24l20 28 13-18 42 33" strokeLinecap="round" strokeLinejoin="round" />
-            <circle cx="84" cy="19" r="7" fill="currentColor" stroke="none" />
-          </svg>
-        </div>
-      )}
-      <span className={`absolute left-4 top-4 rounded-full px-3 py-1.5 text-xs font-extrabold ${categoryTone(place.categoria)}`}>
-        {place.categoria}
-      </span>
-      <FavoriteButton placeId={place.id} className="absolute top-4 right-4 z-10" />
-    </div>
-    <div className="p-5">
-      <p className="text-xs font-extrabold uppercase tracking-[0.15em] text-emerald-700">{place.municipio}</p>
-      <h2 className="mt-2 text-xl font-black tracking-tight text-stone-900">{place.nombre}</h2>
-      <p className="mt-2 line-clamp-2 min-h-12 text-sm leading-6 text-stone-600">
-        {place.descripcion || 'La información verificada de este lugar estará disponible próximamente.'}
-      </p>
-      <Link to={`/lugares/${place.slug}`} className="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-emerald-800 hover:text-emerald-600">
-        Ver lugar <span aria-hidden="true">→</span>
-      </Link>
-    </div>
-  </article>
-);
+        <span className={photoLabelClass}>{categoryLabel(place.categoria, lang)}</span>
+        {closed && (
+          <span className="pointer-events-none absolute bottom-3 left-3 rounded-full bg-clay-700 px-2.5 py-1 text-[11px] font-medium text-white">
+            {m.closed}
+          </span>
+        )}
+        <FavoriteButton placeId={place.id} size="sm" className="absolute right-3 top-3 z-10" />
+      </div>
 
+      <div className="flex flex-1 flex-col pt-4">
+        <p className="truncate meta">{place.municipio}</p>
+        <h3 className="font-display mt-1.5 line-clamp-2 text-[1.35rem] leading-snug text-brand-blue underline-offset-4 group-hover:underline">
+          {place.nombre}
+        </h3>
+        <p className="mt-2 line-clamp-1 text-sm leading-6 text-brand-blue/70">
+          {place.descripcion || m.noDescription}
+        </p>
+        {tags.length > 0 && (
+          <ul className="mt-2.5 text-[13px] leading-6 text-brand-green" aria-label={m.activities}>
+            {tags.map((tag, i) => (
+              <li key={tag} className="inline">
+                {tag}
+                {i < tags.length - 1 && <span aria-hidden="true" className="text-brand-blue/30">{'\u00a0· '}</span>}
+              </li>
+            ))}
+          </ul>
+        )}
+        <div className="mt-auto pt-4">
+          <Link
+            to={`/lugares/${place.slug}`}
+            aria-label={m.viewPlace(place.nombre)}
+            className="inline-flex items-center gap-2 border-b border-brand-blue/25 pb-0.5 text-[13px] font-medium text-brand-blue transition-colors duration-300 after:absolute after:inset-0 after:content-[''] group-hover:border-brand-green group-hover:text-brand-green"
+          >
+            {m.seePlace}
+            <ArrowRightIcon className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+          </Link>
+        </div>
+      </div>
+    </article>
+  );
+};

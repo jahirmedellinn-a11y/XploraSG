@@ -1,22 +1,191 @@
 @import "tailwindcss";
+@source not "../*.mjs";
 
+/* ==========================================================================
+   XploraSG · Sistema de diseño v3 "Editorial natural"
+   Inspirado en la Sierra Gorda: bosque, cantera, tierra y papel.
+     brand-blue   #1F2C24  tinta (texto principal y superficies oscuras: verde bosque profundo)
+     brand-green  #2F5D3E  verde bosque (acción principal)
+     brand-teal   #6E8B6F  salvia (acentos suaves, ubicación)
+     brand-gold   #9E552F  terracota (detalles finos, destacados; AA como texto sobre crema 4.75:1)
+     brand-light  #F3EDE2  crema (fondos de sección)
+     brand-sand   #E6DCCB  beige (bordes, separadores, fondos alternos)
+     brand-paper  #FAF7F1  blanco cálido (fondo general)
+   Estados con tonos de tierra (sin rojos ni ámbares de sistema):
+     clay-*   arcilla  (errores, acciones destructivas)  · 800 sobre 50 = 9:1
+     ochre-*  ocre     (avisos, sin conexión)            · 900 sobre 50 = 9.9:1
+   Los nombres de los tokens se conservan para no romper componentes.
+   ========================================================================== */
 @theme {
-  --color-brand-blue: #0D2B45;
-  --color-brand-green: #2E7D4E;
-  --color-brand-teal: #1FA7A5;
-  --color-brand-gold: #C49A4E;
-  --color-brand-light: #F2EDE1;
+  --color-brand-blue: #1F2C24;
+  --color-brand-green: #2F5D3E;
+  --color-brand-teal: #6E8B6F;
+  --color-brand-gold: #9E552F;
+  --color-brand-light: #F3EDE2;
+  --color-brand-sand: #E6DCCB;
+  --color-brand-paper: #FAF7F1;
+
+  /* Estados: arcilla (error) y ocre (aviso) */
+  --color-clay-50: #FBF1EC;
+  --color-clay-100: #F5DFD5;
+  --color-clay-200: #EBC3B2;
+  --color-clay-300: #DDA088;
+  --color-clay-500: #B4593A;
+  --color-clay-600: #9C4A2E;
+  --color-clay-700: #833C25;
+  --color-clay-800: #6B311F;
+  --color-clay-900: #55271A;
+  --color-clay-950: #3A1A11;
+  --color-ochre-50: #FAF4E6;
+  --color-ochre-100: #F3E6C6;
+  --color-ochre-200: #E8D3A0;
+  --color-ochre-300: #D9BC77;
+  --color-ochre-500: #B98D35;
+  --color-ochre-600: #946B22;
+  --color-ochre-700: #7A571B;
+  --color-ochre-800: #634618;
+  --color-ochre-900: #503915;
+  --color-ochre-950: #35260F;
+
   --font-sans: 'Poppins', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: 'Fraunces', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+
+  /* Sombras casi imperceptibles: el diseño se apoya en espacio y bordes finos, no en elevación */
+  --shadow-soft: 0 1px 2px rgb(31 44 36 / 0.04), 0 6px 18px -12px rgb(31 44 36 / 0.10);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Tarjeta Bento: borde fino de 1px, fondo limpio y sombra suave */
+@utility bento {
+  border-radius: 1rem;
+  border: 1px solid color-mix(in oklab, var(--color-brand-blue) 10%, transparent);
+  background-color: #fff;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Campo de formulario de marca */
+@utility field {
+  min-height: 3rem;
+  width: 100%;
+  border-radius: 0.625rem;
+  border: 1px solid color-mix(in oklab, var(--color-brand-blue) 14%, transparent);
+  background-color: #fff;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: var(--color-brand-blue);
+  outline: none;
+  transition: all 300ms var(--ease-out-soft);
+  &::placeholder {
+    color: color-mix(in oklab, var(--color-brand-blue) 40%, transparent);
+  }
+  &:hover {
+    border-color: color-mix(in oklab, var(--color-brand-blue) 28%, transparent);
+  }
+  &:focus {
+    border-color: var(--color-brand-green);
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-brand-green) 15%, transparent);
+  }
+}
+
+/* Etiqueta pequeña en mayúsculas (eyebrow), con la línea dorada de la marca */
+@utility eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-brand-gold);
+  &::before {
+    content: '';
+    width: 1.5rem;
+    height: 1px;
+    background: currentColor;
+  }
+}
+
+/* Superficie estándar: tarjeta blanca con borde de 1px y sombra suave */
+@utility surface {
+  border-radius: 1rem;
+  border: 1px solid color-mix(in oklab, var(--color-brand-blue) 8%, transparent);
+  background-color: #fff;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Botones de marca */
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  border-radius: 999px;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  transition: background-color 300ms var(--ease-out-soft), border-color 300ms var(--ease-out-soft), color 300ms var(--ease-out-soft);
+  &:disabled { opacity: 0.45; cursor: not-allowed; }
+}
+@utility btn-primary {
+  background: var(--color-brand-blue);
+  color: #fff;
+  &:hover:not(:disabled) { background: var(--color-brand-green); }
+}
+@utility btn-accent {
+  background: var(--color-brand-green);
+  color: #fff;
+  &:hover:not(:disabled) { background: var(--color-brand-blue); }
+}
+@utility btn-secondary {
+  background: #fff;
+  color: var(--color-brand-blue);
+  border: 1px solid color-mix(in oklab, var(--color-brand-blue) 22%, transparent);
+  &:hover:not(:disabled) { border-color: var(--color-brand-blue); }
+}
+@utility btn-ghost {
+  color: var(--color-brand-blue);
+  &:hover:not(:disabled) { background: color-mix(in oklab, var(--color-brand-blue) 6%, transparent); }
+}
+
+/* Chip / etiqueta */
+@utility chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  background: color-mix(in oklab, var(--color-brand-light) 75%, #fff);
+  color: color-mix(in oklab, var(--color-brand-blue) 80%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-brand-blue) 7%, transparent);
+}
+
+/* Antes: curvas de nivel. En v3 no hay texturas decorativas: se conserva el nombre como no-op. */
+@utility bg-topo {
+  background-image: none;
+}
+
+/* Título de sección */
+@utility section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 1.3rem + 2.2vw, 3.25rem);
+  line-height: 1.05;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--color-brand-blue);
 }
 
 :root {
   font-family: var(--font-sans);
   color: var(--color-brand-blue);
-  background: var(--color-brand-light);
+  background: var(--color-brand-paper);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  --xplora-green: var(--color-brand-green);
 }
 
 * {
@@ -31,13 +200,17 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background: var(--color-brand-paper);
 }
 
-button,
-input,
-select,
-textarea {
-  font: inherit;
+/* En @layer base para que las utilidades de Tailwind (text-sm, font-semibold, btn, field) sí apliquen. */
+@layer base {
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
 }
 
 button,
@@ -47,23 +220,61 @@ select {
 }
 
 :focus-visible {
-  outline: 3px solid #a3e635;
+  outline: 2px solid var(--color-brand-green);
   outline-offset: 3px;
 }
 
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+/* Titulares editoriales en serif (Fraunces). Los textos y la interfaz siguen en Poppins. */
+@layer base {
+  h1, h2 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    font-optical-sizing: auto;
+  }
+}
+
+/* Utilidades editoriales */
+/* Metadato de tarjeta (municipio, pie de foto): minúsculas naturales, sin mayúsculas espaciadas. */
+@utility meta {
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+  color: color-mix(in oklab, var(--color-brand-blue) 70%, transparent);
+}
+/* Rótulo de campo o de dato (Horario, Viento, Municipio…): sobrio y legible. */
+@utility label-quiet {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  color: color-mix(in oklab, var(--color-brand-blue) 70%, transparent);
+}
+@utility font-display { font-family: var(--font-serif); font-optical-sizing: auto; }
+@utility rule { height: 1px; background: var(--color-brand-sand); }
+
+::selection {
+  background: color-mix(in oklab, var(--color-brand-gold) 35%, transparent);
+}
+
+/* ---------- Leaflet ---------- */
 .leaflet-container {
   z-index: 0;
   font-family: inherit;
-  background: #dcebdc;
+  background: #e6ecdf;
 }
 
 .leaflet-popup-content-wrapper {
-  border-radius: 18px;
-  box-shadow: 0 18px 50px rgb(21 48 38 / 18%);
+  border-radius: 12px;
+  border: 1px solid color-mix(in oklab, var(--color-brand-blue) 10%, transparent);
+  box-shadow: var(--shadow-soft);
 }
 
 .leaflet-popup-content {
   margin: 16px 18px;
+  color: var(--color-brand-blue);
 }
 
 .xplora-marker-wrap {
@@ -80,38 +291,43 @@ select {
   border-radius: 50% 50% 50% 10%;
   color: #fff;
   font-size: 12px;
-  font-weight: 900;
-  box-shadow: 0 7px 18px rgb(22 50 39 / 35%);
+  font-weight: 500;
+  box-shadow: 0 3px 8px rgb(31 44 36 / 20%);
   transform: rotate(-45deg);
+  transition: transform 300ms var(--ease-out-soft);
+}
+
+.xplora-marker:hover {
+  transform: rotate(-45deg) scale(1.06);
 }
 
 .xplora-marker b {
   transform: rotate(45deg);
 }
 
-.xplora-marker--nature { background: #047857; }
-.xplora-marker--culture { background: #b45309; }
-.xplora-marker--adventure { background: #c2410c; }
-.xplora-marker--food { background: #be123c; }
-.xplora-marker--lodging { background: #6d28d9; }
-.xplora-marker--service { background: #0369a1; }
+.xplora-marker--nature { background: var(--color-brand-green); }
+.xplora-marker--culture { background: var(--color-brand-gold); }
+.xplora-marker--adventure { background: var(--color-brand-teal); }
+.xplora-marker--food { background: var(--color-brand-gold); }
+.xplora-marker--lodging { background: var(--color-brand-teal); }
+.xplora-marker--service { background: var(--color-brand-blue); }
 
 .xplora-municipality-marker {
   display: grid;
   width: 28px;
   height: 28px;
   place-items: center;
-  border: 3px solid var(--color-brand-green);
+  border: 3px solid var(--color-brand-blue);
   border-radius: 999px;
-  background: rgb(255 255 255 / 82%);
-  box-shadow: 0 5px 14px rgb(22 50 39 / 25%);
+  background: rgb(255 255 255 / 85%);
+  box-shadow: 0 2px 6px rgb(31 44 36 / 20%);
 }
 
 .xplora-municipality-marker span {
   width: 8px;
   height: 8px;
   border-radius: 999px;
-  background: var(--color-brand-green);
+  background: var(--color-brand-blue);
 }
 
 .legend-dot {
@@ -121,6 +337,44 @@ select {
   margin-right: 5px;
   border-radius: 999px;
 }
+
+@keyframes xplora-fade-up {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Entrada única y sobria: un fundido corto, sin cascadas. */
+.animate-fade-up {
+  animation: xplora-fade-up 450ms var(--ease-out-soft) both;
+}
+
+@keyframes xplora-typing {
+  0%, 80%, 100% { opacity: 0.25; }
+  40% { opacity: 1; }
+}
+
+.typing-dot {
+  animation: xplora-typing 1.2s infinite ease-in-out;
+}
+
+/* ---------- Asistente flotante ---------- */
+@keyframes xplora-sheet-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.assistant-panel:not([hidden]) {
+  animation: xplora-sheet-up 260ms var(--ease-out-soft) both;
+  transform-origin: bottom right;
+}
+
+/* Carril horizontal con scroll-snap (carruseles) */
+.snap-rail { scroll-snap-type: x mandatory; scrollbar-width: none; }
+.snap-rail::-webkit-scrollbar { display: none; }
+.snap-rail > * { scroll-snap-align: start; }
+
+/* Imagen con zoom suave al pasar el cursor por la tarjeta */
+.group:hover .img-zoom { transform: scale(1.03); }
+.img-zoom { transition: transform 900ms var(--ease-out-soft); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -132,3 +386,6 @@ select {
   }
 }
 
+.leaflet-container a {
+  color: var(--color-brand-green);
+}

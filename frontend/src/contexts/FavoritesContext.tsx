@@ -1,4 +1,6 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+/* eslint-disable eslint/no-unused-vars */
+/* eslint-disable react/only-export-components */
+import { createContext, useState, useEffect, type ReactNode } from 'react';
 import { useAuth } from './AuthContext';
 import { getLocalFavorites, getLocalFavoritesDetails, addLocalFavorite, removeLocalFavorite, removeSyncedLocalFavorites } from '../services/localFavorites';
 import { getFavorites, addFavorite, removeFavorite, syncFavorites } from '../services/favoritesApi';
@@ -12,7 +14,7 @@ interface FavoritesContextType {
   error: string | null;
 }
 
-const FavoritesContext = createContext<FavoritesContextType | null>(null);
+export const FavoritesContext = createContext<FavoritesContextType | null>(null);
 
 export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
   const { isAuthenticated } = useAuth();
@@ -101,10 +103,3 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useFavorites = () => {
-  const context = useContext(FavoritesContext);
-  if (!context) {
-    throw new Error('useFavorites debe usarse dentro de un FavoritesProvider');
-  }
-  return context;
-};
